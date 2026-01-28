@@ -66,6 +66,13 @@ Goal: go from “I can run a file” → “I can write small programs with cont
 
 - Immutability vs mutability (when “changing something” mutates an object vs creates a new one)
 
+
+### Unit 10 — Python environments and dependencies *(Language: Python + Shell/CLI)*
+
+- Virtual environments (`venv`) — isolate dependencies per project
+- `pip install` — installing external packages
+- `requirements.txt` — sharing/reproducing environments
+- Example libraries for practice: `requests` (HTTP requests), `colorama` (terminal colors), `faker` (generating test data), `pillow` (basic image manipulation)
 ---
 
 ## Course 2 — OOP + Core Language Fundamentals (Java)
