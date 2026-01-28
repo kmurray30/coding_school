@@ -28,6 +28,122 @@ Each unit contains:
 2. **1 Quiz** (single YAML file with questions, no answers)
 3. **Grader module** (`graders/unit_grader.py` and `graders/project_grader.py`)
 
+## Course Outline Document
+
+### Purpose
+
+The course outline is a **detailed implementation plan** for an AI agent (or human) to build all course files. It lives in `plans/courseN/course_outline.md` and serves as the blueprint before any actual course files are created.
+
+**Key distinction:**
+- **`plans/courseN/curriculum.md`** - High-level topics and goals
+- **`plans/courseN/course_outline.md`** - Detailed exercise-by-exercise implementation plan
+- **`courseN/README.md`** - Student-facing version (similar to curriculum, but in the actual course directory)
+
+### What to Include
+
+A course outline should specify:
+
+1. **Unit-by-Unit Breakdown**
+   - Unit title and core concepts
+   - Number of exercises planned
+   - High-level description of each exercise
+   - Incremental skill progression (observation → guided → semi-independent → challenge)
+   - Description of final project-scale exercise(s)
+
+2. **Exercise Specifications**
+   - What concept each exercise introduces or reinforces
+   - Expected difficulty level (easy/medium/hard)
+   - General approach (observation, fill-in-the-blanks, write-from-scratch, etc.)
+   - What success looks like (expected output or behavior)
+
+3. **Quiz & Exam Planning**
+   - Topics to cover in each unit quiz
+   - Rough question count
+   - Final exam scope and coverage
+
+4. **Grading Considerations**
+   - Test rigor required: simple output matching vs comprehensive edge cases vs performance validation
+   - What can be auto-graded (exact output matching, pattern matching, etc.)
+   - What requires self-check only (subjective tasks, interactive programs with complex input)
+   - Edge cases and stress tests needed (especially for DSA courses)
+   - Performance/complexity requirements (e.g., must handle 10^6 elements in O(n log n))
+   - Special grading challenges for this course's content
+   - Approach for handling user input in graded exercises
+
+5. **Prerequisites & Dependencies**
+   - What knowledge students need before starting
+   - External dependencies or tools required
+   - Setup instructions if needed
+
+### Format
+
+Keep it straightforward. Use markdown with clear sections:
+
+```markdown
+# Course N Outline: [Course Title]
+
+## Prerequisites
+[What students need to know before starting]
+
+## Unit 0: [Topic Name]
+
+**Core Concepts:** [1-3 key concepts]
+
+**Exercise Count:** [N exercises]
+
+**Exercises:**
+
+1. **exercise1_name** - [Observation] Brief description. Introduces [concept].
+2. **exercise2_name** - [Guided] Brief description. Reinforces [concept].
+3. **exercise3_name** - [Semi-independent] Brief description. Combines [concepts].
+...
+N. **exerciseN_final_project** - [Project-scale] Brief description. Integrates all unit concepts.
+
+**Quiz Topics:**
+- [Topic 1]
+- [Topic 2]
+...
+
+**Grading Notes:**
+- Test approach: [Output matching / edge case coverage / performance validation]
+- Required test coverage: [Basic correctness / comprehensive edge cases / stress tests]
+- Special considerations: [User input handling / performance requirements / etc.]
+
+## Unit 1: [Topic Name]
+[Same structure as Unit 0]
+
+## Final Exam
+
+**Coverage:** All units, cumulative review
+
+**Question Count:** [Approx. 30-50 questions]
+
+**Focus Areas:**
+- [Area 1]
+- [Area 2]
+...
+
+## Overall Grading Strategy
+
+**Test Rigor:** [Simple output matching / Moderate edge case coverage / Comprehensive DSA-style testing]
+
+**Performance Requirements:** [None / Basic efficiency / Strict complexity requirements (O notation)]
+
+**Special Challenges:** [How to handle user input / testing GUI/interactive programs / etc.]
+
+**Grader Complexity:** [Simple script / Moderate test suite / Substantial test framework]
+```
+
+### Implementation Workflow
+
+1. Write `curriculum.md` (high-level topics)
+2. Write `course_outline.md` (detailed exercise plan)
+3. Implement exercises following the outline
+4. Write quizzes and graders
+5. Copy curriculum to `courseN/README.md` with grader instructions
+
+The outline is the bridge between "what should we teach" and "here are the actual files."
+
 ## Exercise Design Patterns
 
 ### Progression Philosophy
@@ -263,9 +379,9 @@ print(message)
 **For mutable default arguments:**
 
 ```python
-# I once debugged for 4 hours before realizing I used a list as a default arg.
+# John once debugged for 4 hours before realizing he used a list as a default arg.
 # Python creates it ONCE, not per call. Every call shared the same list.
-# Use None as default and create the list inside the function.
+# Use None as default and create the list inside the function. Learn from John!
 ```
 
 Keep it short. Get to the point. Let students code.
@@ -325,6 +441,30 @@ if __name__ == "__main__":
         sys.exit(1)
 ```
 
+### Test Thoroughness
+
+**Graders should verify the solution actually works.** Test coverage scales naturally with problem complexity.
+
+**Simple problems = simple tests:**
+- "Print hello world" → Check output is "Hello World!"
+- Basic variable assignment → Check expected output appears
+
+**Complex problems = comprehensive tests:**
+
+For data structures, algorithms, and advanced topics, graders must verify:
+
+1. **Correctness** - Multiple test cases with known correct outputs
+2. **Edge cases** - Empty inputs, single elements, boundary conditions, maximum sizes
+3. **Performance/Complexity** - Solutions meet time/space requirements (e.g., must handle 10^6 elements, algorithm must be O(n log n) not O(n²))
+4. **Stress testing** - Large inputs, adversarial cases, random test generation
+
+**For advanced courses:**
+- Graders may be substantial codebases with test fixtures, helpers, and data generators
+- All tests are visible to students
+- Tests should be tough enough that mostly-working solutions fail
+
+**Don't over-test simple exercises.** If the exercise is "assign a variable and print it," don't write 50 test cases. Match test rigor to problem complexity.
+
 ## File Naming Conventions
 
 ### Exercises
@@ -349,9 +489,18 @@ final_exam.yaml    (course final)
 
 ## Directory Structure
 
+**Planning Structure:**
+```
+plans/
+└── courseN/
+    ├── curriculum.md           # High-level topics and goals
+    └── course_outline.md       # Detailed implementation plan
+```
+
+**Course Implementation Structure:**
 ```
 courseN/
-├── README.md                    # How to run graders + simple outline
+├── README.md                    # Student-facing: outline + how to run graders
 ├── unit1_topic_name/
 │   ├── exercise1_intro.py
 │   ├── exercise2_building.py
@@ -529,8 +678,9 @@ When building a new unit:
 
 When building a new course:
 
-- [ ] Outline 6-12 units with clear topics
-- [ ] Build all units following unit checklist
+- [ ] Write curriculum.md (high-level topics and goals)
+- [ ] Write course_outline.md (detailed exercise-by-exercise plan)
+- [ ] Build all units following unit checklist and the outline
 - [ ] Create final_exam.yaml
-- [ ] Write simple course README
+- [ ] Write course README.md (student-facing version of curriculum + grader instructions)
 - [ ] Test complete course flow
