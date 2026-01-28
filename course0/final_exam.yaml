@@ -1,0 +1,63 @@
+exam_title: "Course 0 Final Exam: Developer Bearings"
+description: "Cumulative review of terminal, VSCode, and Python file basics"
+questions:
+  # Terminal fundamentals
+  - "What command shows your current directory?"
+  - "What command lists files and folders in your current directory?"
+  - "Write the command to navigate to your home directory."
+  - "Write the command to navigate up one directory level."
+  - "What's the difference between a relative path and an absolute path?"
+  - "Write the command to create a directory called `my_project`."
+  - "Write the command to create an empty file called `notes.txt`."
+  - "Write the command to copy `file.txt` to `file_backup.txt`."
+  - "What does `cd ~` do?"
+  - "What does `cd ..` do?"
+  - "If you type `cd projects` and get 'No such file or directory', what are two possible causes?"
+  - "How can you tell if a path is absolute or relative?"
+  - "What does the `pwd` command stand for?"
+  
+  # VSCode essentials
+  - "How do you open a folder in VSCode?"
+  - "What does the white dot on a file tab indicate?"
+  - "What keyboard shortcut saves a file in VSCode?"
+  - "How do you open VSCode's integrated terminal?"
+  - "What keyboard shortcut opens the Quick File Switcher in VSCode?"
+  - "Where does VSCode's integrated terminal start (what directory)?"
+  - "If you create a file using `touch filename.txt` in VSCode's terminal, will it appear in VSCode's Explorer?"
+  - "What are two ways to switch between open files in VSCode?"
+  - "Why is it useful to open a folder in VSCode instead of just individual files?"
+  - "Can you use VSCode without the terminal? Can you use the terminal without VSCode?"
+  
+  # Python files
+  - "What file extension do Python files use?"
+  - "Write the command to run a Python file called `app.py` from the terminal."
+  - "What does the VSCode run button (▶️) do?"
+  - "Why must you save a file before running it?"
+  - "What does `print()` do in Python?"
+  - "Write a Python statement that prints: Welcome to Python"
+  - "If you have three print() statements in a file, in what order do they execute?"
+  - "What is a syntax error?"
+  - "What's the first thing you should do when you see an error message?"
+  - "Where does the output of print() appear when you run a Python file from the terminal?"
+  
+  # Integration - Terminal + VSCode + Python
+  - "You're in VSCode with a folder open. You create a file in the Explorer. Will it appear when you run `ls` in VSCode's terminal?"
+  - "You run `python3 test.py` and get 'No such file or directory'. What's the most likely cause?"
+  - "What's the relationship between VSCode's file explorer and the terminal?"
+  - "Can you run Python code without VSCode? If so, how?"
+  - "You're in the terminal in directory A. You open directory B in VSCode. Where does VSCode's terminal start?"
+  - "Why does 'current directory' matter when running Python files?"
+  
+  # Debugging and workflow
+  - "You see an error: NameError: name 'prin' is not defined. What does this mean?"
+  - "You modified a Python file but the output didn't change when you ran it. What did you probably forget to do?"
+  - "How do you verify you're in the correct directory before running a Python file?"
+  - "What's the basic workflow for creating and running a Python file?"
+  - "You want to create a project with multiple Python files. What steps would you take?"
+  
+  # Conceptual understanding
+  - "Why learn the terminal when VSCode has a GUI?"
+  - "What's the advantage of VSCode over a basic text editor like Notepad?"
+  - "Is VSCode required to write Python code? Why or why not?"
+  - "What does it mean when we say 'VSCode and terminal both work with the same file system'?"
+  - "You're comfortable with course 0 concepts when you can confidently do what three things?"

@@ -1,0 +1,13 @@
+# Exercise 2: ls (What's Here?)
+
+List the files and folders in your current directory.
+
+What to do:
+1. Type: ls
+2. Press Enter
+
+Expected output: A list of files and folders in your current location
+
+If you see nothing, that's fine - your current directory might be empty.
+
+Bonus: Try ls -la to see ALL files including hidden ones (files starting with .)

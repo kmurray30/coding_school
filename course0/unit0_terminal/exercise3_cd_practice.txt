@@ -1,0 +1,15 @@
+# Exercise 3: cd Practice (Moving Around)
+
+Navigate between directories using cd (change directory).
+
+What to do:
+1. Type: cd ~
+2. Type: pwd (to verify where you are)
+3. Type: cd Desktop (to go to your Desktop folder, if you have one)
+4. Type: pwd (to see you've moved)
+5. Type: cd .. (moves a directory up)
+6. Type: pwd (to verify)
+
+Expected behavior: You successfully moved between directories and verified with pwd
+
+Note: ~ is a shortcut for your home directory. .. means "parent directory."

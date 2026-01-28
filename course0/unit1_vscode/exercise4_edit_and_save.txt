@@ -1,0 +1,14 @@
+# Exercise 4: Edit and Save Workflow
+
+The basic workflow - open, edit, notice unsaved indicator, save.
+
+What to do:
+1. Open hello.txt by clicking it in the Explorer
+2. Add a new line: "This is a second line"
+3. Notice the white dot on the file tab (means unsaved)
+4. Save with Cmd+S (Mac) or Ctrl+S (Windows/Linux)
+5. Notice the dot disappears
+
+Expected result: File is saved, dot is gone.
+
+Shortcut to memorize: Cmd+S or Ctrl+S. You'll use this 1000 times a day.

@@ -1,0 +1,17 @@
+# Exercise 3: VSCode Terminal (It's All Connected)
+
+VSCode has a built-in terminal. It's just a regular terminal that starts in your opened folder.
+
+What to do:
+1. With my_app still open, go to View → Terminal (or press Ctrl+` or Cmd+`)
+2. A terminal panel opens at the bottom
+3. Type: pwd
+4. Press Enter
+5. Type: ls
+6. Press Enter
+
+Expected output:
+- pwd shows the path to my_app
+- ls shows the same files you see in VSCode's explorer
+
+Note: VSCode's terminal isn't special. It's just convenient - it automatically starts in your project folder.

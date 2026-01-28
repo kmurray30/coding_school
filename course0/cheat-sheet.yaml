@@ -1,0 +1,117 @@
+cheat_sheet_title: "Course 0 Cheat Sheet: Developer Bearings"
+
+sections:
+  - title: "Terminal Navigation"
+    items:
+      - command: "pwd"
+        description: "Print Working Directory - shows where you are"
+      
+      - command: "ls"
+        description: "List files and folders in current directory"
+      
+      - command: "cd folder_name"
+        description: "Change directory (relative path from where you are)"
+      
+      - command: "cd /absolute/path"
+        description: "Change directory using absolute path (starts from root)"
+      
+      - command: "cd .."
+        description: "Go up one directory level (parent folder)"
+      
+      - command: "cd ~"
+        description: "Go to your home directory from anywhere"
+      
+      - command: "cd"
+        description: "Also goes to home directory (same as cd ~)"
+  
+  - title: "File and Folder Operations"
+    items:
+      - command: "mkdir folder_name"
+        description: "Make directory - creates a new folder"
+      
+      - command: "mkdir -p path/to/nested/folder"
+        description: "Create nested directories all at once"
+      
+      - command: "touch filename.txt"
+        description: "Create an empty file"
+      
+      - command: "cp source.txt destination.txt"
+        description: "Copy a file"
+      
+      - command: "cp -r source_folder/ dest_folder/"
+        description: "Copy a folder and everything inside it"
+  
+  - title: "Path Concepts"
+    items:
+      - concept: "Relative Path"
+        description: "Path from your current location (e.g., folder/file.txt or ../sibling/file.txt)"
+      
+      - concept: "Absolute Path"
+        description: "Full path from root, starts with / (e.g., /Users/yourname/Documents/file.txt)"
+      
+      - concept: "Home Directory ~"
+        description: "Your user folder. ~ expands to /Users/yourname (macOS) or /home/yourname (Linux)"
+      
+      - concept: "Current Directory ."
+        description: "The folder you're in right now"
+      
+      - concept: "Parent Directory .."
+        description: "One level up from where you are"
+  
+  - title: "VSCode Essentials"
+    items:
+      - action: "Open Folder"
+        description: "File → Open Folder (or Cmd+O on Mac). Always work from a folder, not loose files."
+      
+      - action: "Create File"
+        description: "Right-click in Explorer sidebar → New File, or use terminal: touch filename"
+      
+      - action: "Integrated Terminal"
+        description: "Terminal → New Terminal (or Ctrl+`). Runs in your workspace folder."
+      
+      - action: "File Explorer"
+        description: "Left sidebar shows folder structure. Click files to open them."
+      
+      - action: "Save File"
+        description: "Cmd+S (Mac) or Ctrl+S (Windows/Linux). White dot on tab means unsaved changes."
+  
+  - title: "Running Python"
+    items:
+      - command: "python3 script.py"
+        description: "Run a Python file from the terminal"
+      
+      - command: "python script.py"
+        description: "Might work on some systems, but python3 is safer/clearer"
+      
+      - tip: "File must end in .py"
+        description: "Python files need the .py extension"
+      
+      - tip: "You must be in the right directory"
+        description: "Use cd to navigate to the folder containing your .py file, or use full path"
+      
+      - tip: "VSCode Run Button"
+        description: "Triangle play button (top right) runs current file. Same as terminal command."
+      
+      - tip: "Reading Errors"
+        description: "Python shows line number and error type. Read from bottom up. Last line is usually the issue."
+  
+  - title: "Key Concepts"
+    items:
+      - concept: "Current Working Directory"
+        description: "Where you are in the filesystem. Matters for relative paths and running files."
+      
+      - concept: "Terminal vs GUI"
+        description: "Terminal uses text commands, GUI uses clicks. Same operations, different interface."
+      
+      - concept: "File Extensions Matter"
+        description: ".py for Python, .txt for text. Computer uses these to know what program to use."
+      
+      - concept: "Case Sensitive (usually)"
+        description: "file.txt and File.txt are different files on most systems. Be precise."
+
+tips:
+  - "When in doubt, run 'pwd' to see where you are"
+  - "Use tab completion in terminal - type first few letters, hit Tab"
+  - "If command doesn't work, check: (1) spelling, (2) are you in right directory?, (3) does file exist?"
+  - "Terminal errors are your friend - read them, they tell you what's wrong"
+  - "Get comfortable with the terminal. You'll use it forever."

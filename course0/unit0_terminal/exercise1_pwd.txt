@@ -1,0 +1,12 @@
+# Exercise 1: pwd (Where Am I?)
+
+Every terminal session has a "current directory" - where you are in the file system right now.
+
+What to do:
+1. Open your terminal
+2. Type: pwd
+3. Press Enter
+
+Expected output: You'll see a path like /Users/yourname or /home/yourname
+
+This is where you are. pwd stands for "print working directory."

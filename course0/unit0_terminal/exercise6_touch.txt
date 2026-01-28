@@ -1,0 +1,14 @@
+# Exercise 6: touch (Create Empty Files)
+
+Create empty files using touch.
+
+What to do:
+1. Make sure you're in my_first_project (from exercise 5)
+2. Type: touch file1.txt
+3. Type: touch file2.txt
+4. Type: touch file3.txt
+5. Type: ls (to see all three files)
+
+Expected output: Three files listed: file1.txt, file2.txt, file3.txt
+
+Note: touch creates empty files. You can also use it to update the "last modified" timestamp of existing files.

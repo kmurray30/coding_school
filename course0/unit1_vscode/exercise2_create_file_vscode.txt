@@ -1,0 +1,15 @@
+# Exercise 2: Create File in VSCode
+
+You can create files using VSCode's GUI instead of the terminal.
+
+What to do:
+1. Make sure my_app is open in VSCode
+2. Right-click in the Explorer sidebar
+3. Select "New File"
+4. Name it hello.txt
+5. Type some text: "This file was created in VSCode"
+6. Save it with Cmd+S (Mac) or Ctrl+S (Windows/Linux)
+
+Expected result: hello.txt appears in your file explorer with your text inside.
+
+Note: Notice the dot on the file tab when unsaved. That dot = unsaved changes.

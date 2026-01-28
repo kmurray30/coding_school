@@ -1,0 +1,16 @@
+# Exercise 6: Navigate in VSCode
+
+Moving around in VSCode using both the GUI and terminal.
+
+What to do:
+1. In VSCode Explorer, click on the src/ folder to expand it
+2. Right-click src/ → New File → create main.py
+3. In the terminal, type: cd src (to navigate into the src folder)
+4. Type: pwd (to verify you're in src)
+5. Type: ls (to see main.py)
+6. Type: cd .. (to go back to my_app)
+7. In VSCode, click main.py to open it
+
+Expected result: You successfully navigated using both VSCode's GUI and the terminal. Both see the same files.
+
+Note: You can navigate using whatever feels comfortable. Both work.

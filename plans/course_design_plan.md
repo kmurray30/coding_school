@@ -18,15 +18,17 @@ Each course contains:
 
 - **N Units** (typically 6-12 units per course)
 - **1 Final Exam** (single YAML file with questions, no answers)
-- **README.md** (pre-reqs, how to run graders, and simple course outline)
+- **1 Cheat Sheet** (single YAML file with quick reference info for later lookup)
+- **README.md** (pre-reqs, time estimates, and simple course outline)
 
 ### Unit Structure
 
 Each unit contains:
 
-1. **4-12 Exercises** (incremental progression, last 1-2 are project-scale)
-2. **1 Quiz** (single YAML file with questions, no answers)
-3. **Grader module** (`graders/unit_grader.py` and `graders/project_grader.py`)
+1. **README.md** (short description, estimated time, how to run graders)
+2. **4-12 Exercises** (incremental progression, last 1-2 are project-scale)
+3. **1 Quiz** (single YAML file with questions, no answers)
+4. **Grader module** (`graders/unit_grader.py` and `graders/project_grader.py`)
 
 ## Course Outline Document
 
@@ -169,6 +171,7 @@ Exercises within a unit follow an incremental staircase pattern, referenced from
    - More open-ended requirements
    - Students write larger code sections
    - Multiple approaches possible
+   - Describe WHAT to accomplish, not HOW to code it
    - Example: [`exercise6_number_guessing.py`](example/unit4-if_statements/exercise6_number_guessing.py)
 
 4. **Challenge Exercises** (1-2 exercises)
@@ -176,6 +179,7 @@ Exercises within a unit follow an incremental staircase pattern, referenced from
    - Minimal scaffolding
    - Combines multiple concepts
    - Prepares for projects
+   - Conceptual instructions only - no code syntax hints
 
 ### Exercise File Format
 
@@ -255,6 +259,12 @@ For exercises where students customize values, grader can parse the file for spe
 - Combine multiple concepts from the unit
 - More open-ended
 - Same minimal comment style as regular exercises
+- **Instructions describe WHAT to do, not HOW to code it**
+  - ✅ "Create a loop that prints each item"
+  - ❌ "Create a loop using for i in range(1, 4)"
+  - ✅ "Ask the user for their name"
+  - ❌ "Use input() to get the user's name"
+  - Let students choose their own implementation approach
 
 **Example (final exercise in loops unit):**
 ```python
@@ -298,6 +308,54 @@ questions:
 ```
 
 Simple list. No metadata. No answers. Students figure it out or look it up.
+
+### Cheat Sheet (Course-Level Reference)
+
+**Format:** Single YAML file with quick reference info
+
+**File:** `cheat-sheet.yaml`
+
+**Purpose:** A condensed reference students can return to when they forget specific commands, syntax, or key concepts. This is NOT a tutorial—it's a lookup table.
+
+**Content:** Commands, syntax patterns, and core concepts organized by topic. Keep descriptions brutally short. One-liners preferred.
+
+**Example YAML:**
+```yaml
+cheat_sheet_title: "Course 0 Cheat Sheet"
+sections:
+  - title: "Terminal Navigation"
+    items:
+      - command: "pwd"
+        description: "Print current directory"
+      - command: "ls"
+        description: "List files/folders in current directory"
+      - command: "cd folder_name"
+        description: "Change to folder_name (relative path)"
+      - command: "cd /absolute/path"
+        description: "Change to absolute path"
+      - command: "cd .."
+        description: "Go up one directory"
+      - command: "cd ~"
+        description: "Go to home directory"
+  
+  - title: "File Operations"
+    items:
+      - command: "mkdir folder_name"
+        description: "Create new directory"
+      - command: "touch file.txt"
+        description: "Create empty file"
+      - command: "cp source.txt dest.txt"
+        description: "Copy file"
+  
+  - title: "Python Basics"
+    items:
+      - command: "python3 script.py"
+        description: "Run Python file from terminal"
+      - command: "print('text')"
+        description: "Output text to console"
+```
+
+**Rule:** If a student completed your course but forgot something 3 months later, they should be able to find it in the cheat sheet in under 10 seconds.
 
 ### Final Exam (End of Course)
 
@@ -471,13 +529,23 @@ For data structures, algorithms, and advanced topics, graders must verify:
 
 ### Exercises
 
+**Universal Rule: ONE FILE PER EXERCISE. Always.**
+
 ```
-exerciseN_description.py
+exerciseN_description.ext
 ```
 
 - N is 1-indexed
 - description is snake_case, 1-3 words
-- Examples: `exercise1_hello.py`, `exercise5_string_concat.py`
+- Extension depends on content type:
+  - `.py` for Python code exercises
+  - `.txt` for non-code exercises (terminal commands, VSCode instructions, etc.)
+  - Other extensions as appropriate for the language/content
+- Examples: `exercise1_hello.py`, `exercise5_string_concat.py`, `exercise1_pwd.txt`, `exercise3_cd_practice.txt`
+
+**When file type is unclear (not coding), use `.txt` files.**
+
+Each exercise must be in its own file. Never combine multiple exercises into one markdown file or instruction document.
 
 ### Quizzes & Exams
 
@@ -502,12 +570,21 @@ plans/
 **Course Implementation Structure:**
 ```
 courseN/
-├── README.md                    # Student-facing: prereqs + how to run graders + outline
-├── unit1_topic_name/
-│   ├── exercise1_intro.py
+├── README.md                           # Student-facing: prereqs, time estimates, unit overview
+├── cheat-sheet.yaml                    # Quick reference for students who forget key concepts
+├── unit0_topic_name/                   # Non-code unit example
+│   ├── README.md                       # Short description, time estimate, grader instructions
+│   ├── exercise1_concept.txt           # Use .txt for non-code exercises
+│   ├── exercise2_practice.txt
+│   ├── ...
+│   ├── exerciseN_project.txt           # Final 1-2 exercises are project-scale
+│   └── quiz.yaml
+├── unit1_topic_name/                   # Code unit example
+│   ├── README.md                       # Short description, time estimate, grader instructions
+│   ├── exercise1_intro.py              # Use .py for Python code
 │   ├── exercise2_building.py
 │   ├── ...
-│   ├── exerciseN_project_scale.py  # Final 1-2 exercises are project-scale
+│   ├── exerciseN_project_scale.py      # Final 1-2 exercises are project-scale
 │   ├── quiz.yaml
 │   └── graders/
 │       ├── unit_grader.py
@@ -634,9 +711,35 @@ A well-designed course should have:
 
 ---
 
+## Unit README Format
+
+**Keep it really fucking short.** Just what students need to start the unit.
+
+**Example:**
+```markdown
+# Unit 0: Terminal/CLI Fundamentals
+
+Learn to navigate your filesystem using the command line. You'll use pwd, ls, cd, mkdir, touch, and cp.
+
+**Estimated Time:** 1-2 hours
+
+## How to Validate
+
+At the end of the unit, run the graders to check your work:
+
+```bash
+python graders/unit_grader.py
+python graders/project_grader.py
+```
+
+Take the quiz (`quiz.yaml`) for self-reflection.
+```
+
+That's it. No wall of text. They know what to do.
+
 ## Course README Format
 
-Keep it simple. Pre-reqs + how to run graders + bulleted outline
+Keep it simple. Pre-reqs + time estimates + brief unit summary + link to detailed course outline in plans.
 
 **Example:**
 ```markdown
@@ -644,27 +747,37 @@ Keep it simple. Pre-reqs + how to run graders + bulleted outline
 
 Learn terminal, VSCode, and running Python.
 
-## Units
+**For detailed course outline and exercise descriptions, see:** [plans/course0/course-outline.md](../plans/course0/course-outline.md)
 
-- **Unit 0: Terminal & VSCode** - Navigate filesystem, create files
-- **Unit 1: Running Python** - Create and execute Python files
+**Estimated Total Time:** 4-6 hours
+
+## Prerequisites
+
+None. Start here if you're brand new.
+
+## Course Units
+
+### Unit 0: Terminal/CLI Fundamentals (1-2 hours)
+8 exercises teaching terminal navigation: pwd, ls, cd, mkdir, touch, cp.
+
+### Unit 1: VSCode Essentials (1-2 hours)
+7 exercises teaching VSCode workflow: opening folders, creating files, using the integrated terminal.
+
+### Unit 2: Running Python (2 hours)
+8 Python exercises teaching how to create .py files, run them, and read errors.
 
 ## How to Use
 
 1. Work through exercises in order
 2. Run your code and compare to expected output
-3. At end of each unit, validate with grader:
-   ```
-   python graders/unit_grader.py
-   python graders/project_grader.py
-   ```
-4. Take quiz (quiz.yaml) for self-reflection
+3. At end of each unit, see that unit's README for grader instructions
+4. Take quiz (quiz.yaml) for self-reflection after each unit
 5. Take final exam (final_exam.yaml) after completing all units
-
-## Prerequisites
-
-None. Start here if you're brand new.
 ```
+
+**Keep the README concise.** Detailed exercise descriptions live in `plans/courseN/course-outline.md`.
+
+Grader instructions are in each unit's README, not the course README.
 
 ## Implementation Checklist
 
@@ -675,6 +788,7 @@ When building a new unit:
 - [ ] Write minimal exercise files (reference example/)
 - [ ] Create quiz.yaml with hard-style questions
 - [ ] Build unit_grader.py and project_grader.py
+- [ ] Write unit README.md (short description, time estimate, grader instructions)
 - [ ] Test all exercises run correctly
 - [ ] Verify incremental difficulty
 
@@ -684,5 +798,6 @@ When building a new course:
 - [ ] Write course_outline.md (detailed exercise-by-exercise plan)
 - [ ] Build all units following unit checklist and the outline
 - [ ] Create final_exam.yaml
-- [ ] Write course README.md (student-facing version of curriculum + grader instructions)
+- [ ] Create cheat-sheet.yaml (quick reference for later lookup)
+- [ ] Write course README.md (student-facing version of curriculum + time estimates)
 - [ ] Test complete course flow

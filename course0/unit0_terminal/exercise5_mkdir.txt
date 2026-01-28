@@ -1,0 +1,12 @@
+# Exercise 5: mkdir (Create a Directory)
+
+Create new folders using mkdir (make directory).
+
+What to do:
+1. Navigate to a place you want to create a folder (maybe Desktop or home directory)
+2. Type: mkdir my_first_project
+3. Type: ls (to see your new folder)
+4. Type: cd my_first_project (hint: you should be able to use tab-complete for folder/file names)
+5. Type: pwd (to verify you're inside)
+
+Expected behavior: New directory created, you successfully navigated into it.

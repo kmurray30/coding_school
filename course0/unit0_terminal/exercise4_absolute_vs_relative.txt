@@ -1,0 +1,22 @@
+# Exercise 4: Absolute vs Relative Paths
+
+Two ways to specify a location - absolute (full path from root) or relative (from where you are now).
+
+Absolute path: Starts from the root /
+- Example: /Users/yourname/Desktop
+- Works from anywhere
+
+Relative path: Starts from current directory
+- . refers to the current directory you are in
+- .. refers to the directory above the one you are in
+- Example: Desktop/folder (relevant if you're in your home directory with Desktop as a directory within)
+- Example: ../otherfolder (go up one level, then into otherfolder)
+
+What to do:
+1. Type: cd ~ (go home)
+2. Type: cd Desktop (relative - only works if you're in home) (hint: `cd ./Desktop` works the same here)
+3. Type: cd /Users/yourname (replace yourname with your actual username - absolute, works from anywhere)
+4. Type: cd .. (moves one level up)
+5. Navigate around using both styles. Use pwd frequently to see where you are.
+
+Expected behavior: You understand that absolute paths work from anywhere, relative paths depend on your current location.

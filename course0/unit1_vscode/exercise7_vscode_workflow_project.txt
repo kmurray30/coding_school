@@ -1,0 +1,29 @@
+# Exercise 7: VSCode Workflow Project (Quick File Switching)
+
+Working with multiple files efficiently.
+
+What to do:
+1. Create a new folder on your Desktop or home directory called simple_website
+2. Open that folder in VSCode (File → Open Folder)
+3. Create three files using VSCode:
+   - index.html
+   - style.css
+   - script.js
+4. Open index.html and add this comment: <!-- This is the homepage -->
+5. Open style.css and add this comment: /* Styles go here */
+6. Open script.js and add this comment: // JavaScript code goes here
+7. Save all three files
+8. Practice switching between them:
+   - Click tabs at the top to switch
+   - Press Cmd+P (Mac) or Ctrl+P (Windows/Linux) to open the Quick File Switcher
+   - Type the filename and press Enter
+
+Expected result: Three files exist, each with one comment line. You can quickly switch between them.
+
+Pro tip: Cmd+P / Ctrl+P is one of the most useful shortcuts in VSCode. Learn it now.
+
+Verification structure:
+simple_website/
+├── index.html      (contains: <!-- This is the homepage -->)
+├── style.css       (contains: /* Styles go here */)
+└── script.js       (contains: // JavaScript code goes here)

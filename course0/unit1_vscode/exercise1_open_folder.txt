@@ -1,0 +1,14 @@
+# Exercise 1: Open Folder (The Workspace Concept)
+
+VSCode works with "folders" as workspaces. Opening a folder gives you access to all files inside it.
+
+What to do:
+1. Open VSCode
+2. Click "File" → "Open Folder" (or "Open..." on Mac)
+3. Navigate to the my_app directory you created in Unit 0
+4. Click "Open"
+5. Look at the left sidebar (Explorer) - you should see your folder structure
+
+Expected result: You see my_app in the explorer with docs/, src/, tests/, and README.txt visible.
+
+Note: Opening a folder makes VSCode "aware" of all files inside. This is how you work on projects.

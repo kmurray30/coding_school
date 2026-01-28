@@ -1,0 +1,27 @@
+# Exercise 8: Terminal Project (Putting It All Together)
+
+Create a proper project structure like a real developer.
+
+What to do:
+1. Navigate to a location where you want to work (Desktop or home is fine)
+2. Create a directory called my_app
+3. Navigate into my_app
+4. Create three subdirectories within my_app: src, tests, docs
+5. Create a file called README.txt in the my_app directory (not in subdirectories)
+6. Navigate into src using a relative path
+7. Navigate back to my_app without using the absoluate path
+8. Navigate into src using an absolute path (like /Users/yourname/etc)
+9. List the contents of my_app from within the src directory
+
+Expected final structure:
+my_app/
+├── README.txt
+├── src/
+├── tests/
+└── docs/
+
+Verification:
+- From within my_app, run ls and you should see: README.txt, docs, src, tests
+- Run pwd and you should see the full path to my_app
+
+You've now got developer bearings. You can navigate a filesystem, create directories, create files, and understand where you are at all times. That's 90% of what you need.

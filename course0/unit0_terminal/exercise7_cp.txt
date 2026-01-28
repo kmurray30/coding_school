@@ -1,0 +1,12 @@
+# Exercise 7: cp (Copy Files)
+
+Copy files using cp (copy).
+
+What to do:
+1. Make sure you're in my_first_project with your three files
+2. Type: cp file1.txt file1_backup.txt
+3. Type: ls
+
+Expected output: You should see file1.txt, file1_backup.txt, file2.txt, file3.txt
+
+Note: Format is cp source destination. The original file stays, and a copy is created.

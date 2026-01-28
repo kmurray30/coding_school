@@ -1,0 +1,13 @@
+# Exercise 5: File Explorer vs Terminal (Two Ways, Same Result)
+
+Creating files in VSCode or the terminal does the same thing. They both modify the file system.
+
+What to do:
+1. Create a file using VSCode: Right-click → New File → name it vscode_file.txt
+2. Create a file using terminal: In VSCode's terminal, type touch terminal_file.txt
+3. Type ls in the terminal
+4. Look at VSCode's Explorer
+
+Expected result: Both vscode_file.txt and terminal_file.txt appear in BOTH the terminal output AND the VSCode Explorer.
+
+Key insight: VSCode and terminal are both looking at the same file system. They're two views of the same thing.

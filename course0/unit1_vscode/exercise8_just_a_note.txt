@@ -1,0 +1,3 @@
+Congrats on completing this course!
+From here on out, the workspace you will open in vscode will be this one (coding_school)
+That way you can complete this course and run all the exercises all within vscode itself
