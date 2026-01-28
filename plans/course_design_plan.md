@@ -18,7 +18,7 @@ Each course contains:
 
 - **N Units** (typically 6-12 units per course)
 - **1 Final Exam** (single YAML file with questions, no answers)
-- **README.md** (simple outline + how to run graders)
+- **README.md** (pre-reqs, how to run graders, and simple course outline)
 
 ### Unit Structure
 
@@ -396,10 +396,10 @@ Students should know if they succeeded by running their code and comparing outpu
 
 ### Grader Structure
 
-Each unit has two grader modules in `graders/`:
+Each unit has 2+ grader modules in `graders/`:
 
 1. **`unit_grader.py`** - Tests all regular exercises in the unit
-2. **`project_grader.py`** - Tests the final project-scale exercise(s)
+2. **`project_grader.py`** - Tests the final project-scale exercise(s). One per project, so if more than one project, include a grader for each.
 
 **Students run:**
 ```bash
@@ -465,6 +465,8 @@ For data structures, algorithms, and advanced topics, graders must verify:
 
 **Don't over-test simple exercises.** If the exercise is "assign a variable and print it," don't write 50 test cases. Match test rigor to problem complexity.
 
+**Skip grading when irrelevant.** Just skip the grader implementation for exercises where grading is irrelevant. If all exercises in a course don't need grading, skip that grader entirely and mention that in the readme.
+
 ## File Naming Conventions
 
 ### Exercises
@@ -500,7 +502,7 @@ plans/
 **Course Implementation Structure:**
 ```
 courseN/
-├── README.md                    # Student-facing: outline + how to run graders
+├── README.md                    # Student-facing: prereqs + how to run graders + outline
 ├── unit1_topic_name/
 │   ├── exercise1_intro.py
 │   ├── exercise2_building.py
@@ -634,7 +636,7 @@ A well-designed course should have:
 
 ## Course README Format
 
-Keep it simple. Bulleted outline + how to run graders.
+Keep it simple. Pre-reqs + how to run graders + bulleted outline
 
 **Example:**
 ```markdown
