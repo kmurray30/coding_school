@@ -16,4 +16,4 @@ In summary, these are all different things, though often achieve similar effects
 
 - object.function()   # This is called a "method" - a function that belongs to an object
 - function(object)    # This is called a "function" - a standalone function
-- object.attribute    # This is called an "attribute" - a value stored within an object
+- object.attribute    # This is called an "attribute" or "field" - a value stored within an object
