@@ -1,0 +1,12 @@
+quiz_title: "Unit 8 Quiz: Scope"
+questions:
+  - "What's the difference between local and global scope?"
+  - "Can you access a local variable outside its function?"
+  - "What happens when local and global variables have the same name?"
+  - "What does the global keyword do?"
+  - "Why should you avoid global variables?"
+  - "What's variable shadowing?"
+  - "Can a function access variables from an outer function?"
+  - "What's better: using global or using return?"
+  - "Write a function that takes a parameter instead of using a global variable."
+  - "What happens if you try to modify a global variable without the global keyword?"

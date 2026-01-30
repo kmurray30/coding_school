@@ -1,0 +1,12 @@
+quiz_title: "Unit 6 Quiz: While Loops"
+questions:
+  - "What does a while loop do?"
+  - "How do you exit a while loop?"
+  - "What's an infinite loop?"
+  - "What does the break statement do?"
+  - "What does the continue statement do?"
+  - "What's an accumulator pattern?"
+  - "Can you have a while loop that never runs?"
+  - "Write a while loop that counts from 1 to 10."
+  - "What happens if you forget to update the loop variable?"
+  - "When should you use while instead of for?"

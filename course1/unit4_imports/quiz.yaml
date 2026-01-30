@@ -1,0 +1,12 @@
+quiz_title: "Unit 4 Quiz: Imports and Libraries"
+questions:
+  - "What does the import statement do?"
+  - "What's the difference between 'import math' and 'from math import sqrt'?"
+  - "How do you use a function from an imported module?"
+  - "Where can you find documentation for Python modules?"
+  - "What module would you import to generate random numbers?"
+  - "What module would you import to work with dates and times?"
+  - "Can you import multiple items from the same module in one line?"
+  - "Write the code to import sqrt from the math module."
+  - "What's the difference between built-in functions like print() and imported functions?"
+  - "How do you explore what functions are available in a module?"

@@ -1,0 +1,12 @@
+quiz_title: "Unit 3 Quiz: Functions"
+questions:
+  - "What function tells you the length of a string?"
+  - "How do you define a function in Python?"
+  - "What's the difference between printing and returning?"
+  - "What are function parameters?"
+  - "What does the return keyword do?"
+  - "Can you call a function before it's defined?"
+  - "What method converts a string to lowercase?"
+  - "How do you combine two strings?"
+  - "Write a function that takes a name and returns a greeting."
+  - "What happens if you call a function that returns a value but don't store or use the result?"

@@ -1,0 +1,12 @@
+quiz_title: "Unit 10 Quiz: Python Environments and Dependencies"
+questions:
+  - "What's a virtual environment?"
+  - "Why use virtual environments?"
+  - "How do you create a virtual environment?"
+  - "How do you activate a virtual environment?"
+  - "How do you install a package with pip?"
+  - "What's a requirements.txt file?"
+  - "How do you recreate an environment from requirements.txt?"
+  - "Where do pip packages get installed?"
+  - "What command lists all installed packages?"
+  - "Why is it bad to install packages globally instead of in a venv?"

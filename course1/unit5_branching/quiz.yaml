@@ -1,0 +1,12 @@
+quiz_title: "Unit 5 Quiz: Branching"
+questions:
+  - "What comparison operators are available in Python?"
+  - "What's the difference between = and ==?"
+  - "What does the 'and' operator require to return True?"
+  - "What does the 'or' operator require to return True?"
+  - "What does the 'not' operator do?"
+  - "When does an elif block run?"
+  - "Can you have elif without else?"
+  - "Can you have else without if?"
+  - "Write an if statement that checks if a number is positive."
+  - "What happens if multiple elif conditions are True?"

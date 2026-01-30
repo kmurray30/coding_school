@@ -1,0 +1,12 @@
+quiz_title: "Unit 1 Quiz: Output + Basic Programs"
+questions:
+  - "What function do you use to display text on the screen?"
+  - "How do you store a value in Python?"
+  - "What symbol is used for assignment in Python?"
+  - "What function gets input from the user?"
+  - "Does Python code run top-to-bottom or bottom-to-top?"
+  - "What happens if you forget the closing quote in a string?"
+  - "Can you use a variable before you assign it a value?"
+  - "Write code to ask for a user's age and print it back to them."
+  - "What's the difference between a syntax error and a runtime error?"
+  - "How many times can you use a variable after you create it?"

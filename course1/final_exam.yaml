@@ -1,0 +1,96 @@
+exam_title: "Course 1 Final Exam"
+questions:
+  # Unit 1: Output + Basic Programs
+  - "What function displays text on the screen?"
+  - "Write code to store the value 42 in a variable called answer."
+  - "What function gets input from a user?"
+  - "Does Python code run top-to-bottom or bottom-to-top?"
+  - "Write code to ask for a user's name and print 'Hello (name)!'."
+
+  # Unit 2: Types and Strings
+  - "What are the four primitive types in Python?"
+  - "How do you convert the string '123' to an integer?"
+  - "What happens if you try int('hello')?"
+  - "What function tells you the type of a value?"
+  - "Does int(9.99) give you 9 or 10?"
+  - "Write code to convert the integer 25 to a string and concatenate it with 'Age: '."
+  - "What are the two boolean values in Python (with correct capitalization)?"
+
+  # Unit 3: Functions
+  - "What function returns the length of a string?"
+  - "How do you define a function in Python?"
+  - "What's the difference between print and return in a function?"
+  - "Write a function that takes a name and returns 'Hello (name)'."
+  - "What method converts a string to lowercase?"
+  - "Can you call a function before you define it?"
+  - "What happens if a function doesn't have a return statement?"
+
+  # Unit 4: Imports
+  - "Write the code to import the math module."
+  - "What's the difference between 'import math' and 'from math import sqrt'?"
+  - "What module would you import to generate random numbers?"
+  - "What module would you import to work with dates and times?"
+  - "Write code to import only the pi constant from the math module."
+
+  # Unit 5: Branching
+  - "What comparison operator checks if two values are equal?"
+  - "What's the difference between = and ==?"
+  - "What does the 'and' operator require to return True?"
+  - "What does the 'or' operator require to return True?"
+  - "What does 'not True' evaluate to?"
+  - "Write an if statement that prints 'Adult' if age is 18 or greater."
+  - "What comes after 'if' when you want to check another condition?"
+  - "Can you have multiple elif blocks in one if statement?"
+
+  # Unit 6: While Loops
+  - "What does a while loop do?"
+  - "Write a while loop that prints numbers 1 through 5."
+  - "What statement exits a loop immediately?"
+  - "What statement skips to the next iteration of a loop?"
+  - "What's an infinite loop?"
+  - "What's the accumulator pattern?"
+
+  # Unit 7: For Loops
+  - "What does range(10) produce?"
+  - "Write a for loop that prints numbers 1 through 10."
+  - "What does range(1, 10, 2) produce?"
+  - "How do you loop over each character in a string?"
+  - "What's the difference between for and while loops?"
+  - "Write code to sum numbers 1 through 100 using a for loop."
+
+  # Unit 8: Scope
+  - "What's the difference between local and global scope?"
+  - "Can you access a local variable outside its function?"
+  - "What keyword lets you modify a global variable from inside a function?"
+  - "What's variable shadowing?"
+  - "Why should you avoid global variables?"
+  - "What's better: using global variables or returning values from functions?"
+
+  # Unit 9: Mutability
+  - "What types are immutable in Python?"
+  - "What types are mutable in Python?"
+  - "Can you change a character in a string?"
+  - "Can you change an element in a list?"
+  - "What happens when you assign one list to another variable?"
+  - "How do you create an independent copy of a list?"
+  - "What's the difference between a list and a tuple?"
+  - "What method adds an item to the end of a list?"
+  - "What's the danger of using a mutable default argument in a function?"
+
+  # Unit 10: Environments
+  - "What command creates a virtual environment?"
+  - "How do you activate a virtual environment on Mac/Linux?"
+  - "What command installs a package with pip?"
+  - "What file lists all dependencies for a project?"
+  - "How do you save installed packages to requirements.txt?"
+  - "Why use virtual environments instead of installing packages globally?"
+
+  # Integration Questions
+  - "Write a function that takes a list of numbers and returns their sum."
+  - "Write a program that asks for user input until they type 'quit'."
+  - "Write code that prints 'Fizz' for multiples of 3, 'Buzz' for multiples of 5, and 'FizzBuzz' for multiples of both."
+  - "What's the output of: print(type(int('42')))"
+  - "Write a function that takes a name and returns it in uppercase with an exclamation point."
+  - "How would you loop through a list and print each item with its index?"
+  - "What happens if you modify a list inside a function - does it affect the original list?"
+  - "Write code to generate 5 random numbers between 1 and 100."

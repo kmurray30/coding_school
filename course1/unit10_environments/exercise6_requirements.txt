@@ -1,0 +1,15 @@
+Create a requirements.txt file.
+
+List all installed packages:
+    pip freeze > requirements.txt
+
+Open requirements.txt to see all your dependencies.
+
+Delete myenv and recreate it.
+
+Reinstall the packages using the requirements.txt file:
+    pip install -r requirements.txt
+
+In a shared project, this ensures everyone has the same package versions.
+
+Note: you can also use the `pip freeze` command to list all installed packages, and then copy and paste the output into the requirements.txt file.

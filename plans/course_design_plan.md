@@ -150,35 +150,79 @@ The outline is the bridge between "what should we teach" and "here are the actua
 
 ### Progression Philosophy
 
-Exercises within a unit follow an incremental staircase pattern, referenced from [`example/`](example/):
+**Key Rule: SPOONFEED when introducing NEW concepts, DON'T SPOONFEED when combining concepts.**
 
-1. **Observation Exercises** (1-2 exercises)
+Exercises within a unit follow an incremental staircase pattern:
 
-   - Students read code and predict output
-   - No modification required
-   - Build mental models
-   - Example: [`exercise1_sequentiality.py`](example/unit1-basic_functions/exercise1_sequentiality.py)
+1. **Introducing New Concepts** (1-3 exercises)
 
-2. **Guided Modification** (2-3 exercises)
+   - **Show complete working code** demonstrating the new concept
+   - NO blanks (`...`), NO gaps to fill in
+   - Students observe and run the code to see it work
+   - Minimal comments explaining what the new concept is
+   - Expected output at the end
+   - Example:
+     ```python
+     # Strings are text wrapped in quotes
+     
+     name = "Primeagen"
+     message = 'Single quotes work too'
+     
+     print(name)
+     print(message)
+     
+     # Expected output:
+     # Primeagen
+     # Single quotes work too
+     ```
 
-   - Code skeleton provided
-   - Students fill in `...` sections
-   - Clear expected output shown
-   - Example: [`exercise3_logical_and.py`](example/unit3-boolean_logic/exercise3_logical_and.py)
+2. **Practicing the Same Concept** (1-2 exercises)
 
-3. **Semi-Independent Tasks** (3-5 exercises)
+   - Show working examples of the concept
+   - Then ask students to try their own with minimal `...` scaffolding
+   - Still focused on ONE concept, not combining yet
+   - Example:
+     ```python
+     # Math operators: + - * /
+     
+     print(10 + 5)
+     print(10 - 5)
+     print(10 * 5)
+     
+     # Now try your own
+     print(...)
+     print(...)
+     
+     # Expected output:
+     # 15
+     # 5
+     # 50
+     # (your results)
+     ```
 
-   - More open-ended requirements
-   - Students write larger code sections
-   - Multiple approaches possible
+3. **Combining Concepts** (2-4 exercises)
+
+   - **NO CODE SCAFFOLDING** - just requirements
+   - Students must figure out how to combine previously learned concepts
    - Describe WHAT to accomplish, not HOW to code it
-   - Example: [`exercise6_number_guessing.py`](example/unit4-if_statements/exercise6_number_guessing.py)
+   - Multiple approaches possible
+   - Example:
+     ```python
+     # Ask the user for their age.
+     # Convert it to an integer.
+     # Print whether they can vote (18+).
+     
+     # Expected output:
+     # What is your age?
+     # (user types age)
+     # You can vote: True (or False)
+     ```
 
-4. **Challenge Exercises** (1-2 exercises)
+4. **Project Exercises** (1-2 exercises at end of unit)
 
-   - Minimal scaffolding
-   - Combines multiple concepts
-   - Prepares for projects
+   - Requirements only, NO code scaffolding
+   - Combines ALL concepts from the unit
+   - Larger scope than regular exercises
    - Conceptual instructions only - no code syntax hints
 
 ### Exercise File Format
@@ -258,7 +302,7 @@ For exercises where students customize values, grader can parse the file for spe
 - Larger scope than earlier exercises
 - Combine multiple concepts from the unit
 - More open-ended
-- Same minimal comment style as regular exercises
+- **NO CODE SCAFFOLDING** - just instructions for what to build
 - **Instructions describe WHAT to do, not HOW to code it**
   - ✅ "Create a loop that prints each item"
   - ❌ "Create a loop using for i in range(1, 4)"
@@ -266,12 +310,18 @@ For exercises where students customize values, grader can parse the file for spe
   - ❌ "Use input() to get the user's name"
   - Let students choose their own implementation approach
 
+**CRITICAL:** Project exercises should be **requirements only**, not code with blanks to fill in.
+
+- ❌ BAD: Providing all the code structure with `...` for students to fill in
+- ❌ BAD: Showing variable names, function calls, or specific implementation details
+- ✅ GOOD: Describing the desired functionality and expected behavior
+- ✅ GOOD: Showing only expected input/output
+
 **Example (final exercise in loops unit):**
 ```python
 # Create an asterisk pyramid.
 # Ask user for height, then print a pyramid that tall.
-
-...
+# Each row should have the right number of spaces and stars to form a pyramid.
 
 # Expected output (if user enters 5):
 #     *
@@ -281,7 +331,25 @@ For exercises where students customize values, grader can parse the file for spe
 # *********
 ```
 
-Same vibe, same structure, same minimal verbosity. Just bigger in scope.
+**Example (final exercise with user input):**
+```python
+# Build a Mad Libs program.
+# Ask the user for a noun, verb, and adjective.
+# Use their words to create a short story and print it.
+
+# Expected output:
+# Give me a noun:
+# (user types something)
+# Give me a verb:
+# (user types something)
+# Give me an adjective:
+# (user types something)
+# 
+# Once upon a time, a (adjective) (noun) decided to (verb).
+# The end!
+```
+
+No code scaffolding. Just requirements and expected behavior.
 
 ## Quiz & Exam Design
 
@@ -721,7 +789,7 @@ A well-designed course should have:
 
 Learn to navigate your filesystem using the command line. You'll use pwd, ls, cd, mkdir, touch, and cp.
 
-**Estimated Time:** 1-2 hours
+**Estimated Time:** 15 min
 
 ## How to Validate
 
@@ -749,7 +817,6 @@ Learn terminal, VSCode, and running Python.
 
 **For detailed course outline and exercise descriptions, see:** [plans/course0/course-outline.md](../plans/course0/course-outline.md)
 
-**Estimated Total Time:** 4-6 hours
 
 ## Prerequisites
 
@@ -757,14 +824,18 @@ None. Start here if you're brand new.
 
 ## Course Units
 
-### Unit 0: Terminal/CLI Fundamentals (1-2 hours)
+### Unit 0: Terminal/CLI Fundamentals (10 min)
 8 exercises teaching terminal navigation: pwd, ls, cd, mkdir, touch, cp.
 
-### Unit 1: VSCode Essentials (1-2 hours)
+### Unit 1: VSCode Essentials (15 min)
 7 exercises teaching VSCode workflow: opening folders, creating files, using the integrated terminal.
 
-### Unit 2: Running Python (2 hours)
+### Unit 2: Running Python (20 min)
 8 Python exercises teaching how to create .py files, run them, and read errors.
+
+### Final Exam (10 min)
+
+**Estimated Total Time:** 55 min
 
 ## How to Use
 

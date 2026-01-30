@@ -1,0 +1,12 @@
+quiz_title: "Unit 7 Quiz: For Loops"
+questions:
+  - "What does range(10) produce?"
+  - "What's the difference between for and while loops?"
+  - "How do you iterate over a string?"
+  - "What does range(1, 10, 2) produce?"
+  - "Can you modify a list while iterating over it?"
+  - "When should you use for vs while?"
+  - "What does the range function's stop parameter mean?"
+  - "Write a for loop that prints numbers 5 through 10."
+  - "How do nested loops work?"
+  - "What does 'for item in items:' do?"

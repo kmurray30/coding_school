@@ -1,0 +1,12 @@
+quiz_title: "Unit 9 Quiz: Mutability vs Immutability"
+questions:
+  - "What types are immutable in Python?"
+  - "What types are mutable in Python?"
+  - "Can you change a character in a string?"
+  - "Can you change an element in a list?"
+  - "What happens when you assign one list to another variable?"
+  - "How do you create a copy of a list?"
+  - "What's the difference between a list and a tuple?"
+  - "Why does modifying a list inside a function affect the original?"
+  - "What's the danger of mutable default arguments?"
+  - "Write code to create an independent copy of a list."

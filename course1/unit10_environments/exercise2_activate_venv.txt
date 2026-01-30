@@ -1,0 +1,12 @@
+Activate the virtual environment you created.
+
+On Mac/Linux:
+source myenv/bin/activate
+
+On Windows:
+myenv\Scripts\activate
+
+Your terminal prompt should change to show (myenv) at the beginning.
+
+When you're done, deactivate with:
+deactivate

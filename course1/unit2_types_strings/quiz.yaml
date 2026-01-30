@@ -1,0 +1,12 @@
+quiz_title: "Unit 2 Quiz: Primitive Types + Strings"
+questions:
+  - "What are the four primitive types in Python?"
+  - "How do you check what type a variable is?"
+  - "What function converts a string to an integer?"
+  - "What happens if you try int('hello')?"
+  - "What's the difference between int and float?"
+  - "Does int(9.99) give you 9 or 10?"
+  - "How do you convert an integer to a string?"
+  - "What are the two boolean values in Python?"
+  - "What happens if you try to add a string and an integer?"
+  - "Write code to convert the string '123' to an integer and add 10 to it."

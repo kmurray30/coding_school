@@ -1,0 +1,11 @@
+Create a virtual environment using Python's venv module.
+
+Run this command in your terminal:
+
+python3 -m venv myenv
+
+This creates a folder called 'myenv' containing an isolated Python environment.
+
+Verify it worked by checking that a 'myenv' folder exists in your current directory.
+
+Note: it is common practice for the environment folder to be called '.venv' (the . makes it hidden). We will use myenv though.

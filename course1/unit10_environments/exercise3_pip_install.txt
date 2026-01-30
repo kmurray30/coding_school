@@ -1,0 +1,13 @@
+Install a package using pip.
+
+First, make sure your virtual environment is activated (you should see (myenv) in your prompt).
+
+Then install the requests library:
+
+pip install requests
+
+Verify it worked:
+
+pip list
+
+You should see 'requests' in the list of installed packages.
