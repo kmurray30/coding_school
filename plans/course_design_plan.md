@@ -165,14 +165,14 @@ Exercises within a unit follow an incremental staircase pattern:
      ```python
      # Strings are text wrapped in quotes
      
-     name = "Primeagen"
+     name = "Bobosan"
      message = 'Single quotes work too'
      
      print(name)
      print(message)
      
      # Expected output:
-     # Primeagen
+     # Bobosan
      # Single quotes work too
      ```
 
@@ -485,12 +485,12 @@ user_name = "John"  # Ah yes, the user's name.
 ```python
 # String concatenation is like assembly. Snap pieces together with +
 
-your_name = "Primeagen"
+your_name = "Bobosan"
 weird_fact = " has a tiny weiner"
 message = your_name + weird_fact
 print(message)
 
-# Expected output: Primeagen has a tiny weiner
+# Expected output: Bobosan has a tiny weiner
 ```
 
 **For loops:**

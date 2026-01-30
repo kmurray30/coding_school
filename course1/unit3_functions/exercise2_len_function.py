@@ -1,6 +1,6 @@
 # len() tells you how long something is
 
-word = "Primeagen"
+word = "Bobosan"
 length = len(word)
 print(length)
 

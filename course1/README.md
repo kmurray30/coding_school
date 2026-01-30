@@ -4,7 +4,7 @@ Learn to write small programs with control flow, functions, and proper dependenc
 
 **For detailed course outline and exercise descriptions, see:** [../plans/course1/course-outline.md](../plans/course1/course-outline.md)
 
-**Estimated Total Time:** 20-25 hours
+**Estimated Total Time:** 6h
 
 ## Prerequisites
 

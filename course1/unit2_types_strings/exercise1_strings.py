@@ -1,11 +1,11 @@
 # Strings are text wrapped in quotes
 
-name = "Primeagen"
+name = "Bobo"
 message = 'Single quotes work too'
 
 print(name)
 print(message)
 
 # Expected output:
-# Primeagen
+# Bobo
 # Single quotes work too
