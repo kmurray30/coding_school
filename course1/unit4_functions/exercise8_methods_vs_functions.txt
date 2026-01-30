@@ -1,0 +1,19 @@
+# Methods vs Functions vs Attributes
+
+You may have noticed that Python has different ways of calling functions:
+
+- my_dict.keys() vs len(my_list)
+
+Think of it as "all dicts have the ability to tell you what their keys are" vs "There is a standalone tool that lets me see the length of a list". 
+
+If you're wondering why one uses one type and the other uses the other, good! For these examples it's actually pretty arbitrary. Python just happens to do it this way, but it could have just as easily been keys(dict) and list.length(). In fact Java uses `my_list.size()` instead of Python's `len(my_list)`.
+
+For now, don't be overwhelmed. Just know that both types of functions can exist, and be prepared to use either.
+
+Note: you ALSO might see things later like object.field (without parentheses). These are basically like variables stored within objects. Some languages even do list length as list.length, which again, is an arbitrary language design decision
+
+In summary, these are all different things, though often achieve similar effects (they all can return values to you). You will become very familiar with their differences in course 2.
+
+- object.function()   # This is called a "method" - a function that belongs to an object
+- function(object)    # This is called a "function" - a standalone function
+- object.attribute    # This is called an "attribute" - a value stored within an object
