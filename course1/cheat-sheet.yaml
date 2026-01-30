@@ -50,6 +50,41 @@ sections:
       - command: "a ** b"
         description: "Exponentiation"
 
+  - title: "Lists"
+    items:
+      - command: "[1, 2, 3]"
+        description: "Create a list"
+      - command: "list[0]"
+        description: "Access element at index 0"
+      - command: "list.append(item)"
+        description: "Add item to end of list"
+      - command: "list.remove(item)"
+        description: "Remove first occurrence of item"
+      - command: "list.pop()"
+        description: "Remove and return last item"
+      - command: "list.copy()"
+        description: "Create independent copy of list"
+      - command: "list[:]"
+        description: "Another way to copy a list"
+
+  - title: "Tuples"
+    items:
+      - command: "(1, 2, 3)"
+        description: "Create a tuple (immutable)"
+      - command: "tuple[0]"
+        description: "Access element at index 0"
+
+  - title: "Dictionaries"
+    items:
+      - command: "{'key': 'value'}"
+        description: "Create a dictionary"
+      - command: "dict['key']"
+        description: "Access value by key"
+      - command: "dict['key'] = 'new_value'"
+        description: "Set value for key"
+      - command: "del dict['key']"
+        description: "Delete key-value pair"
+
   - title: "Comparison Operators"
     items:
       - command: "a == b"
@@ -141,41 +176,6 @@ sections:
         description: "Import math module"
       - command: "from datetime import datetime"
         description: "Import datetime class"
-
-  - title: "Lists"
-    items:
-      - command: "[1, 2, 3]"
-        description: "Create a list"
-      - command: "list[0]"
-        description: "Access element at index 0"
-      - command: "list.append(item)"
-        description: "Add item to end of list"
-      - command: "list.remove(item)"
-        description: "Remove first occurrence of item"
-      - command: "list.pop()"
-        description: "Remove and return last item"
-      - command: "list.copy()"
-        description: "Create independent copy of list"
-      - command: "list[:]"
-        description: "Another way to copy a list"
-
-  - title: "Tuples"
-    items:
-      - command: "(1, 2, 3)"
-        description: "Create a tuple (immutable)"
-      - command: "tuple[0]"
-        description: "Access element at index 0"
-
-  - title: "Dictionaries"
-    items:
-      - command: "{'key': 'value'}"
-        description: "Create a dictionary"
-      - command: "dict['key']"
-        description: "Access value by key"
-      - command: "dict['key'] = 'new_value'"
-        description: "Set value for key"
-      - command: "del dict['key']"
-        description: "Delete key-value pair"
 
   - title: "Scope"
     items:

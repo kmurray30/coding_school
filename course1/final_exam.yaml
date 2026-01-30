@@ -16,7 +16,19 @@ questions:
   - "Write code to convert the integer 25 to a string and concatenate it with 'Age: '."
   - "What are the two boolean values in Python (with correct capitalization)?"
 
-  # Unit 3: Functions
+  # Unit 3: Data Structures
+  - "How do you create a list in Python?"
+  - "How do you access the first element of a list?"
+  - "What method adds an item to the end of a list?"
+  - "What's the difference between a list and a tuple?"
+  - "Can you modify a tuple after creating it?"
+  - "How do you create a dictionary in Python?"
+  - "How do you access a value in a dictionary using its key?"
+  - "What does None represent in Python?"
+  - "Write code to create a list with three numbers and access the last one."
+  - "Write code to create a dictionary with keys 'name' and 'age' and access the name."
+
+  # Unit 4: Functions
   - "What function returns the length of a string?"
   - "How do you define a function in Python?"
   - "What's the difference between print and return in a function?"
@@ -25,14 +37,14 @@ questions:
   - "Can you call a function before you define it?"
   - "What happens if a function doesn't have a return statement?"
 
-  # Unit 4: Imports
+  # Unit 5: Imports
   - "Write the code to import the math module."
   - "What's the difference between 'import math' and 'from math import sqrt'?"
   - "What module would you import to generate random numbers?"
   - "What module would you import to work with dates and times?"
   - "Write code to import only the pi constant from the math module."
 
-  # Unit 5: Branching
+  # Unit 6: Branching
   - "What comparison operator checks if two values are equal?"
   - "What's the difference between = and ==?"
   - "What does the 'and' operator require to return True?"
@@ -45,7 +57,7 @@ questions:
   - "What comes after 'if' when you want to check another condition?"
   - "Can you have multiple elif blocks in one if statement?"
 
-  # Unit 6: While Loops
+  # Unit 7: While Loops
   - "What does a while loop do?"
   - "Write a while loop that prints numbers 1 through 5."
   - "What statement exits a loop immediately?"
@@ -58,7 +70,7 @@ questions:
   - "What happens if no error occurs in the try block?"
   - "Can you have multiple except blocks?"
 
-  # Unit 7: For Loops
+  # Unit 8: For Loops
   - "What does range(10) produce?"
   - "Write a for loop that prints numbers 1 through 10."
   - "What does range(1, 10, 2) produce?"
@@ -66,7 +78,7 @@ questions:
   - "What's the difference between for and while loops?"
   - "Write code to sum numbers 1 through 100 using a for loop."
 
-  # Unit 8: Scope
+  # Unit 9: Scope
   - "What's the difference between local and global scope?"
   - "Can you access a local variable outside its function?"
   - "What keyword lets you modify a global variable from inside a function?"
@@ -74,7 +86,7 @@ questions:
   - "Why should you avoid global variables?"
   - "What's better: using global variables or returning values from functions?"
 
-  # Unit 9: Mutability
+  # Unit 10: Mutability
   - "What types are immutable in Python?"
   - "What types are mutable in Python?"
   - "Can you change a character in a string?"
@@ -85,7 +97,7 @@ questions:
   - "What method adds an item to the end of a list?"
   - "What's the danger of using a mutable default argument in a function?"
 
-  # Unit 10: Environments
+  # Unit 11: Environments
   - "What command creates a virtual environment?"
   - "How do you activate a virtual environment on Mac/Linux?"
   - "What command installs a package with pip?"

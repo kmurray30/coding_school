@@ -24,28 +24,31 @@ You should be comfortable with:
 ### Unit 2: Primitive Types + Strings (2-3 hours)
 11 exercises teaching Python's basic types: strings, integers, floats, and booleans. Master type conversion, string concatenation, and string operations.
 
-### Unit 3: Functions (Using and Creating) (2 hours)
+### Unit 3: Data Structures (2 hours)
+8 exercises teaching lists, dictionaries, tuples, and None. Learn to create, access, and modify collections of data.
+
+### Unit 4: Functions (Using and Creating) (2 hours)
 8 exercises teaching built-in functions and creating your own. Learn parameters, return values, and function composition.
 
-### Unit 4: Imports and Libraries (2 hours)
+### Unit 5: Imports and Libraries (2 hours)
 7 exercises teaching how to import and use Python modules. Explore the standard library (math, random, datetime).
 
-### Unit 5: Branching (2-3 hours)
+### Unit 6: Branching (2-3 hours)
 9 exercises teaching boolean logic, operator precedence, and conditional statements. Make programs respond differently based on conditions.
 
-### Unit 6: Loops - While (2-3 hours)
+### Unit 7: Loops - While (2-3 hours)
 9 exercises teaching while loops, exception handling, and control flow. Master break, continue, try/except, and the accumulator pattern.
 
-### Unit 7: Loops - For (2-3 hours)
+### Unit 8: Loops - For (2-3 hours)
 8 exercises teaching for loops and range(). Master iteration over sequences and nested loops.
 
-### Unit 8: Scope (2 hours)
+### Unit 9: Scope (2 hours)
 7 exercises teaching local vs global scope. Learn why globals are bad and how to write cleaner functions.
 
-### Unit 9: Mutability vs Immutability (2-3 hours)
+### Unit 10: Mutability vs Immutability (2-3 hours)
 8 exercises teaching the difference between mutable and immutable types. Avoid common reference bugs.
 
-### Unit 10: Python Environments and Dependencies (2-3 hours)
+### Unit 11: Python Environments and Dependencies (2-3 hours)
 8 exercises teaching virtual environments, pip, and requirements.txt. Install and use third-party packages.
 
 ## How to Use
