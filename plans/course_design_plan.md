@@ -208,6 +208,12 @@ Exercises within a unit follow an incremental staircase pattern:
 
 **Learning happens through iteration**, not through reading walls of text.
 
+**ONE CONCEPT PER EXERCISE.** Each exercise should teach exactly one thing:
+- ✅ GOOD: "Practice setting breakpoints"
+- ❌ BAD: "Practice setting breakpoints, stepping through code, and finding three different bugs"
+- ✅ GOOD: "Add your own print statements to debug"
+- ❌ BAD: "Debug this function using prints, then refactor it, then optimize it"
+
 Reference style from [`example/`](example/) directory.
 
 **Simple observation exercise:**
@@ -501,6 +507,9 @@ exerciseN_description.ext
 - Examples: `exercise1_hello.py`, `exercise5_string_concat.py`, `exercise1_pwd.txt`, `exercise3_cd_practice.txt`
 
 **When file type is unclear (not coding), use `.txt` files.**
+- IDE/tool instructions (VS Code debugger, terminal commands, etc.)
+- Conceptual explanations that don't involve writing code
+- Reference material or cheat sheets
 
 Each exercise must be in its own file. Never combine multiple exercises into one markdown file or instruction document.
 

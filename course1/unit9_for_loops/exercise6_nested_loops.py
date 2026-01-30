@@ -1,5 +1,13 @@
 # Nested loops - loop inside a loop
 
+# DEBUGGING TIP:
+# Nested loops can be confusing! Here's how to debug them effectively:
+# 1. Set a breakpoint at the outer loop (line 9)
+# 2. Watch the Variables panel - you'll see both 'i' and 'j' changing
+# 3. Notice how 'j' cycles through 1,2,3 for EACH value of 'i'
+# 4. Use Step Over (F10) to see the flow, or add print statements like:
+#    print(f"DEBUG: i={i}, j={j}")
+
 for i in range(1, 4):
     for j in range(1, 4):
         print(str(i) + " x " + str(j) + " = " + str(i * j))

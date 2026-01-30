@@ -1,0 +1,48 @@
+VS Code Debugger - Introduction
+================================
+
+The VS Code debugger lets you pause your program and inspect everything.
+
+KEY FEATURES:
+
+1. BREAKPOINTS
+   - Click in the left margin (gutter) next to a line number
+   - A red dot appears
+   - Program pauses RIGHT BEFORE executing that line
+   - Click again to remove
+
+2. DEBUG CONTROLS (top of screen when debugging)
+   - Continue (F5): Run until next breakpoint
+   - Step Over (F10): Execute current line, move to next
+   - Step Into (F11): Jump into function being called
+   - Step Out (Shift+F11): Finish current function
+   - Stop (Shift+F5): End debugging
+
+3. VARIABLES PANEL (left sidebar)
+   - Shows all variables in current scope
+   - Shows their current values
+   - Values that changed are highlighted
+
+4. CALL STACK (left sidebar)
+   - Shows which functions called which
+   - Click to see different scopes
+
+HOW TO START DEBUGGING:
+
+Method 1: Press F5, select "Python Debugger"
+Method 2: Right-click in editor -> "Debug Python File"
+Method 3: Click "Run and Debug" header in left sidebar
+
+STEP OVER vs STEP INTO:
+
+Step Over (F10):
+- Executes the whole line (including function calls)
+- Use this most of the time
+- Good when you trust the function
+
+Step Into (F11):
+- Jumps INSIDE function calls
+- Use when you want to see what happens inside
+- Good for debugging your own functions
+
+You'll practice these in the next exercises.

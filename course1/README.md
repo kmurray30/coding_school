@@ -39,16 +39,19 @@ You should be comfortable with:
 ### Unit 7: Loops - While (2-3 hours)
 9 exercises teaching while loops, exception handling, and control flow. Master break, continue, try/except, and the accumulator pattern.
 
-### Unit 8: Loops - For (2-3 hours)
-8 exercises teaching for loops and range(). Master iteration over sequences and nested loops.
+### Unit 8: Debugging (2-3 hours)
+9 exercises teaching print debugging and VS Code debugger. Learn to set breakpoints, step through code, and inspect variables. Master debugging techniques for branching and loops.
 
-### Unit 9: Scope (2 hours)
-7 exercises teaching local vs global scope. Learn why globals are bad and how to write cleaner functions.
+### Unit 9: Loops - For (2-3 hours)
+9 exercises teaching for loops and range(). Master iteration over sequences and nested loops. Apply debugging skills from Unit 8.
 
-### Unit 10: Mutability vs Immutability (2-3 hours)
-8 exercises teaching the difference between mutable and immutable types. Avoid common reference bugs.
+### Unit 10: Scope (2 hours)
+8 exercises teaching local vs global scope. Learn why globals are bad and how to write cleaner functions.
 
-### Unit 11: Python Environments and Dependencies (2-3 hours)
+### Unit 11: Mutability vs Immutability (2-3 hours)
+9 exercises teaching the difference between mutable and immutable types. Avoid common reference bugs.
+
+### Unit 12: Python Environments and Dependencies (2-3 hours)
 8 exercises teaching virtual environments, pip, and requirements.txt. Install and use third-party packages.
 
 ## How to Use

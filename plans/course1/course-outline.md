@@ -242,7 +242,48 @@ This course takes students from "I can run a file" to "I can write small program
 
 ---
 
-## Unit 7: Loops - For
+## Unit 7: Debugging
+
+**Core Concepts:**
+- Print debugging (adding print statements to trace execution)
+- VS Code debugger (breakpoints, step over, step into, continue)
+- Variables panel and call stack
+- When to use print debugging vs VS Code debugger
+
+**Exercise Count:** 9 exercises
+
+**Exercises:**
+
+1. **exercise1_print_observing** - [Observation] See how print statements reveal what's happening inside functions. Introduces debugging with print().
+2. **exercise2_print_practice** - [Guided] Add your own print statements to debug a function. Practice print debugging.
+3. **exercise3_debug_if** - [Semi-independent] Find a bug in if/elif/else logic using print statements. One clear bug to find.
+4. **exercise4_debug_while** - [Semi-independent] Find a bug in a while loop using print statements. One clear bug to find.
+5. **exercise5_vscode_intro** - [Reading, txt] Learn about VS Code debugger features: breakpoints, step over, step into, variables panel, call stack.
+6. **exercise6_breakpoints** - [Guided] Practice setting breakpoints and watching the Variables panel. Introduces VS Code debugger workflow.
+7. **exercise7_step_over_into** - [Guided] Practice the difference between Step Over (F10) and Step Into (F11). Understand when to use each.
+8. **exercise8_debug_with_vscode** - [Challenge] Find a bug using the VS Code debugger (no print statements). Practice inspecting variables.
+9. **exercise9_when_to_use** - [Project-scale] Understand when to use print debugging vs VS Code debugger. See both approaches in action.
+
+**Quiz Topics:**
+- What is print debugging and when is it useful?
+- What is a breakpoint?
+- What does "Step Over" do?
+- What does "Step Into" do?
+- What does "Continue" do?
+- What does the Variables panel show?
+- What does the Call Stack show?
+- When should you use print debugging vs the debugger?
+- How do you debug loops effectively?
+- How does the debugger help with understanding branching logic?
+
+**Grading Notes:**
+- Test approach: Most exercises are observation/practice based; self-validation
+- Required test coverage: Verify programs run without errors; debugging exercises are experiential
+- Special considerations: exercise4 is a text file explaining debugger concepts; exercises 5-9 teach interactive debugging skills that are difficult to auto-grade
+
+---
+
+## Unit 8: Loops - For
 
 **Core Concepts:**
 - `for` loop syntax
@@ -250,19 +291,21 @@ This course takes students from "I can run a file" to "I can write small program
 - `range()` function
 - Nested loops
 - Loop vs while (when to use which)
+- Using debugging to understand loop behavior
 
-**Exercise Count:** 8 exercises
+**Exercise Count:** 9 exercises
 
 **Exercises:**
 
+0. **exercise0_intro** - [Observation] Introduction to for loops, comparison with while loops, reminder to use debugging techniques from Unit 7.
 1. **exercise1_range_basic** - [Observation] See `for i in range(5)`, understand iteration. Introduces `for` and `range()`.
 2. **exercise2_range_params** - [Guided] Use `range(start, stop, step)` with different parameters. Reinforces `range()`.
 3. **exercise3_iterate_string** - [Semi-independent] Loop over each character in a string. Introduces string iteration.
 4. **exercise4_list_iteration** - [Semi-independent] Loop over a list of items. Introduces list iteration.
 5. **exercise5_accumulator** - [Challenge] Sum numbers using a for loop instead of while. Reinforces for loops.
-6. **exercise6_nested_loops** - [Challenge] Use nested loops to print a multiplication table. Introduces nested iteration.
+6. **exercise6_nested_loops** - [Challenge] Use nested loops to print a multiplication table. Includes debugging tips for nested loops. Introduces nested iteration.
 7. **exercise7_pattern_printing** - [Challenge] Use loops to print patterns (pyramids, diamonds). Reinforces nested loops.
-8. **exercise8_fizzbuzz** - [Project-scale] Classic FizzBuzz problem. Loop 1-100, print "Fizz" for multiples of 3, "Buzz" for multiples of 5, "FizzBuzz" for multiples of both, otherwise print the number. Integrates for loops, conditionals, and modulo operator.
+8. **exercise8_fizzbuzz** - [Project-scale] Classic FizzBuzz problem with debugging tips. Loop 1-100, print "Fizz" for multiples of 3, "Buzz" for multiples of 5, "FizzBuzz" for multiples of both, otherwise print the number. Integrates for loops, conditionals, modulo operator, and debugging skills.
 
 **Quiz Topics:**
 - What does `range(10)` produce?
@@ -279,7 +322,7 @@ This course takes students from "I can run a file" to "I can write small program
 
 ---
 
-## Unit 8: Scope
+## Unit 9: Scope
 
 **Core Concepts:**
 - Local vs global scope
@@ -287,7 +330,7 @@ This course takes students from "I can run a file" to "I can write small program
 - Variable shadowing
 - Why scope matters (avoiding bugs)
 
-**Exercise Count:** 7 exercises
+**Exercise Count:** 8 exercises
 
 **Exercises:**
 
@@ -314,7 +357,7 @@ This course takes students from "I can run a file" to "I can write small program
 
 ---
 
-## Unit 9: Mutability vs Immutability
+## Unit 10: Mutability vs Immutability
 
 **Core Concepts:**
 - Immutable types: `int`, `float`, `str`, `tuple`
@@ -322,7 +365,7 @@ This course takes students from "I can run a file" to "I can write small program
 - What it means to mutate vs reassign
 - Why mutability matters (unexpected side effects)
 
-**Exercise Count:** 8 exercises
+**Exercise Count:** 9 exercises
 
 **Exercises:**
 
@@ -350,7 +393,7 @@ This course takes students from "I can run a file" to "I can write small program
 
 ---
 
-## Unit 10: Python Environments and Dependencies
+## Unit 11: Python Environments and Dependencies
 
 **Core Concepts:**
 - Virtual environments (`venv`)
@@ -388,9 +431,9 @@ This course takes students from "I can run a file" to "I can write small program
 
 ## Final Exam
 
-**Coverage:** All 10 units, cumulative review
+**Coverage:** All 11 units, cumulative review
 
-**Question Count:** Approximately 40-50 questions
+**Question Count:** Approximately 45-55 questions
 
 **Focus Areas:**
 - Output and variables (Unit 1)
@@ -399,10 +442,11 @@ This course takes students from "I can run a file" to "I can write small program
 - Imports and libraries (Unit 4)
 - Conditionals and boolean logic (Unit 5)
 - While loops (Unit 6)
-- For loops (Unit 7)
-- Scope and globals (Unit 8)
-- Mutability vs immutability (Unit 9)
-- Virtual environments and dependencies (Unit 10)
+- Debugging techniques (Unit 7)
+- For loops (Unit 8)
+- Scope and globals (Unit 9)
+- Mutability vs immutability (Unit 10)
+- Virtual environments and dependencies (Unit 11)
 - Integration: combining multiple concepts
 
 **Question Style:**
@@ -439,11 +483,13 @@ This course takes students from "I can run a file" to "I can write small program
 
 **What Gets Auto-Graded:**
 - Units 1-3: Most exercises auto-graded; skip complex interactive programs
-- Units 4: Auto-grade import statements and basic module usage
-- Units 5-7: Auto-grade with programmatic input injection
-- Unit 8: Auto-grade scope behavior
-- Unit 9: Auto-grade mutability behavior with assertions
-- Unit 10: Mix of terminal command verification (check files exist) and code execution (if no network required)
+- Unit 4: Auto-grade import statements and basic module usage
+- Units 5-6: Auto-grade with programmatic input injection
+- Unit 7: Debugging exercises are primarily self-check/experiential; verify programs run
+- Unit 8: Auto-grade with programmatic input injection
+- Unit 9: Auto-grade scope behavior
+- Unit 10: Auto-grade mutability behavior with assertions
+- Unit 11: Mix of terminal command verification (check files exist) and code execution (if no network required)
 
 **What Stays Self-Check:**
 - Complex interactive programs with multi-step input/output

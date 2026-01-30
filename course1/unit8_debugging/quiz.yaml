@@ -1,0 +1,137 @@
+questions:
+  - id: debug_purpose
+    type: multiple_choice
+    question: What is the primary purpose of debugging?
+    options:
+      - Writing code faster
+      - Finding and fixing errors in your code
+      - Making code run faster
+      - Adding comments to code
+    correct: Finding and fixing errors in your code
+    explanation: Debugging is the process of identifying and removing errors (bugs) from your code.
+
+  - id: print_debugging
+    type: multiple_choice
+    question: |
+      What will happen when you add print() statements to debug your code?
+    options:
+      - The code will run faster
+      - You can see the values of variables at specific points during execution
+      - The code will automatically fix itself
+      - Your code will stop working
+    correct: You can see the values of variables at specific points during execution
+    explanation: Print statements let you observe what's happening in your code as it runs, showing you variable values and program flow.
+
+  - id: breakpoint
+    type: multiple_choice
+    question: What is a breakpoint in VS Code?
+    options:
+      - A point where your code breaks and stops working
+      - A line where the debugger will pause execution so you can inspect variables
+      - A syntax error in your code
+      - A place where you take a break from coding
+    correct: A line where the debugger will pause execution so you can inspect variables
+    explanation: A breakpoint is a marker you set in your code where the debugger will pause, allowing you to examine the program state.
+
+  - id: step_over
+    type: multiple_choice
+    question: What does "Step Over" (F10) do in the VS Code debugger?
+    options:
+      - Skips the current line without executing it
+      - Executes the current line and moves to the next line
+      - Jumps into the function being called on the current line
+      - Stops the debugger
+    correct: Executes the current line and moves to the next line
+    explanation: Step Over executes the entire current line (including any function calls) and moves to the next line.
+
+  - id: step_into
+    type: multiple_choice
+    question: When would you use "Step Into" (F11) instead of "Step Over" (F10)?
+    options:
+      - When you want to skip a function
+      - When you want to see what's happening inside a function call
+      - When you want to stop debugging
+      - When you want to run the entire program
+    correct: When you want to see what's happening inside a function call
+    explanation: Step Into jumps into the function being called so you can debug through it line by line.
+
+  - id: variables_panel
+    type: multiple_choice
+    question: What does the Variables panel show you in the VS Code debugger?
+    options:
+      - Only the variables that have errors
+      - All variables in the current scope and their current values
+      - Only global variables
+      - Only variables you've printed
+    correct: All variables in the current scope and their current values
+    explanation: The Variables panel displays all variables accessible at the current point of execution and their values.
+
+  - id: when_print_debug
+    type: multiple_choice
+    question: |
+      When is print debugging most useful compared to using the VS Code debugger?
+    options:
+      - When you want to see patterns across many iterations or over time
+      - When you want to step through code line by line
+      - When you want to see all variables at once
+      - Print debugging is never useful
+    correct: When you want to see patterns across many iterations or over time
+    explanation: Print debugging is great for seeing output over time and across iterations, while the debugger is better for detailed inspection at specific points.
+
+  - id: continue_button
+    type: multiple_choice
+    question: What does the "Continue" (F5) button do when debugging?
+    options:
+      - Stops the debugging session
+      - Executes one line of code
+      - Resumes running the program until the next breakpoint or the end
+      - Goes back to the previous line
+    correct: Resumes running the program until the next breakpoint or the end
+    explanation: Continue resumes normal execution until another breakpoint is hit or the program finishes.
+
+  - id: debug_loop
+    type: multiple_choice
+    question: |
+      You have a while loop that runs 100 times and has a bug.
+      What's the most efficient way to debug it?
+    options:
+      - Add print statements and review all 100 iterations in the output
+      - Set a breakpoint inside the loop and use Continue to jump to iterations of interest
+      - Remove the loop and test without it
+      - Rewrite the entire function
+    correct: Set a breakpoint inside the loop and use Continue to jump to iterations of interest
+    explanation: Setting a breakpoint and using Continue lets you skip quickly to specific iterations without seeing all the output.
+
+  - id: finding_bugs
+    type: multiple_choice
+    question: |
+      Your function should return 10, but it returns 100. What's the best first step?
+    options:
+      - Rewrite the entire function from scratch
+      - Add print statements or use the debugger to see variable values at each step
+      - Ask someone else to fix it
+      - Delete the function
+    correct: Add print statements or use the debugger to see variable values at each step
+    explanation: The best approach is to trace through your code to see where the value diverges from what you expect.
+
+  - id: call_stack
+    type: multiple_choice
+    question: What information does the Call Stack show in the debugger?
+    options:
+      - All the errors in your code
+      - The sequence of function calls that led to the current point
+      - All the variables in your program
+      - The number of times each function was called
+    correct: The sequence of function calls that led to the current point
+    explanation: The Call Stack shows which functions called which, helping you understand how you got to the current line.
+
+  - id: best_practice
+    type: multiple_choice
+    question: What's the recommended approach to debugging in general?
+    options:
+      - Only use print statements
+      - Only use the VS Code debugger
+      - Use both print debugging and the VS Code debugger depending on the situation
+      - Never debug; just rewrite code until it works
+    correct: Use both print debugging and the VS Code debugger depending on the situation
+    explanation: Both techniques have their strengths. Use print debugging for quick checks and the debugger for deep investigation.
