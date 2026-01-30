@@ -8,7 +8,7 @@ todos: []
 
 ## Overview
 
-This document defines HOW to build coding courses, regardless of specific curriculum content. It establishes the structure, file formats, grading mechanisms, and pedagogical approach for creating courses that build incrementally from beginner to competent programmer.
+This document defines HOW to build coding courses, regardless of specific curriculum content. It establishes the structure, file formats, and pedagogical approach for creating courses that build incrementally from beginner to competent programmer.
 
 ## Course Architecture
 
@@ -25,10 +25,8 @@ Each course contains:
 
 Each unit contains:
 
-1. **README.md** (short description, estimated time, how to run graders)
-2. **4-12 Exercises** (incremental progression, last 1-2 are project-scale)
-3. **1 Quiz** (single YAML file with questions, no answers)
-4. **Grader module** (`graders/unit_grader.py` and `graders/project_grader.py`)
+1. **4-12 Exercises** (incremental progression, last 1-2 are project-scale)
+2. **1 Quiz** (single YAML file with questions, no answers)
 
 ## Course Outline Document
 
@@ -63,16 +61,7 @@ A course outline should specify:
    - Rough question count
    - Final exam scope and coverage
 
-4. **Grading Considerations**
-   - Test rigor required: simple output matching vs comprehensive edge cases vs performance validation
-   - What can be auto-graded (exact output matching, pattern matching, etc.)
-   - What requires self-check only (subjective tasks, interactive programs with complex input)
-   - Edge cases and stress tests needed (especially for DSA courses)
-   - Performance/complexity requirements (e.g., must handle 10^6 elements in O(n log n))
-   - Special grading challenges for this course's content
-   - Approach for handling user input in graded exercises
-
-5. **Prerequisites & Dependencies**
+4. **Prerequisites & Dependencies**
    - What knowledge students need before starting
    - External dependencies or tools required
    - Setup instructions if needed
@@ -106,11 +95,6 @@ N. **exerciseN_final_project** - [Project-scale] Brief description. Integrates a
 - [Topic 2]
 ...
 
-**Grading Notes:**
-- Test approach: [Output matching / edge case coverage / performance validation]
-- Required test coverage: [Basic correctness / comprehensive edge cases / stress tests]
-- Special considerations: [User input handling / performance requirements / etc.]
-
 ## Unit 1: [Topic Name]
 [Same structure as Unit 0]
 
@@ -124,16 +108,6 @@ N. **exerciseN_final_project** - [Project-scale] Brief description. Integrates a
 - [Area 1]
 - [Area 2]
 ...
-
-## Overall Grading Strategy
-
-**Test Rigor:** [Simple output matching / Moderate edge case coverage / Comprehensive DSA-style testing]
-
-**Performance Requirements:** [None / Basic efficiency / Strict complexity requirements (O notation)]
-
-**Special Challenges:** [How to handle user input / testing GUI/interactive programs / etc.]
-
-**Grader Complexity:** [Simple script / Moderate test suite / Substantial test framework]
 ```
 
 ### Implementation Workflow
@@ -141,8 +115,8 @@ N. **exerciseN_final_project** - [Project-scale] Brief description. Integrates a
 1. Write `curriculum.md` (high-level topics)
 2. Write `course_outline.md` (detailed exercise plan)
 3. Implement exercises following the outline
-4. Write quizzes and graders
-5. Copy curriculum to `courseN/README.md` with grader instructions
+4. Write quizzes
+5. Copy curriculum to `courseN/README.md`
 
 The outline is the bridge between "what should we teach" and "here are the actual files."
 
@@ -269,10 +243,6 @@ print("Sample text")
 ```
 
 **NO metadata like "CONCEPT:", "THE DEAL:", "INSTRUCTIONS:", etc.** Just comments and code.
-
-### Variable Naming for Grading
-
-For exercises where students customize values, grader can parse the file for specific variable names like `your_name`, `your_word`, etc.
 
 ### Code Execution Progression
 
@@ -512,87 +482,6 @@ print(message)
 
 Keep it short. Get to the point. Let students code.
 
-## Grader System
-
-### Purpose
-
-**NOT for grading in the traditional sense.** Graders are for self-validation of understanding.
-
-Students should know if they succeeded by running their code and comparing output. Grader is just confirmation.
-
-### Grader Structure
-
-Each unit has 2+ grader modules in `graders/`:
-
-1. **`unit_grader.py`** - Tests all regular exercises in the unit
-2. **`project_grader.py`** - Tests the final project-scale exercise(s). One per project, so if more than one project, include a grader for each.
-
-**Students run:**
-```bash
-python graders/unit_grader.py
-python graders/project_grader.py
-```
-
-### Grader Implementation
-
-**Basic approach:**
-1. Execute each exercise file
-2. Capture stdout
-3. Compare to expected output (exact match or pattern)
-4. Print pass/fail for each exercise
-
-**Example grader:**
-```python
-import subprocess
-import sys
-
-def test_exercise1():
-    result = subprocess.run(['python3', 'exercise1_hello.py'], 
-                          capture_output=True, text=True)
-    expected = "Hello World!"
-    assert expected in result.stdout, f"Expected '{expected}', got '{result.stdout}'"
-    print("✓ Exercise 1 passed")
-
-def test_exercise2():
-    # ... similar
-    
-if __name__ == "__main__":
-    try:
-        test_exercise1()
-        test_exercise2()
-        # ... all exercises
-        print("\nAll exercises passed!")
-    except AssertionError as e:
-        print(f"\n✗ Failed: {e}")
-        sys.exit(1)
-```
-
-### Test Thoroughness
-
-**Graders should verify the solution actually works.** Test coverage scales naturally with problem complexity.
-
-**Simple problems = simple tests:**
-- "Print hello world" → Check output is "Hello World!"
-- Basic variable assignment → Check expected output appears
-
-**Complex problems = comprehensive tests:**
-
-For data structures, algorithms, and advanced topics, graders must verify:
-
-1. **Correctness** - Multiple test cases with known correct outputs
-2. **Edge cases** - Empty inputs, single elements, boundary conditions, maximum sizes
-3. **Performance/Complexity** - Solutions meet time/space requirements (e.g., must handle 10^6 elements, algorithm must be O(n log n) not O(n²))
-4. **Stress testing** - Large inputs, adversarial cases, random test generation
-
-**For advanced courses:**
-- Graders may be substantial codebases with test fixtures, helpers, and data generators
-- All tests are visible to students
-- Tests should be tough enough that mostly-working solutions fail
-
-**Don't over-test simple exercises.** If the exercise is "assign a variable and print it," don't write 50 test cases. Match test rigor to problem complexity.
-
-**Skip grading when irrelevant.** Just skip the grader implementation for exercises where grading is irrelevant. If all exercises in a course don't need grading, skip that grader entirely and mention that in the readme.
-
 ## File Naming Conventions
 
 ### Exercises
@@ -641,22 +530,17 @@ courseN/
 ├── README.md                           # Student-facing: prereqs, time estimates, unit overview
 ├── cheat-sheet.yaml                    # Quick reference for students who forget key concepts
 ├── unit0_topic_name/                   # Non-code unit example
-│   ├── README.md                       # Short description, time estimate, grader instructions
 │   ├── exercise1_concept.txt           # Use .txt for non-code exercises
 │   ├── exercise2_practice.txt
 │   ├── ...
 │   ├── exerciseN_project.txt           # Final 1-2 exercises are project-scale
 │   └── quiz.yaml
 ├── unit1_topic_name/                   # Code unit example
-│   ├── README.md                       # Short description, time estimate, grader instructions
 │   ├── exercise1_intro.py              # Use .py for Python code
 │   ├── exercise2_building.py
 │   ├── ...
 │   ├── exerciseN_project_scale.py      # Final 1-2 exercises are project-scale
-│   ├── quiz.yaml
-│   └── graders/
-│       ├── unit_grader.py
-│       └── project_grader.py
+│   └── quiz.yaml
 ├── unit2_topic_name/
 │   └── ...
 ├── unitN_topic_name/
@@ -708,15 +592,11 @@ Within each unit, exercises should follow this difficulty progression:
 
 ## Testing Philosophy
 
-Students should know if they succeeded WITHOUT running the grader.
+Students should know if they succeeded by running their code and comparing output.
 
 **How:**
 - Clear expected output in every exercise
 - Minimal friction - run code, compare output, iterate
-
-**Grader role:**
-- Self-validation tool
-- Confirmation, not primary feedback
 
 **Student workflow:**
 ```
@@ -726,18 +606,9 @@ Students should know if they succeeded WITHOUT running the grader.
 4. Compare to expected output
 5. Iterate until it matches
 6. Move on
-7. [End of unit] Run grader for validation
 ```
 
 ## Edge Cases & Special Considerations
-
-### Handling User Input in Grading
-
-For exercises with `input()` calls:
-
-- Provide test input programmatically
-- Or skip auto-grading and make it self-check only
-- Or provide input test cases in comments
 
 ### Managing External Dependencies
 
@@ -779,32 +650,6 @@ A well-designed course should have:
 
 ---
 
-## Unit README Format
-
-**Keep it really fucking short.** Just what students need to start the unit.
-
-**Example:**
-```markdown
-# Unit 0: Terminal/CLI Fundamentals
-
-Learn to navigate your filesystem using the command line. You'll use pwd, ls, cd, mkdir, touch, and cp.
-
-**Estimated Time:** 15 min
-
-## How to Validate
-
-At the end of the unit, run the graders to check your work:
-
-```bash
-python graders/unit_grader.py
-python graders/project_grader.py
-```
-
-Take the quiz (`quiz.yaml`) for self-reflection.
-```
-
-That's it. No wall of text. They know what to do.
-
 ## Course README Format
 
 Keep it simple. Pre-reqs + time estimates + brief unit summary + link to detailed course outline in plans.
@@ -841,14 +686,11 @@ None. Start here if you're brand new.
 
 1. Work through exercises in order
 2. Run your code and compare to expected output
-3. At end of each unit, see that unit's README for grader instructions
-4. Take quiz (quiz.yaml) for self-reflection after each unit
-5. Take final exam (final_exam.yaml) after completing all units
+3. Take quiz (quiz.yaml) for self-reflection after each unit
+4. Take final exam (final_exam.yaml) after completing all units
 ```
 
 **Keep the README concise.** Detailed exercise descriptions live in `plans/courseN/course-outline.md`.
-
-Grader instructions are in each unit's README, not the course README.
 
 ## Implementation Checklist
 
@@ -858,8 +700,6 @@ When building a new unit:
 - [ ] Outline 4-12 exercises (last 1-2 are project-scale)
 - [ ] Write minimal exercise files (reference example/)
 - [ ] Create quiz.yaml with hard-style questions
-- [ ] Build unit_grader.py and project_grader.py
-- [ ] Write unit README.md (short description, time estimate, grader instructions)
 - [ ] Test all exercises run correctly
 - [ ] Verify incremental difficulty
 
