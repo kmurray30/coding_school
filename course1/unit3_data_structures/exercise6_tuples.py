@@ -15,7 +15,7 @@ print(person_info[2])
 
 # Tuples are useful when you want data that shouldn't change
 # You CANNOT do this (it will error):
-# coordinates[0] = 15  # Error! Tuples are immutable
+# coordinates[0] = 15  # Error! Tuples are immutable.
 
 # Now create your own tuple with at least 3 items
 my_tuple = ...

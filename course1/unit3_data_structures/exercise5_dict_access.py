@@ -17,6 +17,18 @@ print(student["grade"])
 student["school"] = "Lincoln High"
 print(student)
 
+# You can also check if a key exists in the dictionary
+if "name" in student:
+    print("Name is a key in the dictionary")
+else:
+    print("Name is not a key in the dictionary")
+
+# There are all sorts of methods you can use on dictionaries, so be sure to check the documentation.
+# More on functions in the next unit.
+# A couple examples:
+print(student.keys())
+print(student.values())
+
 # Now practice with your own dictionary
 book = {
     "title": "1984",
@@ -31,6 +43,8 @@ book = {
 # Add a new key "pages" with value 328
 ...
 # Print the whole dictionary
+...
+# Check if the key "pages" exists in the dictionary
 ...
 
 # Expected output:

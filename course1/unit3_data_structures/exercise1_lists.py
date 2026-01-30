@@ -18,4 +18,4 @@ print(my_list)
 # [1, 2, 3, 4, 5]
 # ['Alice', 'Bob', 'Charlie']
 # [42, 'hello', 3.14, True]
-# (your list)
+# <your list contents>

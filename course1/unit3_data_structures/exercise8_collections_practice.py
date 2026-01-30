@@ -1,39 +1,19 @@
-# Practice combining what you've learned about data structures
+# Build a friends organizer using a dictionary of lists
 
-# Create a list of your favorite foods
-favorite_foods = ...
+# Create a dictionary where:
+# - Keys are activity names (like "gaming", "sports", "coding", etc.)
+# - Values are lists of friend names who like that activity
 
-# Add one more food to the list
+# Start with an empty dictionary
+# Add at least 3 different activities
+# Each activity should have at least 2 friends in it
+# Some friends can appear in multiple activities (we all have that one friend who does everything)
+
+# Print the dictionary to see your friend groups
+# Print just the friends who like one specific activity
+
 ...
 
-# Print the first and last items
-print(...)
-print(...)
-
-# Create a dictionary about yourself
-my_info = {
-    ...
-}
-
-# Add a new key "hobby" with your hobby
-...
-
-# Print your name from the dictionary
-print(...)
-
-# Create a tuple of three numbers
-numbers = ...
-
-# Print the middle number
-print(...)
-
-# Create a variable to track if you're done (set to None for now)
-status = ...
-print(status)
-
-# Expected output (will vary based on your data):
-# (your first food)
-# (your last food)
-# (your name)
-# (your middle number)
-# None
+# Expected output (yours will be different):
+# {'gaming': ['Alex', 'Jordan'], 'sports': ['Sam', 'Jordan', 'Casey'], 'coding': ['Alex', 'Taylor']}
+# ['Alex', 'Jordan']
