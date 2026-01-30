@@ -165,10 +165,11 @@ This course takes students from "I can run a file" to "I can write small program
 **Core Concepts:**
 - Boolean expressions (comparisons: `==`, `!=`, `<`, `>`, `<=`, `>=`)
 - Logical operators (`and`, `or`, `not`)
+- Operator precedence and parentheses
 - `if` / `elif` / `else` statements
 - Nested conditionals
 
-**Exercise Count:** 8 exercises
+**Exercise Count:** 9 exercises
 
 **Exercises:**
 
@@ -177,15 +178,18 @@ This course takes students from "I can run a file" to "I can write small program
 3. **exercise3_logical_and** - [Guided] Use `and` to combine conditions. Introduces logical operators.
 4. **exercise4_logical_or** - [Guided] Use `or` for "either condition". Reinforces logical operators.
 5. **exercise5_logical_not** - [Semi-independent] Use `not` to negate conditions. Introduces negation.
-6. **exercise6_basic_if** - [Semi-independent] Write an `if` statement that prints different output based on a condition. Introduces `if`.
-7. **exercise7_if_else_elif** - [Challenge] Use `if`, `elif`, and `else` to handle multiple cases. Introduces multi-branch logic.
-8. **exercise8_age_validator** - [Project-scale] Ask user for age, validate it's a number, check if they're a child (<13), teen (13-17), adult (18-64), or senior (65+), print appropriate message. Integrates casting, comparisons, and multi-way branching.
+6. **exercise6_operator_precedence** - [Observation] See how `not`, `and`, `or` are evaluated in order, and how parentheses change evaluation. Introduces operator precedence.
+7. **exercise7_basic_if** - [Semi-independent] Write an `if` statement that prints different output based on a condition. Introduces `if`.
+8. **exercise8_if_else_elif** - [Challenge] Use `if`, `elif`, and `else` to handle multiple cases. Introduces multi-branch logic.
+9. **exercise9_age_validator** - [Project-scale] Ask user for age, validate it's a number, check if they're a child (<13), teen (13-17), adult (18-64), or senior (65+), print appropriate message. Integrates casting, comparisons, and multi-way branching.
 
 **Quiz Topics:**
 - What comparison operators exist in Python?
 - What's the difference between `=` and `==`?
 - What does `and` require to be `True`?
 - What does `or` require to be `True`?
+- What is the order of operations for `not`, `and`, and `or`?
+- How do parentheses affect boolean expression evaluation?
 - When does an `elif` block run?
 - Can you have `elif` without `else`?
 

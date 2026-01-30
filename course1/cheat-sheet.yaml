@@ -73,6 +73,10 @@ sections:
         description: "True if at least one is True"
       - command: "not a"
         description: "Flip True/False"
+      - command: "Operator precedence"
+        description: "not (highest), then and, then or (lowest)"
+      - command: "(expression)"
+        description: "Parentheses override default precedence"
 
   - title: "Conditionals"
     items:

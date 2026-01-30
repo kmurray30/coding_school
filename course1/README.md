@@ -31,7 +31,7 @@ You should be comfortable with:
 7 exercises teaching how to import and use Python modules. Explore the standard library (math, random, datetime).
 
 ### Unit 5: Branching (2-3 hours)
-8 exercises teaching boolean logic and conditional statements. Make programs respond differently based on conditions.
+9 exercises teaching boolean logic, operator precedence, and conditional statements. Make programs respond differently based on conditions.
 
 ### Unit 6: Loops - While (2-3 hours)
 8 exercises teaching while loops. Master break, continue, and the accumulator pattern.
