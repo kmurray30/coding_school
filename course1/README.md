@@ -4,7 +4,7 @@ Learn to write small programs with control flow, functions, and proper dependenc
 
 **For detailed course outline and exercise descriptions, see:** [../plans/course1/course-outline.md](../plans/course1/course-outline.md)
 
-**Estimated Total Time:** 7h
+**Estimated Total Time:** 9h
 
 ## Prerequisites
 
@@ -54,7 +54,7 @@ You should be comfortable with:
 ### Unit 12: Python Environments and Dependencies (30 min)
 8 exercises teaching virtual environments, pip, and requirements.txt. Install and use third-party packages.
 
-### Final Project (60 min)
+### Final Project (3 hours)
 Creative capstone project combining all course concepts. Build a personal tracker with menu system, data storage, stats calculation, and user input validation.
 
 ## How to Use
