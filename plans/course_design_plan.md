@@ -194,10 +194,12 @@ Exercises within a unit follow an incremental staircase pattern:
 
 4. **Project Exercises** (1-2 exercises at end of unit)
 
-   - Requirements only, NO code scaffolding
+   - Creative goals only, NO code scaffolding
    - Combines ALL concepts from the unit
    - Larger scope than regular exercises
-   - Conceptual instructions only - no code syntax hints
+   - Open-ended and fun - let students make it their own
+   - Describe the scenario/goal, not step-by-step instructions
+   - No prescriptive "do this, then this, then this" - give them freedom
 
 ### Exercise File Format
 
@@ -233,19 +235,22 @@ print("Sample text")
 # Expected output: Hello World!
 ```
 
-**Larger exercise (still minimal):**
+**Combining concepts (open-ended):**
 ```python
-# Write a program to ask for the user's name and print a greeting.
-# Convert the name to uppercase.
-# Then tell them how long their name is.
+# Build a simple name badge generator.
+# Ask for the user's name.
+# Make the badge show their name in uppercase and tell them something about it.
 
 ...
 
-# Expected output:
-# Type your name
-# (wait for user input)
-# Hello <NAME>!
-# Your name is <length of name> letters long.
+# Expected output (will vary):
+# What's your name?
+# (user types name)
+# 
+# ==================
+# HELLO, ALEX!
+# Your name has 4 letters.
+# ==================
 ```
 
 **NO metadata like "CONCEPT:", "THE DEAL:", "INSTRUCTIONS:", etc.** Just comments and code.
@@ -277,43 +282,60 @@ print("Sample text")
 **NO separate project files.** The last 1-2 exercises in each unit are project-scale:
 - Larger scope than earlier exercises
 - Combine multiple concepts from the unit
-- More open-ended
-- **NO CODE SCAFFOLDING** - just instructions for what to build
-- **Instructions describe WHAT to do, not HOW to code it**
+- **Creative and open-ended** - give students freedom to make it their own
+- **NO CODE SCAFFOLDING** - just describe the goal
+- **Instructions describe WHAT to build, not HOW to code it**
   - ✅ "Create a loop that prints each item"
   - ❌ "Create a loop using for i in range(1, 4)"
   - ✅ "Ask the user for their name"
   - ❌ "Use input() to get the user's name"
   - Let students choose their own implementation approach
 
-**CRITICAL:** Project exercises should be **requirements only**, not code with blanks to fill in.
+**CRITICAL:** Project exercises should be **creative goals**, not step-by-step instructions.
 
-- ❌ BAD: Providing all the code structure with `...` for students to fill in
+- ❌ BAD: Step-by-step instructions ("First create X, then add Y, then print Z")
+- ❌ BAD: Providing code structure with `...` for students to fill in
 - ❌ BAD: Showing variable names, function calls, or specific implementation details
-- ✅ GOOD: Describing the desired functionality and expected behavior
-- ✅ GOOD: Showing only expected input/output
+- ❌ BAD: Requiring exact output format or specific variable names
+- ✅ GOOD: Describing a creative goal or scenario
+- ✅ GOOD: Letting students choose their own data and implementation
+- ✅ GOOD: Showing example output that varies ("yours will be different")
+- ✅ GOOD: Making it relatable and fun
 
-**Example (final exercise in loops unit):**
+**Example 1 (creative and open-ended):**
 ```python
-# Create an asterisk pyramid.
-# Ask user for height, then print a pyramid that tall.
-# Each row should have the right number of spaces and stars to form a pyramid.
+# Build a friends organizer using a dictionary of lists
 
-# Expected output (if user enters 5):
-#     *
-#    ***
-#   *****
-#  *******
-# *********
+# Create a dictionary where:
+# - Keys are activity names (like "gaming", "sports", "coding", etc.)
+# - Values are lists of friend names who like that activity
+
+# Start with an empty dictionary
+# Add at least 3 different activities
+# Each activity should have at least 2 friends in it
+# Some friends can appear in multiple activities (we all have that one friend who does everything)
+
+# Print the dictionary to see your friend groups
+# Print just the friends who like one specific activity
+# Print how many total activities you have
+
+...
+
+# Expected output (yours will be different):
+# {'gaming': ['Alex', 'Jordan'], 'sports': ['Sam', 'Jordan', 'Casey'], 'coding': ['Alex', 'Taylor']}
+# ['Alex', 'Jordan']
+# 3
 ```
 
-**Example (final exercise with user input):**
+**Example 2 (creative scenario):**
 ```python
 # Build a Mad Libs program.
 # Ask the user for a noun, verb, and adjective.
 # Use their words to create a short story and print it.
 
-# Expected output:
+...
+
+# Expected output (will vary):
 # Give me a noun:
 # (user types something)
 # Give me a verb:
@@ -325,7 +347,32 @@ print("Sample text")
 # The end!
 ```
 
-No code scaffolding. Just requirements and expected behavior.
+**Example 3 (too prescriptive - DON'T DO THIS):**
+```python
+# ❌ BAD - Too step-by-step and prescriptive
+
+# Create a list of your favorite foods
+favorite_foods = ...
+
+# Add one more food to the list
+...
+
+# Print the first and last items
+print(...)
+print(...)
+
+# Create a dictionary about yourself
+my_info = {
+    ...
+}
+
+# Add a new key "hobby" with your hobby
+...
+
+# This is boring and mechanical. Make it creative instead!
+```
+
+No code scaffolding. Just creative goals and freedom to implement.
 
 ## Quiz & Exam Design
 
