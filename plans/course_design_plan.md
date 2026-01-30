@@ -17,6 +17,7 @@ This document defines HOW to build coding courses, regardless of specific curric
 Each course contains:
 
 - **N Units** (typically 6-12 units per course)
+- **1 Final Project** (creative, open-ended exercise incorporating all course concepts)
 - **1 Final Exam** (single YAML file with questions, no answers)
 - **1 Cheat Sheet** (single YAML file with quick reference info for later lookup)
 - **README.md** (pre-reqs, time estimates, and simple course outline)
@@ -374,6 +375,24 @@ my_info = {
 
 No code scaffolding. Just creative goals and freedom to implement.
 
+## Final Projects (End of Course)
+
+Each course should include a final project that mirrors the loose, creative style of unit project exercises but with broader scope.
+
+**Characteristics:**
+- Incorporates ALL major concepts learned throughout the course
+- Creative and open-ended goal (NO step-by-step instructions)
+- NO code scaffolding - describe the scenario, not the implementation
+- Students choose their own data, approach, and creative direction
+- Multiple valid solutions possible
+
+**File:** `final_project.py` (or appropriate extension) in course root directory
+
+**Similar to unit project exercises but:**
+- Larger scope (combines concepts from multiple units, not just one)
+- More freedom and creativity
+- Should feel like a capstone accomplishment
+
 ## Quiz & Exam Design
 
 ### Quiz Structure (End of Unit)
@@ -601,6 +620,7 @@ courseN/
 │   └── ...
 ├── unitN_topic_name/
 │   └── ...
+├── final_project.py                    # Creative capstone combining all course concepts
 └── final_exam.yaml
 ```
 
@@ -734,9 +754,12 @@ None. Start here if you're brand new.
 ### Unit 2: Running Python (20 min)
 8 Python exercises teaching how to create .py files, run them, and read errors.
 
+### Final Project (15 min)
+Creative capstone exercise incorporating all course concepts.
+
 ### Final Exam (10 min)
 
-**Estimated Total Time:** 55 min
+**Estimated Total Time:** 70 min
 
 ## How to Use
 
@@ -764,6 +787,7 @@ When building a new course:
 - [ ] Write curriculum.md (high-level topics and goals)
 - [ ] Write course_outline.md (detailed exercise-by-exercise plan)
 - [ ] Build all units following unit checklist and the outline
+- [ ] Create final_project (creative exercise incorporating all course concepts)
 - [ ] Create final_exam.yaml
 - [ ] Create cheat-sheet.yaml (quick reference for later lookup)
 - [ ] Write course README.md (student-facing version of curriculum + time estimates)
