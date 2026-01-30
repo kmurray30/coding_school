@@ -34,7 +34,7 @@ You should be comfortable with:
 9 exercises teaching boolean logic, operator precedence, and conditional statements. Make programs respond differently based on conditions.
 
 ### Unit 6: Loops - While (2-3 hours)
-8 exercises teaching while loops. Master break, continue, and the accumulator pattern.
+9 exercises teaching while loops, exception handling, and control flow. Master break, continue, try/except, and the accumulator pattern.
 
 ### Unit 7: Loops - For (2-3 hours)
 8 exercises teaching for loops and range(). Master iteration over sequences and nested loops.

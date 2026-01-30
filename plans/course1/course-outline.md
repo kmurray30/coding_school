@@ -208,8 +208,9 @@ This course takes students from "I can run a file" to "I can write small program
 - Infinite loops (and how to avoid them)
 - Loop counters
 - `break` and `continue`
+- Exception handling with `try`/`except`
 
-**Exercise Count:** 8 exercises
+**Exercise Count:** 9 exercises
 
 **Exercises:**
 
@@ -219,8 +220,9 @@ This course takes students from "I can run a file" to "I can write small program
 4. **exercise4_accumulator** - [Semi-independent] Use a loop to sum numbers from 1 to 10. Introduces accumulator pattern.
 5. **exercise5_break** - [Guided] Use `break` to exit a loop early. Introduces `break`.
 6. **exercise6_continue** - [Guided] Use `continue` to skip loop iterations. Introduces `continue`.
-7. **exercise7_validation_loop** - [Challenge] Keep asking user for input until they provide a valid number. Combines loops, casting, and error handling.
-8. **exercise8_guessing_game** - [Project-scale] Create a number guessing game. Generate random number, loop while user hasn't guessed it, give "higher" or "lower" hints, count attempts, congratulate when correct. Integrates while loops, conditionals, random, and user input.
+7. **exercise7_try_except** - [Observation] See how try/except blocks handle errors gracefully. Introduces exception handling with ValueError, IndexError, and ZeroDivisionError.
+8. **exercise8_validation_loop** - [Challenge] Keep asking user for input until they provide a valid number. Combines loops, casting, and try/except for error handling.
+9. **exercise9_guessing_game** - [Project-scale] Create a number guessing game. Generate random number, loop while user hasn't guessed it, give "higher" or "lower" hints, count attempts, congratulate when correct. Integrates while loops, conditionals, random, and user input.
 
 **Quiz Topics:**
 - What does a `while` loop do?
@@ -229,6 +231,9 @@ This course takes students from "I can run a file" to "I can write small program
 - What does `break` do?
 - What does `continue` do?
 - What's an accumulator?
+- What does a try/except block do?
+- What happens if no error occurs in a try block?
+- What is a ValueError and when does it occur?
 
 **Grading Notes:**
 - Test approach: Provide programmatic input to test loop behavior

@@ -52,6 +52,11 @@ questions:
   - "What statement skips to the next iteration of a loop?"
   - "What's an infinite loop?"
   - "What's the accumulator pattern?"
+  - "What does a try/except block do?"
+  - "Write a try/except block that catches a ValueError when converting user input to int."
+  - "What happens if an error occurs in the try block?"
+  - "What happens if no error occurs in the try block?"
+  - "Can you have multiple except blocks?"
 
   # Unit 7: For Loops
   - "What does range(10) produce?"

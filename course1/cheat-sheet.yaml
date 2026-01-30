@@ -96,6 +96,19 @@ sections:
       - command: "continue"
         description: "Skip to next iteration"
 
+  - title: "Exception Handling"
+    items:
+      - command: "try:"
+        description: "Start a try block (risky code goes here)"
+      - command: "except ErrorType:"
+        description: "Handle a specific error type"
+      - command: "ValueError"
+        description: "Error when converting invalid data (e.g., int('hello'))"
+      - command: "IndexError"
+        description: "Error when accessing invalid list index"
+      - command: "ZeroDivisionError"
+        description: "Error when dividing by zero"
+
   - title: "For Loops"
     items:
       - command: "for item in sequence:"
