@@ -1,0 +1,113 @@
+Why Database Migrations Exist
+
+THE PROBLEM
+-----------
+Your database schema will change over time.
+
+Week 1: Users table with username and email
+Week 2: Add password_hash column
+Week 3: Add profile_image_url column
+Week 4: Add created_at timestamp
+Week 5: Rename username to display_name
+
+How do you apply these changes to:
+- Your local development database
+- Your teammate's database
+- Staging environment
+- Production database
+
+Without migrations:
+- Manual SQL commands (error-prone)
+- Documentation that gets outdated
+- Different environments drift out of sync
+- Production breaks because you forgot to add a column
+
+
+THE SOLUTION: MIGRATIONS
+-------------------------
+Version control for your database schema.
+
+Each change is a migration file with:
+- upgrade() - how to apply the change
+- downgrade() - how to reverse it
+
+Migration files are committed to git.
+Everyone runs the same migrations.
+Database schema stays in sync.
+
+
+EXAMPLE WITHOUT MIGRATIONS:
+----------------------------
+Developer A adds a column locally.
+Developer B pulls code, runs tests → breaks (column missing).
+Developer B manually adds column (maybe wrong type).
+Push to production → forgot to add column → site down.
+
+
+EXAMPLE WITH MIGRATIONS:
+-------------------------
+1. Developer A: changes model, runs `alembic revision --autogenerate`
+2. Alembic creates migration file: "0002_add_password_hash.py"
+3. Developer A: runs `alembic upgrade head` (applies migration locally)
+4. Developer A: commits migration file to git
+5. Developer B: pulls code, runs `alembic upgrade head`
+6. Developer B: database automatically updated
+7. Deploy to production: run `alembic upgrade head`
+8. Everyone's database has the same schema
+
+
+ALEMBIC
+-------
+Migration tool for SQLAlchemy.
+Tracks which migrations have been applied.
+Can auto-generate migrations from model changes.
+Can roll back migrations if something goes wrong.
+
+
+KEY COMMANDS:
+-------------
+alembic init migrations         # Set up alembic
+alembic revision -m "message"   # Create empty migration
+alembic revision --autogenerate # Auto-generate from model changes
+alembic upgrade head            # Apply all pending migrations
+alembic downgrade -1            # Roll back one migration
+alembic current                 # Show current version
+alembic history                 # Show all migrations
+
+
+MIGRATION FILE STRUCTURE:
+-------------------------
+def upgrade():
+    # SQL to apply changes
+    op.add_column('users', sa.Column('age', sa.Integer()))
+
+def downgrade():
+    # SQL to reverse changes
+    op.drop_column('users', 'age')
+
+
+CRITICAL RULES:
+---------------
+1. NEVER edit an applied migration (create a new one instead)
+2. ALWAYS test downgrade before deploying
+3. NEVER delete migration files
+4. Migrations run in order (0001, 0002, 0003...)
+5. Each migration should be reversible
+
+
+WHEN MIGRATIONS SAVE YOUR ASS:
+-------------------------------
+Scenario: Deploy new feature, database migration fails halfway.
+Without migrations: Database is in unknown state. Panic.
+With migrations: Run `alembic downgrade -1`, fix migration, try again.
+
+Scenario: Feature causes production issues, need to rollback.
+Without migrations: Manual SQL to undo changes. Hope you remember what you did.
+With migrations: Run `alembic downgrade -1`, database reverts cleanly.
+
+
+THE BOTTOM LINE:
+----------------
+Migrations are version control for your database.
+You wouldn't deploy code without git.
+Don't deploy database changes without migrations.

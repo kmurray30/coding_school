@@ -1,0 +1,148 @@
+Isolation Levels - How Transactions See Each Other
+
+THE PROBLEM
+-----------
+Multiple transactions running at the same time.
+How much can they see of each other's uncommitted changes?
+
+Stricter isolation = safer but slower
+Looser isolation = faster but risk weird behaviors
+
+
+THE FOUR LEVELS (strictest to loosest)
+---------------------------------------
+
+1. SERIALIZABLE (strictest)
+   - Transactions appear to run one after another (serialized)
+   - Safest, slowest
+   - Use when correctness is critical (financial transactions)
+
+2. REPEATABLE READ
+   - Once you read a row, it won't change during your transaction
+   - Others can insert new rows (phantom reads possible)
+   - PostgreSQL default
+
+3. READ COMMITTED
+   - You only see committed changes from other transactions
+   - Row you read might change if another transaction commits
+   - Most common level
+
+4. READ UNCOMMITTED (loosest)
+   - Can see other transactions' uncommitted changes
+   - Rarely used (too risky)
+
+
+ANOMALIES (weird behaviors from weak isolation)
+------------------------------------------------
+
+DIRTY READ:
+Transaction A changes data but hasn't committed.
+Transaction B reads the uncommitted change.
+Transaction A rolls back.
+Transaction B saw data that never existed.
+
+Example:
+- A: Set price to $50 (not committed)
+- B: Read price → sees $50
+- A: Rollback (price back to $100)
+- B thinks price is $50, but it's actually $100
+
+
+NON-REPEATABLE READ:
+Transaction reads same row twice, gets different values.
+
+Example:
+- A: Read price → $100
+- B: Update price to $50, commit
+- A: Read price again → $50
+Same transaction, different results.
+
+
+PHANTOM READ:
+Transaction runs same query twice, gets different rows.
+
+Example:
+- A: Count products with price < $100 → finds 5 products
+- B: Insert new product with price $50, commit
+- A: Count products with price < $100 → finds 6 products
+A new row appeared (phantom).
+
+
+ISOLATION LEVEL VS ANOMALIES
+-----------------------------
+                    Dirty Read  Non-Repeatable  Phantom
+READ UNCOMMITTED    Possible    Possible        Possible
+READ COMMITTED      Prevented   Possible        Possible
+REPEATABLE READ     Prevented   Prevented       Possible
+SERIALIZABLE        Prevented   Prevented       Prevented
+
+
+CHOOSING ISOLATION LEVEL
+-------------------------
+Use SERIALIZABLE when:
+- Financial transactions
+- Inventory management
+- Anything where race conditions would be disastrous
+
+Use REPEATABLE READ when:
+- Generating reports (data shouldn't change during report)
+- Batch operations
+- PostgreSQL's default - good for most cases
+
+Use READ COMMITTED when:
+- High-traffic reads
+- Don't need perfect consistency
+- Can tolerate occasional stale data
+
+Use READ UNCOMMITTED when:
+- Almost never (too risky)
+
+
+SETTING ISOLATION LEVEL IN SQLALCHEMY
+--------------------------------------
+from sqlalchemy import create_engine
+
+# Set for all connections
+engine = create_engine(
+    'postgresql://...',
+    isolation_level="REPEATABLE READ"
+)
+
+# Or per-transaction
+with session.begin():
+    session.connection(execution_options={'isolation_level': 'SERIALIZABLE'})
+    # Your transaction code here
+
+
+PERFORMANCE TRADE-OFF
+---------------------
+Stricter isolation = more locking = slower
+Looser isolation = less locking = faster, but risk anomalies
+
+Don't default to SERIALIZABLE everywhere - it's expensive.
+Use the weakest isolation that keeps your data safe.
+
+
+REAL-WORLD EXAMPLE
+------------------
+E-commerce: Last item in stock
+
+READ COMMITTED (too weak):
+- User A: Check stock → 1 item
+- User B: Check stock → 1 item
+- User A: Buy item → stock = 0
+- User B: Buy item → stock = -1 (oops!)
+
+REPEATABLE READ (better):
+- User A: Check stock → 1 item (locks row)
+- User B: Check stock → waits for A's transaction
+- User A: Buy item, commit → stock = 0
+- User B: Check stock → 0 items, can't buy
+
+
+THE BOTTOM LINE
+---------------
+Isolation prevents race conditions.
+PostgreSQL defaults to REPEATABLE READ (good choice).
+Use SERIALIZABLE for critical operations.
+Understand the trade-offs - correctness vs performance.

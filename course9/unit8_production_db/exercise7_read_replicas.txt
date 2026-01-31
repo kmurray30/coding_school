@@ -1,0 +1,184 @@
+Read Replicas - Scaling Database Reads
+
+THE CONCEPT
+-----------
+One primary database (writes)
+Multiple replica databases (reads)
+
+Writes → Primary DB
+Reads → Replica DBs (load balanced)
+
+Primary replicates data to replicas (async or sync).
+
+
+WHY READ REPLICAS?
+------------------
+Most applications: 90% reads, 10% writes
+
+Example: Social media
+- Reading posts: thousands/second
+- Creating posts: hundreds/second
+
+Without replicas: All reads and writes hit one database (bottleneck)
+With replicas: Writes hit primary, reads split across 3 replicas (3x read capacity)
+
+
+HOW IT WORKS
+------------
+1. Write goes to primary DB
+2. Primary logs the change
+3. Primary sends change to replicas
+4. Replicas apply the change
+
+Replication lag: Time between write on primary and availability on replica
+Usually milliseconds, can be seconds under load.
+
+
+REPLICATION LAG PROBLEM
+-----------------------
+User writes a post → Primary DB
+User immediately tries to read their post → Replica DB (not replicated yet)
+User sees: Post doesn't exist (even though they just created it!)
+
+This is called "read-your-writes" inconsistency.
+
+
+SOLUTIONS TO REPLICATION LAG
+-----------------------------
+1. Read from primary after write (for that user's session)
+2. Wait for replication before redirecting
+3. Accept eventual consistency (most cases)
+4. Use sticky sessions (same user → same replica)
+
+
+SETUP IN SQLALCHEMY
+-------------------
+Two engines: one for writes, one for reads
+
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+# Primary (writes)
+primary_engine = create_engine('postgresql://primary-db:5432/mydb')
+
+# Replica (reads)
+replica_engine = create_engine('postgresql://replica-db:5432/mydb')
+
+# Separate session makers
+WriterSession = sessionmaker(bind=primary_engine)
+ReaderSession = sessionmaker(bind=replica_engine)
+
+# In routes:
+def create_post(data):
+    session = WriterSession()  # Use primary for writes
+    post = Post(**data)
+    session.add(post)
+    session.commit()
+    return post
+
+def list_posts():
+    session = ReaderSession()  # Use replica for reads
+    return session.query(Post).all()
+
+
+ROUTING STRATEGY
+----------------
+Writes (INSERT, UPDATE, DELETE) → Primary
+Reads (SELECT) → Replicas
+
+In FastAPI:
+def get_writer_db():
+    db = WriterSession()
+    try:
+        yield db
+    finally:
+        db.close()
+
+def get_reader_db():
+    db = ReaderSession()
+    try:
+        yield db
+    finally:
+        db.close()
+
+@app.post("/posts")
+def create(db: Session = Depends(get_writer_db)):
+    ...
+
+@app.get("/posts")
+def list_posts(db: Session = Depends(get_reader_db)):
+    ...
+
+
+MULTIPLE REPLICAS
+-----------------
+Load balance reads across replicas:
+
+replicas = [
+    'postgresql://replica1:5432/mydb',
+    'postgresql://replica2:5432/mydb',
+    'postgresql://replica3:5432/mydb',
+]
+
+import random
+replica_url = random.choice(replicas)
+replica_engine = create_engine(replica_url)
+
+
+WHEN TO USE READ REPLICAS
+--------------------------
+✅ High read-to-write ratio (10:1 or more)
+✅ Read queries are slow/expensive
+✅ Single database can't handle traffic
+✅ Geographic distribution (replica in each region)
+
+❌ Write-heavy application (replicas don't help writes)
+❌ Small traffic (unnecessary complexity)
+❌ Need strong consistency (replication lag is unacceptable)
+
+
+REPLICATION TYPES
+-----------------
+Synchronous: Write waits until replicas confirm
+- Pros: No lag, strong consistency
+- Cons: Slower writes, primary waits for replicas
+
+Asynchronous: Write returns immediately, replicas catch up
+- Pros: Fast writes
+- Cons: Replication lag, eventual consistency
+
+
+FAILOVER
+--------
+If primary fails, promote a replica to primary.
+
+Automatic failover:
+- Cloud providers handle this (RDS, Cloud SQL)
+- Replica becomes new primary
+- Other replicas start replicating from new primary
+
+
+MONITORING
+----------
+Watch:
+- Replication lag (should be <1s usually)
+- Replica CPU/memory (are they overloaded?)
+- Connection counts on each replica
+- Failed replication events
+
+
+COST
+----
+Each replica = another database server
+3 replicas = 3x database cost
+
+But cheaper than:
+- Scaling primary vertically (huge expensive server)
+- Application downtime from overload
+
+
+THE RULE
+--------
+Most apps don't need read replicas initially.
+Add when single database can't handle read traffic.
+Measure first, add complexity only when needed.

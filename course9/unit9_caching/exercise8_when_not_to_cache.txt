@@ -1,0 +1,216 @@
+When Caching Makes Things WORSE
+
+ANTI-PATTERN #1: Caching Personalized Data
+-------------------------------------------
+Problem: Every user gets different data (no reuse)
+
+Bad:
+cache.set(f'recommendations:{user_id}', recommendations)
+
+Result:
+- 1 million users = 1 million cache entries
+- Each entry used once (0% reuse)
+- Cache memory wasted
+- No performance gain
+
+Better:
+- Cache shared data (product catalog)
+- Compute personalized parts on-demand
+
+
+ANTI-PATTERN #2: Caching Unique Queries
+----------------------------------------
+Problem: Every query is different
+
+Bad:
+Caching search results for every possible search term
+- "red shoes" → cache
+- "blue shoes" → cache
+- "green shoes" → cache
+- Infinite variations, each used once
+
+Result:
+- Cache fills with junk
+- Low hit rate (<5%)
+- Wasted memory
+
+Better:
+- Cache only popular searches
+- Cache product catalog instead
+- Use database indexes for search
+
+
+ANTI-PATTERN #3: Caching Fast Operations
+-----------------------------------------
+Problem: Caching is slower than the original
+
+Bad:
+cache.set('2+2', '4')
+result = cache.get('2+2')
+
+Result:
+- Network round-trip to Redis: 1ms
+- Computing 2+2: 0.000001ms
+- You made it 1000x slower!
+
+Better:
+- Only cache expensive operations
+- Profile before caching
+
+
+ANTI-PATTERN #4: No TTL
+-----------------------
+Problem: Stale data lives forever
+
+Bad:
+cache.set('user:1', user_data)  # No expiration
+
+Result:
+- User updates profile → cache still has old data
+- User sees old data forever
+- Manual cache clearing required
+
+Better:
+- Always set TTL: cache.set('user:1', data, ex=300)
+- Or invalidate on write
+
+
+ANTI-PATTERN #5: Caching Errors
+--------------------------------
+Problem: Cache the error, serve it to everyone
+
+Bad:
+try:
+    result = expensive_operation()
+except Exception as e:
+    result = str(e)
+cache.set('result', result)  # Oops, cached the error!
+
+Result:
+- First user gets error
+- Error is cached
+- All subsequent users get cached error
+- Even after problem is fixed
+
+Better:
+- Only cache successful results
+- Check for errors before caching
+
+
+ANTI-PATTERN #6: Cache Stampede
+--------------------------------
+Problem: Cache expires, 1000 requests hit database at once
+
+Scenario:
+- Popular page cached with 1-minute TTL
+- 1000 requests/second
+- Cache expires
+- All 1000 current requests miss cache
+- All 1000 query database simultaneously
+- Database crashes
+
+Better:
+- Use cache locking
+- Probabilistic early expiration
+- Background refresh before expiry
+
+
+ANTI-PATTERN #7: Caching Write-Heavy Data
+------------------------------------------
+Problem: Data changes constantly
+
+Bad:
+Caching real-time stock prices that change every second
+cache.set('stock:AAPL', price, ex=1)
+
+Result:
+- Writes to cache every second
+- TTL so short, cache rarely hit
+- Added latency with no benefit
+
+Better:
+- Don't cache
+- Use database directly
+
+
+ANTI-PATTERN #8: Over-Caching
+------------------------------
+Problem: Cache everything "just in case"
+
+Bad:
+- Cache all 10 million products
+- Cache all user sessions
+- Cache all historical data
+
+Result:
+- Redis runs out of memory
+- Evicts important data to make room
+- Cache hit rate drops
+- Performance degrades
+
+Better:
+- Cache the 20% of data that gets 80% of requests
+- Monitor cache memory usage
+- Set maxmemory-policy in Redis
+
+
+ANTI-PATTERN #9: No Monitoring
+-------------------------------
+Problem: Don't know if cache is helping
+
+Result:
+- Cache hit rate: 5% (terrible)
+- Memory usage: 95% (almost full)
+- But you don't know, so you don't fix it
+
+Better:
+- Monitor hit rate (should be >80%)
+- Monitor memory usage
+- Monitor eviction rate
+- Adjust based on metrics
+
+
+ANTI-PATTERN #10: Caching Secrets
+----------------------------------
+Problem: Sensitive data in cache
+
+Bad:
+cache.set(f'session:{token}', {'user_id': 1, 'password': 'secret123'})
+
+Result:
+- Passwords in cache (unencrypted)
+- Redis memory dump leaks secrets
+- Security violation
+
+Better:
+- Never cache passwords
+- Cache session ID only
+- Encrypt sensitive cached data
+
+
+WHEN NOT TO CACHE
+-----------------
+❌ Data that changes faster than TTL
+❌ Personalized/unique data with no reuse
+❌ Already fast operations
+❌ Data that must be 100% accurate (financial, medical)
+❌ Sensitive data (passwords, tokens)
+❌ Data larger than available cache memory
+❌ Unique queries with no patterns
+
+
+SIGNS CACHING ISN'T WORKING
+----------------------------
+- Cache hit rate < 50%
+- Cache memory constantly full
+- High eviction rate
+- Response times didn't improve
+- Database load didn't decrease
+
+
+THE RULE
+--------
+Measure before caching.
+Measure after caching.
+If hit rate < 80%, investigate why.
+Don't cache for the sake of caching.

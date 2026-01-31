@@ -1,0 +1,138 @@
+Offset vs Cursor Pagination - When to Use Which
+
+OFFSET PAGINATION
+-----------------
+SQL: SELECT * FROM posts ORDER BY id LIMIT 10 OFFSET 20
+
+How it works:
+- Database finds all matching rows
+- Skips OFFSET rows
+- Returns LIMIT rows
+
+Pros:
+✅ Simple to implement
+✅ Can jump to any page (page 1, 50, 100)
+✅ Shows page numbers (familiar UI)
+✅ User can bookmark specific pages
+
+Cons:
+❌ Slow for large offsets (page 1000 scans 10000 rows to skip them)
+❌ Inconsistent results if data changes between pages
+❌ Duplicate or missing items when sorting by non-unique column
+
+Example of inconsistency:
+User on page 2 → New item inserted at top → User clicks page 3 → Sees duplicate
+User on page 2 → Item deleted from page 1 → User clicks page 3 → Misses an item
+
+
+CURSOR PAGINATION
+-----------------
+SQL: SELECT * FROM posts WHERE id > 20 ORDER BY id LIMIT 10
+
+How it works:
+- Use last seen value as cursor (usually ID or timestamp)
+- Query items after cursor
+- Return next batch
+
+Pros:
+✅ Always fast (no offset scanning, uses index)
+✅ Stable results (data changes don't affect pagination)
+✅ Efficient for infinite scroll
+✅ Works at any scale
+
+Cons:
+❌ Can't jump to arbitrary pages
+❌ Can't show total page count
+❌ Harder to implement (need to track cursor)
+❌ Can't go backwards easily
+
+Example API:
+GET /posts?limit=10
+  Response: {posts: [...], next_cursor: "post_id_20"}
+GET /posts?limit=10&after=post_id_20
+  Response: {posts: [...], next_cursor: "post_id_30"}
+
+
+WHEN OFFSET BREAKS AT SCALE
+----------------------------
+Scenario: 1 million posts, 10 per page
+
+Page 1: OFFSET 0 LIMIT 10 → Fast (0.001s)
+Page 100: OFFSET 990 LIMIT 10 → Slow (0.01s)
+Page 10000: OFFSET 99990 LIMIT 10 → Very slow (0.5s)
+Page 100000: OFFSET 999990 LIMIT 10 → Timeout (5s+)
+
+Database scans 999990 rows just to skip them. Terrible.
+
+
+WHEN CURSOR BREAKS
+------------------
+- User wants to jump to page 50 (can't do it)
+- User wants to see "showing 1-10 of 1000" (don't know total)
+- User wants page numbers at bottom (no page numbers)
+
+
+REAL-WORLD EXAMPLES
+-------------------
+Google Search: Offset
+- "Page 2, 3, 4..." at bottom
+- Can jump to page 10
+- But Google limits to ~1000 results (offset breaks after that)
+
+Twitter/Instagram Feed: Cursor
+- Infinite scroll
+- Can't jump to "page 50"
+- New tweets don't mess up your scroll
+
+GitHub Issues: Offset
+- Page numbers
+- Small-ish datasets per repo
+- Can jump to last page
+
+Facebook News Feed: Cursor
+- Infinite scroll
+- Huge dataset
+- Always fast
+
+
+HYBRID APPROACH
+---------------
+First 10 pages: Use offset (let users page through)
+After page 10: Switch to cursor (performance matters)
+
+Or limit offset:
+if offset > 1000:
+    return "Please use filters to narrow results"
+
+
+THE DECISION MATRIX
+-------------------
+Small dataset (<10k rows) → Offset is fine
+Large dataset (>100k rows) → Use cursor
+Need page numbers → Offset
+Infinite scroll → Cursor
+Social feed → Cursor
+Admin dashboard → Offset
+Public API at scale → Cursor
+Internal tool → Offset
+
+
+API DESIGN
+----------
+Offset:
+GET /posts?page=2&per_page=10
+
+Cursor:
+GET /posts?after=abc123&limit=10
+Response includes next cursor
+
+Both:
+GET /posts?page=2&per_page=10  (small offsets)
+GET /posts?after=abc123&limit=10  (large datasets)
+
+
+THE RULE
+--------
+Default to offset for simplicity.
+Switch to cursor when you measure slow queries.
+Don't prematurely optimize.

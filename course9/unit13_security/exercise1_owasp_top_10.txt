@@ -1,0 +1,207 @@
+OWASP Top 10 - Critical Security Risks
+
+OWASP = Open Web Application Security Project
+Top 10 = Most critical web application security risks
+
+Updated regularly. Focus on practical defenses, not fear.
+
+
+1. BROKEN ACCESS CONTROL
+-------------------------
+Users can access data/functions they shouldn't.
+
+Examples:
+- User A can view User B's profile just by changing URL
+- Regular user can access admin panel
+- User can modify another user's data
+
+Defense:
+✅ Check authorization on every request
+✅ Use role-based access control (RBAC)
+✅ Default deny (must explicitly grant access)
+❌ Don't rely on client-side checks
+
+
+2. CRYPTOGRAPHIC FAILURES
+--------------------------
+Sensitive data exposed due to weak/missing encryption.
+
+Examples:
+- Passwords stored in plaintext
+- Credit cards sent over HTTP (not HTTPS)
+- Weak password hashing (MD5, SHA1)
+
+Defense:
+✅ Use HTTPS everywhere
+✅ Hash passwords with bcrypt/argon2
+✅ Encrypt sensitive data at rest
+✅ Use strong encryption algorithms
+❌ Don't write your own crypto
+
+
+3. INJECTION
+------------
+Attacker injects malicious code into your queries/commands.
+
+Examples:
+SQL Injection:
+  query = f"SELECT * FROM users WHERE id = {user_input}"
+  # user_input = "1 OR 1=1" → returns all users!
+
+Command Injection:
+  os.system(f"ping {user_input}")
+  # user_input = "8.8.8.8; rm -rf /" → deletes files!
+
+Defense:
+✅ Use parameterized queries (SQLAlchemy ORM)
+✅ Validate and sanitize input
+✅ Use ORMs, not raw SQL
+❌ Don't concatenate user input into queries
+
+
+4. INSECURE DESIGN
+-------------------
+Application fundamentally insecure by design.
+
+Examples:
+- No rate limiting → easy to brute force
+- Password reset sends password in email
+- No account lockout after failed logins
+
+Defense:
+✅ Design with security in mind
+✅ Threat modeling
+✅ Security reviews before building
+✅ Defense in depth
+
+
+5. SECURITY MISCONFIGURATION
+-----------------------------
+Default/insecure configurations.
+
+Examples:
+- DEBUG=True in production (exposes stack traces)
+- Default passwords not changed
+- Unnecessary features enabled
+- Directory listing enabled
+
+Defense:
+✅ Turn off DEBUG in production
+✅ Remove unused features
+✅ Use security headers
+✅ Keep dependencies updated
+
+
+6. VULNERABLE COMPONENTS
+-------------------------
+Using libraries with known vulnerabilities.
+
+Examples:
+- Old version of library with security bug
+- Unmaintained dependencies
+- No security updates
+
+Defense:
+✅ Keep dependencies updated
+✅ Use dependency scanners (Snyk, Dependabot)
+✅ Monitor CVE databases
+❌ Don't use unmaintained libraries
+
+
+7. IDENTIFICATION & AUTHENTICATION FAILURES
+--------------------------------------------
+Weak authentication/session management.
+
+Examples:
+- Weak password requirements
+- No multi-factor authentication
+- Session IDs in URL
+- Sessions don't expire
+
+Defense:
+✅ Strong password requirements
+✅ MFA for sensitive actions
+✅ Secure session management
+✅ Account lockout after failed attempts
+✅ Rate limit login attempts
+
+
+8. SOFTWARE & DATA INTEGRITY FAILURES
+--------------------------------------
+Code/data modified without verification.
+
+Examples:
+- No signature verification on updates
+- Unverified dependencies
+- CI/CD compromise
+- Insecure deserialization
+
+Defense:
+✅ Verify software signatures
+✅ Use dependency lock files
+✅ Secure CI/CD pipeline
+✅ Code signing
+
+
+9. SECURITY LOGGING & MONITORING FAILURES
+------------------------------------------
+No logs or alerts for security events.
+
+Examples:
+- Login failures not logged
+- No alerts on suspicious activity
+- Logs don't contain enough context
+- Logs deleted by attackers
+
+Defense:
+✅ Log all authentication events
+✅ Alert on anomalies
+✅ Centralize logs (can't be tampered)
+✅ Monitor for attacks
+
+
+10. SERVER-SIDE REQUEST FORGERY (SSRF)
+---------------------------------------
+App fetches URL provided by user, can access internal resources.
+
+Examples:
+- User provides URL to fetch
+- App fetches http://192.168.1.1/admin (internal server)
+- Attacker accesses internal services
+
+Defense:
+✅ Validate/whitelist URLs
+✅ Don't fetch user-provided URLs
+✅ Use allowlists for domains
+❌ Don't trust user input
+
+
+PRACTICAL FOCUS FOR APIs
+-------------------------
+Most important for backend APIs:
+
+1. Broken Access Control → Check auth on every endpoint
+2. Injection → Use ORM, validate input
+3. Authentication Failures → Strong auth, rate limiting
+4. Security Misconfiguration → DEBUG=False, secure headers
+5. Logging Failures → Log security events
+
+
+QUICK CHECKLIST
+---------------
+✅ All endpoints check authorization
+✅ Passwords hashed with bcrypt
+✅ HTTPS only
+✅ Input validation
+✅ SQL injection impossible (use ORM)
+✅ Rate limiting on auth endpoints
+✅ Security headers (CORS, CSP, etc.)
+✅ Logging security events
+✅ Dependencies updated
+✅ Secrets in environment variables (not code)
+
+
+THE RULE
+--------
+Security is not one feature. It's every feature done right.
+Default deny. Validate everything. Log suspicious activity.

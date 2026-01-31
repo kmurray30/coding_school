@@ -1,0 +1,157 @@
+Readiness vs Liveness Probes
+
+KUBERNETES HEALTH CHECKS
+-------------------------
+Kubernetes uses two types of health checks to manage pods.
+
+
+LIVENESS PROBE
+--------------
+Question: "Is the app alive?"
+
+Purpose: Detect when app is deadlocked or crashed
+Action: Restart the pod if failing
+
+Example failures:
+- App deadlocked (infinite loop, race condition)
+- App panic/crashed but process still running
+- Out of memory but not crashed
+
+Implementation:
+- Simple HTTP endpoint that responds
+- If it doesn't respond → app is dead → restart
+
+Code:
+@app.get("/health/live")
+def liveness():
+    return {"status": "alive"}
+
+Kubernetes config:
+livenessProbe:
+  httpGet:
+    path: /health/live
+    port: 8000
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  failureThreshold: 3  # Restart after 3 failures
+
+
+READINESS PROBE
+---------------
+Question: "Is the app ready to handle requests?"
+
+Purpose: Determine if app should receive traffic
+Action: Remove from load balancer if not ready
+
+Example not-ready states:
+- App starting up (database migrations running)
+- Database connection lost
+- Cache unavailable
+- External dependencies down
+
+Implementation:
+- Check all dependencies
+- Return 200 if ready, 503 if not
+
+Code:
+@app.get("/health/ready")
+def readiness():
+    if database.ping() and cache.ping():
+        return {"status": "ready"}
+    raise HTTPException(503, detail="not ready")
+
+Kubernetes config:
+readinessProbe:
+  httpGet:
+    path: /health/ready
+    port: 8000
+  initialDelaySeconds: 5
+  periodSeconds: 5
+  failureThreshold: 1  # Remove from LB immediately
+
+
+KEY DIFFERENCES
+---------------
+                 Liveness              Readiness
+Question         Is app alive?         Can it handle requests?
+Failure action   Restart pod           Remove from load balancer
+Checks           App responding?       Dependencies healthy?
+Failure thresh   3-5 failures          1 failure
+Recovery         Restart               Wait for dependencies
+
+
+EXAMPLE SCENARIOS
+-----------------
+Scenario 1: App starting up
+- Liveness: Passing (app is alive)
+- Readiness: Failing (database not migrated yet)
+- Result: Pod alive but not receiving traffic
+
+Scenario 2: Database down
+- Liveness: Passing (app itself is fine)
+- Readiness: Failing (can't handle requests without DB)
+- Result: Pod alive but not receiving traffic
+
+Scenario 3: App deadlocked
+- Liveness: Failing (not responding)
+- Readiness: Failing (not responding)
+- Result: Pod restarted
+
+Scenario 4: All healthy
+- Liveness: Passing
+- Readiness: Passing
+- Result: Pod receives traffic
+
+
+STARTUP PROBE (Kubernetes 1.16+)
+---------------------------------
+Question: "Has the app finished starting?"
+
+For slow-starting apps (30+ seconds).
+
+startupProbe:
+  httpGet:
+    path: /health/startup
+    port: 8000
+  periodSeconds: 5
+  failureThreshold: 60  # Allow 5 minutes to start
+
+Liveness/readiness probes don't run until startup passes.
+
+
+BEST PRACTICES
+--------------
+Liveness:
+✅ Keep it simple (just respond)
+✅ Don't check dependencies
+✅ Don't restart for transient failures
+❌ Don't check database (leads to restart loops)
+
+Readiness:
+✅ Check all critical dependencies
+✅ Fail fast (don't wait for timeouts)
+✅ Return detailed status in dev
+❌ Don't include slow checks (< 1 second)
+
+
+COMMON MISTAKES
+---------------
+1. Liveness checks dependencies
+   - Database down → liveness fails → restart
+   - Restart doesn't fix database → restart loop
+   - Should use readiness instead
+
+2. Readiness always passes
+   - App added to load balancer when not ready
+   - Users see errors during startup
+
+3. No health checks
+   - Dead pods stay in load balancer
+   - Traffic sent to broken servers
+
+
+THE RULE
+--------
+Liveness: "Am I alive?" (simple check)
+Readiness: "Can I serve traffic?" (check dependencies)
+Always implement both in production.

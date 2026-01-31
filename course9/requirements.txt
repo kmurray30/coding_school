@@ -1,0 +1,29 @@
+# Course 9: Backend Web Dev Fundamentals (FastAPI)
+
+# Core framework
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+pydantic==2.5.3
+
+# Database
+sqlalchemy==2.0.25
+alembic==1.13.1
+psycopg2-binary==2.9.9
+
+# Authentication
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.6
+
+# Caching
+redis==5.0.1
+
+# Background jobs (using ARQ for async simplicity with FastAPI)
+arq==0.25.0
+
+# HTTP client for testing webhooks
+httpx==0.26.0
+
+# Development
+pytest==7.4.4
+pytest-asyncio==0.23.3

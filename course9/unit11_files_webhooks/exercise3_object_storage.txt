@@ -1,0 +1,151 @@
+Local Storage vs Object Storage (S3/GCS)
+
+LOCAL STORAGE
+-------------
+Files saved to server's disk.
+
+Pros:
+✅ Simple to implement
+✅ Fast access (no network)
+✅ No additional costs
+✅ Full control
+
+Cons:
+❌ Limited by disk space
+❌ Lost if server crashes (need backups)
+❌ Hard to scale (each server has different files)
+❌ No geographic distribution
+❌ You manage backups/redundancy
+
+When to use:
+- Development
+- Small-scale applications
+- Temporary files
+- Single server deployments
+
+
+OBJECT STORAGE (S3, GCS, Azure Blob)
+-------------------------------------
+Files stored in cloud storage service.
+
+Pros:
+✅ Unlimited storage (scales infinitely)
+✅ High durability (99.999999999% - eleven 9s)
+✅ Automatic replication across regions
+✅ CDN integration for fast global access
+✅ Managed backups/versioning
+✅ Pay for what you use
+
+Cons:
+❌ Network latency (uploads/downloads slower than disk)
+❌ Ongoing costs ($0.023/GB/month on S3)
+❌ API complexity
+❌ Requires internet connection
+
+When to use:
+- Production applications
+- User-generated content (profile photos, uploads)
+- Media files (videos, images)
+- Backups and archives
+- Multi-server deployments
+
+
+EXAMPLE: USER PROFILE PHOTOS
+-----------------------------
+Local storage:
+- User uploads photo → saved to /uploads/users/123.jpg
+- Photo served from same server
+- If server dies, photos are lost
+- Each web server has different photos (load balancing breaks)
+
+Object storage:
+- User uploads photo → uploaded to S3
+- S3 URL: https://mybucket.s3.amazonaws.com/users/123.jpg
+- Photo accessible from any server
+- Replicated across multiple data centers
+- CDN caches photo globally (fast worldwide)
+
+
+COST COMPARISON
+---------------
+Scenario: 1TB of user uploads
+
+Local storage:
+- Disk: $100/month (1TB SSD)
+- Backups: $50/month
+- Total: $150/month
+- Risk: Data loss if server fails
+
+S3:
+- Storage: $23/month (1TB)
+- Bandwidth: ~$20/month (typical)
+- Total: ~$43/month
+- Durability: 99.999999999%
+- Automatic backups/replication
+
+
+UPLOADING TO S3 (Python)
+-------------------------
+import boto3
+from botocore.exceptions import ClientError
+
+s3 = boto3.client('s3',
+    aws_access_key_id='YOUR_KEY',
+    aws_secret_access_key='YOUR_SECRET'
+)
+
+# Upload file
+s3.upload_file(
+    '/path/to/local/file.jpg',
+    'my-bucket',
+    'uploads/file.jpg'
+)
+
+# Generate public URL
+url = f"https://my-bucket.s3.amazonaws.com/uploads/file.jpg"
+
+# Or use signed URL for temporary access (covered in exercise4)
+
+
+FASTAPI WITH S3
+---------------
+@app.post("/upload-to-s3")
+async def upload_to_s3(file: UploadFile):
+    # Read file
+    contents = await file.read()
+    
+    # Upload to S3
+    s3.put_object(
+        Bucket='my-bucket',
+        Key=f'uploads/{file.filename}',
+        Body=contents,
+        ContentType=file.content_type
+    )
+    
+    url = f"https://my-bucket.s3.amazonaws.com/uploads/{file.filename}"
+    return {"url": url}
+
+
+HYBRID APPROACH
+---------------
+1. User uploads to your API
+2. API validates file
+3. API uploads to S3
+4. API stores S3 URL in database
+5. Serve files from S3 (not your server)
+
+Best of both worlds:
+- You control validation/processing
+- S3 handles storage/serving
+- Your servers don't store files
+
+
+THE RULE
+--------
+Local storage: Development and prototypes
+Object storage: Production applications with user uploads
+
+Exceptions:
+- Temporary files (processing, caching) → local
+- Sensitive files (encryption keys) → local or encrypted in S3
+- Huge files (TB+) → consider specialized storage

@@ -1,0 +1,152 @@
+Why Caching Exists - And When It Helps
+
+THE PROBLEM
+-----------
+Database queries are slow (relative to memory).
+Complex calculations take time.
+External API calls have latency.
+
+Example: Product page loads
+1. Query database for product details (10ms)
+2. Query database for reviews (20ms)
+3. Calculate average rating (5ms)
+4. Query database for related products (15ms)
+Total: 50ms per page load
+
+With 1000 requests/second: Database handles 1000 queries/second
+Under load: Queries get slower, database overloaded.
+
+
+THE SOLUTION: CACHE
+-------------------
+Store frequently-accessed data in memory (Redis).
+Memory access: microseconds (1000x faster than database).
+
+First request: Miss cache → Query database → Store in cache (50ms)
+Next 999 requests: Hit cache → Return from memory (0.5ms)
+
+Database load: 1 query instead of 1000.
+Response time: 0.5ms instead of 50ms.
+
+
+WHEN CACHING HELPS
+------------------
+✅ Read-heavy workloads (same data queried repeatedly)
+✅ Expensive database queries (complex joins, aggregations)
+✅ External API calls (weather, stock prices, etc.)
+✅ Computed values (analytics, recommendations)
+✅ Session data (user login state)
+
+Example scenarios:
+- Homepage showing same content to all users
+- Product catalog (changes rarely)
+- Blog posts (written once, read thousands of times)
+- User profiles (read more than updated)
+
+
+WHEN CACHING HURTS
+------------------
+❌ Data changes frequently (cache always stale)
+❌ Unique queries (every query different → no cache hits)
+❌ Write-heavy workloads (caching adds overhead)
+❌ Data must be real-time (can't tolerate staleness)
+
+Example scenarios:
+- Stock trading (prices change every second)
+- Bank balance (must be accurate)
+- Live auction bids (real-time updates)
+- Personalized search results (every user different)
+
+
+STALE DATA PROBLEM
+------------------
+Cache stores old data. Database has new data.
+
+Example:
+1. User views product: price=$100 (from cache)
+2. Admin updates price to $50 in database
+3. Cache still shows $100 (stale!)
+4. User sees wrong price until cache expires
+
+Solutions:
+- Set TTL (time-to-live) - cache expires after N seconds
+- Invalidate cache on write - delete cache when data changes
+- Accept staleness - "price may be slightly outdated"
+
+
+CACHE STAMPEDE
+--------------
+Cache expires. 1000 requests hit at once.
+All 1000 miss cache → All 1000 query database → Database overload!
+
+Solutions:
+- Probabilistic early expiration
+- Lock while refreshing
+- Background refresh before expiry
+
+
+MEMORY VS DISK
+--------------
+Cache uses RAM. RAM is expensive and limited.
+Can't cache everything. Choose wisely.
+
+Database: Terabytes on disk (cheap, slow)
+Cache: Gigabytes in RAM (expensive, fast)
+
+Cache the 1% of data that gets 99% of requests.
+
+
+CACHE HIERARCHY
+---------------
+L1: Application memory (fastest, smallest)
+L2: Redis (fast, medium)
+L3: Database (slower, largest)
+
+Example:
+1. Check app memory → miss
+2. Check Redis → miss
+3. Query database → hit
+4. Store in Redis for next time
+5. Return result
+
+
+THE 80/20 RULE
+--------------
+20% of data gets 80% of requests.
+Cache that 20%. Massive impact.
+
+Example: E-commerce site
+- 10,000 products total
+- Top 200 products = 80% of traffic
+- Cache those 200 → 80% of requests served from cache
+
+
+REAL-WORLD METRICS
+------------------
+Without cache:
+- Database: 10,000 queries/second
+- Average response: 50ms
+- Database CPU: 90% (overloaded)
+
+With cache (90% hit rate):
+- Database: 1,000 queries/second (90% from cache)
+- Average response: 5ms (10x faster)
+- Database CPU: 20% (healthy)
+
+
+COST ANALYSIS
+-------------
+Redis server: $50/month
+Saves: Bigger database server ($500/month)
+Improves: User experience (10x faster responses)
+
+Worth it? Usually yes.
+
+
+THE RULE
+--------
+Cache aggressively for read-heavy data.
+Set appropriate TTL for staleness tolerance.
+Invalidate cache on writes when possible.
+Monitor cache hit rate (>80% is good).
+Don't cache everything - be selective.

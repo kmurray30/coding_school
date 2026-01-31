@@ -1,0 +1,103 @@
+exam_title: "Course 9 Final Exam: Backend Web Dev Fundamentals"
+questions:
+  # HTTP/REST
+  - "What HTTP method should you use to update an existing resource?"
+  - "What's the difference between PUT and PATCH?"
+  - "What HTTP status code indicates a resource was successfully created?"
+  - "What's the difference between path parameters and query parameters?"
+  - "Design a RESTful API for a blog with posts and comments. List the main endpoints."
+  
+  # Middleware & Dependencies
+  - "What is middleware in FastAPI?"
+  - "What's the difference between middleware and dependencies?"
+  - "Write middleware that adds a request ID to every response"
+  - "How does dependency injection work in FastAPI?"
+  
+  # Authentication
+  - "What's the difference between sessions and JWT?"
+  - "When should you use JWT instead of sessions?"
+  - "Why should you never store passwords in plaintext?"
+  - "What is OAuth2 Password flow?"
+  - "Write code to hash a password with bcrypt"
+  - "What HTTP status code should you return when a user is not authenticated?"
+  - "What HTTP status code should you return when a user is authenticated but not authorized?"
+  
+  # Databases
+  - "What's the difference between one-to-many and many-to-many relationships?"
+  - "How do you prevent SQL injection in SQLAlchemy?"
+  - "What is the N+1 query problem?"
+  - "How do you fix N+1 problems with eager loading?"
+  - "When should you use joinedload() vs selectinload()?"
+  - "What is database normalization?"
+  
+  # Migrations
+  - "What are database migrations and why are they important?"
+  - "What command creates a new Alembic migration?"
+  - "What command applies pending migrations?"
+  - "How do you rollback a migration?"
+  - "Why must migrations be reversible?"
+  
+  # Transactions
+  - "What do the letters in ACID stand for?"
+  - "What does atomicity mean?"
+  - "What's the difference between isolation levels?"
+  - "What is a dirty read?"
+  - "When should you use SERIALIZABLE isolation?"
+  
+  # Production Database
+  - "What is connection pooling?"
+  - "What's the difference between offset and cursor pagination?"
+  - "When should you use cursor pagination instead of offset?"
+  - "What are read replicas and when should you use them?"
+  
+  # Caching
+  - "When does caching help performance?"
+  - "When does caching hurt performance?"
+  - "What is TTL in Redis?"
+  - "What is cache invalidation?"
+  - "What is the cache-aside pattern?"
+  - "Why shouldn't you cache personalized data?"
+  
+  # Background Jobs
+  - "What's the difference between async/await and background jobs?"
+  - "When should you use background jobs instead of async?"
+  - "What is retry logic and why is it important?"
+  - "What is a dead letter queue?"
+  - "Name 3 operations that should run in background jobs"
+  
+  # Files & Webhooks
+  - "What should you validate when accepting file uploads?"
+  - "What's the difference between local storage and S3?"
+  - "What is a signed URL?"
+  - "What is a webhook?"
+  - "Why is webhook signature verification important?"
+  - "What is idempotency in the context of webhooks?"
+  - "How do you make a webhook handler idempotent?"
+  
+  # Observability
+  - "What is structured logging?"
+  - "What is a correlation ID?"
+  - "What are the three types of Prometheus metrics?"
+  - "What's the difference between a liveness probe and a readiness probe?"
+  - "When should a readiness probe fail?"
+  - "Why is request tracing important in distributed systems?"
+  
+  # Security
+  - "What is SQL injection and how do you prevent it?"
+  - "What is rate limiting?"
+  - "What is RBAC?"
+  - "Where should you store secrets (API keys, database passwords)?"
+  - "What's the difference between encryption and hashing?"
+  - "Should you encrypt or hash passwords?"
+  - "What is an idempotency key and why is it important for payments?"
+  - "What is CORS and why does it exist?"
+  
+  # Integration
+  - "You're building an e-commerce API. A user places an order. List all the things that should happen (database, caching, jobs, webhooks, etc.)"
+  - "Your API is slow. How would you diagnose and fix performance issues?"
+  - "Your database is overloaded. What strategies would you use to reduce load?"
+  - "How would you design an API that can handle 10,000 requests per second?"
+  - "A user reports an error but you can't reproduce it. How do you debug it using observability tools?"
+  - "Explain how you would implement a feature flag system using caching"
+  - "Design a system to send 10,000 welcome emails without blocking the API"
+  - "How would you ensure a payment is processed exactly once, even if the request is retried?"

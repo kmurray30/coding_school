@@ -1,0 +1,168 @@
+Metrics Basics - Prometheus Concepts
+
+WHAT ARE METRICS?
+-----------------
+Numeric measurements over time.
+Track system health and performance.
+
+Examples:
+- Request count: 10,542 requests in last minute
+- Error rate: 2.3% of requests failed
+- Response time: Average 45ms, p95 120ms
+- Active users: 1,234 users online now
+
+
+METRICS VS LOGS
+----------------
+Logs: Individual events with details
+"User 123 logged in at 10:30:25 from 192.168.1.1"
+
+Metrics: Aggregated numbers
+"Login count: 1,542 in last hour"
+
+Use logs to debug specific issues.
+Use metrics to monitor overall health.
+
+
+METRIC TYPES
+------------
+
+1. COUNTER
+   Always increases (or resets to 0).
+   Example: Total requests, error count
+   
+   requests_total = 10,542
+   requests_total = 10,543
+   requests_total = 10,544  (always goes up)
+
+2. GAUGE
+   Can go up or down.
+   Example: Active connections, memory usage, queue size
+   
+   active_users = 100
+   active_users = 105  (went up)
+   active_users = 98   (went down)
+
+3. HISTOGRAM
+   Tracks distribution of values.
+   Example: Response times, request sizes
+   
+   request_duration_seconds:
+     count: 1000 requests
+     sum: 45 seconds total
+     buckets:
+       0.1s: 800 requests (80% under 100ms)
+       0.5s: 950 requests (95% under 500ms)
+       1.0s: 990 requests (99% under 1s)
+
+
+EXAMPLE METRICS
+---------------
+# Counter: Total API requests
+api_requests_total{method="GET", path="/users", status="200"} 10542
+api_requests_total{method="POST", path="/users", status="201"} 123
+api_requests_total{method="GET", path="/users", status="500"} 5
+
+# Gauge: Current active connections
+active_connections 42
+
+# Gauge: Memory usage
+memory_usage_bytes 512000000
+
+# Histogram: Request duration
+http_request_duration_seconds_count 1000
+http_request_duration_seconds_sum 45.2
+http_request_duration_seconds_bucket{le="0.1"} 800
+http_request_duration_seconds_bucket{le="0.5"} 950
+http_request_duration_seconds_bucket{le="1.0"} 990
+
+
+LABELS
+------
+Add dimensions to metrics.
+
+Without labels:
+api_requests_total = 10000
+
+With labels:
+api_requests_total{method="GET"} = 8000
+api_requests_total{method="POST"} = 2000
+
+Or:
+api_requests_total{method="GET", endpoint="/users"} = 3000
+api_requests_total{method="GET", endpoint="/orders"} = 5000
+
+Can slice and dice by labels in dashboards.
+
+
+CALCULATING RATES
+-----------------
+Counter shows total. Need rate for meaningful insights.
+
+requests_total = 10,000 (not useful alone)
+
+Rate: requests per second
+rate(requests_total[5m])  → 16.7 requests/second
+
+Error rate: percentage of failures
+rate(errors_total[5m]) / rate(requests_total[5m]) * 100  → 2.3%
+
+
+PERCENTILES (P50, P95, P99)
+----------------------------
+Average hides outliers. Use percentiles.
+
+Response times: [10ms, 12ms, 15ms, 18ms, 500ms]
+Average: 111ms (misleading! 500ms outlier skews it)
+P50 (median): 15ms (half are faster)
+P95: 500ms (95% are faster than this)
+
+P95 tells you: "95% of users see response under 500ms"
+Better than average for understanding user experience.
+
+
+PROMETHEUS ARCHITECTURE
+------------------------
+1. Your app exposes /metrics endpoint
+2. Prometheus scrapes /metrics every 15s
+3. Prometheus stores time-series data
+4. Grafana visualizes dashboards
+5. Alerts trigger on thresholds
+
+
+EXAMPLE /METRICS ENDPOINT OUTPUT
+---------------------------------
+# HELP http_requests_total Total HTTP requests
+# TYPE http_requests_total counter
+http_requests_total{method="GET",status="200"} 10542
+http_requests_total{method="POST",status="201"} 123
+
+# HELP active_connections Current active connections
+# TYPE active_connections gauge
+active_connections 42
+
+# HELP request_duration_seconds Request duration
+# TYPE request_duration_seconds histogram
+request_duration_seconds_bucket{le="0.1"} 800
+request_duration_seconds_bucket{le="0.5"} 950
+request_duration_seconds_sum 45.2
+request_duration_seconds_count 1000
+
+
+KEY METRICS TO TRACK
+--------------------
+✅ Request rate (requests/second)
+✅ Error rate (errors/second or %)
+✅ Response time (p50, p95, p99)
+✅ Active connections
+✅ Database query time
+✅ Cache hit rate
+✅ Queue depth
+✅ CPU/memory usage
+
+
+THE RULE
+--------
+Metrics tell you WHAT is wrong.
+Logs tell you WHY it's wrong.
+Use both.

@@ -1,0 +1,125 @@
+Query Planning and EXPLAIN
+
+WHY QUERIES GET SLOW
+--------------------
+Database has to find data. Small table? Fast. Big table? Can be slow.
+
+Without an index: Scans every row (slow for large tables)
+With an index: Jumps directly to matching rows (fast)
+
+
+USING EXPLAIN
+-------------
+EXPLAIN shows you how the database will execute a query.
+
+In PostgreSQL:
+$ psql course9_db
+> EXPLAIN SELECT * FROM users WHERE username = 'alice';
+
+Output might show:
+Seq Scan on users  (cost=0.00..35.50 rows=10 width=100)
+  Filter: (username = 'alice'::text)
+
+"Seq Scan" = Sequential scan = checking every row (slow with millions of rows)
+
+
+WITH AN INDEX:
+--------------
+> CREATE INDEX idx_users_username ON users(username);
+> EXPLAIN SELECT * FROM users WHERE username = 'alice';
+
+Now shows:
+Index Scan using idx_users_username on users
+  Index Cond: (username = 'alice'::text)
+
+"Index Scan" = uses the index (fast even with millions of rows)
+
+
+INDEXES IN SQLALCHEMY
+---------------------
+from sqlalchemy import Index
+
+class User(Base):
+    __tablename__ = 'users'
+    
+    id = Column(Integer, primary_key=True)
+    username = Column(String(50))
+    email = Column(String(100))
+    
+    __table_args__ = (
+        Index('idx_username', 'username'),
+        Index('idx_email', 'email'),
+    )
+
+Or on column directly:
+username = Column(String(50), index=True)
+
+
+WHEN TO ADD INDEXES
+-------------------
+✅ Columns you frequently query (WHERE username = ?)
+✅ Foreign keys (usually indexed automatically)
+✅ Columns in JOIN conditions
+✅ Columns in ORDER BY
+
+❌ Columns you rarely query
+❌ Tables with frequent writes (indexes slow down INSERT/UPDATE)
+❌ Low-cardinality columns (like boolean with 2 values)
+
+
+COST OF INDEXES
+---------------
+Pro: Queries faster
+Con: Writes slower (index must be updated)
+Con: More disk space
+
+Add indexes strategically. Not every column needs one.
+
+
+FINDING SLOW QUERIES
+--------------------
+1. Enable query logging in development
+   engine = create_engine(..., echo=True)
+
+2. In production, use database query logs
+   PostgreSQL: log_min_duration_statement = 1000  (log queries > 1s)
+
+3. Look for:
+   - N+1 queries (many similar queries)
+   - Sequential scans on large tables
+   - Missing indexes on WHERE/JOIN columns
+
+
+EXAMPLE ANALYSIS
+----------------
+Slow query:
+SELECT * FROM posts WHERE author_id = 123
+(1.2 seconds for 1 million posts)
+
+EXPLAIN shows Seq Scan.
+
+Add index:
+CREATE INDEX idx_posts_author_id ON posts(author_id);
+
+Same query now:
+(0.003 seconds)
+
+400x faster!
+
+
+TOOLS
+-----
+PostgreSQL: EXPLAIN ANALYZE (runs query and shows actual timing)
+SQLAlchemy: session.query(...).statement compiles to SQL
+pgAdmin: Visual query planner
+
+
+THE WORKFLOW
+------------
+1. Build feature with ORM
+2. Test with realistic data volume
+3. Find slow queries
+4. EXPLAIN them
+5. Add indexes where needed
+6. Measure improvement
+7. Don't prematurely optimize - measure first

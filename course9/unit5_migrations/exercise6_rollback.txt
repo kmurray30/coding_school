@@ -1,0 +1,124 @@
+Rolling Back Migrations
+
+WHY ROLLBACK?
+-------------
+Migration fails in production.
+New feature breaks existing functionality.
+Need to quickly revert to previous state.
+
+Rollback lets you undo migrations cleanly.
+
+
+COMMANDS:
+---------
+# Roll back one migration
+$ alembic downgrade -1
+
+# Roll back to specific version
+$ alembic downgrade abc123
+
+# Roll back all migrations
+$ alembic downgrade base
+
+# See migration history
+$ alembic history
+
+
+EXAMPLE:
+--------
+Current state:
+  0001_initial_schema (applied)
+  0002_add_user_age (applied)
+  0003_add_user_status (applied) <- HEAD
+
+$ alembic downgrade -1
+
+Now at:
+  0001_initial_schema (applied)
+  0002_add_user_age (applied) <- HEAD
+  0003_add_user_status (not applied)
+
+The 0003 migration's downgrade() function ran, reversing changes.
+
+
+EXERCISE:
+---------
+1. Check current migration:
+   $ alembic current
+
+2. Look at migration history:
+   $ alembic history
+
+3. Roll back one migration:
+   $ alembic downgrade -1
+
+4. Check database - the column/table from that migration should be gone
+
+5. Check current version again:
+   $ alembic current
+
+6. Re-apply the migration:
+   $ alembic upgrade head
+
+7. Verify database is back to previous state
+
+
+WHY DOWNGRADE() MATTERS:
+------------------------
+Every migration MUST be reversible.
+
+Bad migration (no proper downgrade):
+def upgrade():
+    op.add_column('users', sa.Column('age', sa.Integer()))
+
+def downgrade():
+    pass  # Oops, didn't implement!
+
+Now you can't roll back. If this migration causes problems, you're stuck.
+
+Good migration:
+def upgrade():
+    op.add_column('users', sa.Column('age', sa.Integer()))
+
+def downgrade():
+    op.drop_column('users', 'age')
+
+Can safely roll back if needed.
+
+
+NON-REVERSIBLE MIGRATIONS:
+--------------------------
+Some migrations can't be reversed:
+
+def upgrade():
+    op.drop_column('users', 'old_data')  # Data is gone
+
+def downgrade():
+    op.add_column('users', sa.Column('old_data', sa.String()))
+    # But the data is already deleted! Can't get it back.
+
+For destructive migrations:
+- Back up data first
+- Think twice before dropping columns
+- Consider soft deletes instead
+
+
+PRODUCTION ROLLBACK STRATEGY:
+------------------------------
+1. Always test migrations on staging first
+2. Have a rollback plan before deploying
+3. Know which migration version is in production
+4. Practice rolling back locally before production issues
+
+When production migration fails:
+1. Don't panic
+2. Run `alembic downgrade -1`
+3. Database reverts to previous state
+4. Fix the migration locally
+5. Test thoroughly
+6. Deploy again
+
+
+THE RULE:
+---------
+If you can't roll it back, don't deploy it.

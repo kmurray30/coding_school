@@ -1,0 +1,174 @@
+Authentication vs Authorization
+
+AUTHENTICATION (AuthN)
+-----------------------
+Question: WHO are you?
+
+Process: Verify identity
+Examples:
+- Username + password
+- JWT token
+- OAuth
+- Biometrics
+
+Result: Confirm user is who they claim to be
+
+
+AUTHORIZATION (AuthZ)
+---------------------
+Question: WHAT can you do?
+
+Process: Check permissions
+Examples:
+- Can user view this file?
+- Can user delete this post?
+- Can user access admin panel?
+
+Result: Allow or deny specific action
+
+
+THE DIFFERENCE
+--------------
+Authentication = Login (prove identity)
+Authorization = Permissions (what you're allowed to do)
+
+You can be authenticated but not authorized:
+- You logged in (authenticated)
+- But you can't access admin panel (not authorized)
+
+
+EXAMPLE FLOW
+------------
+1. User sends username + password → AUTHENTICATION
+2. Server verifies credentials → User authenticated
+3. User requests DELETE /posts/123 → AUTHORIZATION CHECK
+4. Server checks: Does this user own post 123? → Not authorized
+5. Return 403 Forbidden
+
+
+HTTP STATUS CODES
+-----------------
+401 Unauthorized = NOT AUTHENTICATED
+"You must log in to access this"
+
+403 Forbidden = AUTHENTICATED BUT NOT AUTHORIZED
+"You're logged in, but you don't have permission"
+
+Example:
+GET /admin without login → 401 (need to authenticate)
+GET /admin as regular user → 403 (authenticated but not authorized)
+
+
+CODE EXAMPLES
+-------------
+# Authentication
+@app.get("/profile")
+def get_profile(current_user: User = Depends(get_current_user)):
+    # get_current_user checks if user is authenticated
+    # If not authenticated → 401
+    return {"user": current_user}
+
+# Authorization
+@app.delete("/posts/{post_id}")
+def delete_post(
+    post_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    post = db.query(Post).filter(Post.id == post_id).first()
+    
+    # Authorization check
+    if post.author_id != current_user.id:
+        raise HTTPException(403, detail="not authorized to delete this post")
+    
+    db.delete(post)
+    return {"deleted": post_id}
+
+
+RBAC (Role-Based Access Control)
+---------------------------------
+Assign roles to users, permissions to roles.
+
+Roles: admin, moderator, user
+
+Example:
+- admin: Can do anything
+- moderator: Can delete any post
+- user: Can only delete own posts
+
+def require_role(required_role: str):
+    def check(current_user: User = Depends(get_current_user)):
+        if current_user.role != required_role:
+            raise HTTPException(403, detail="insufficient permissions")
+        return current_user
+    return check
+
+@app.delete("/users/{user_id}")
+def delete_user(
+    user_id: int,
+    current_user: User = Depends(require_role("admin"))
+):
+    # Only admins can delete users
+    ...
+
+
+COMMON MISTAKES
+---------------
+❌ Only checking authentication, not authorization
+   User logged in → assume they can do anything
+   
+❌ Client-side authorization checks only
+   JavaScript hides admin button → not secure!
+   Must check on server
+   
+❌ Mixing 401 and 403
+   Not authenticated → 403 (should be 401)
+   
+❌ No authorization checks
+   "If they got this far, let them do it"
+   
+❌ Authorization in UI only
+   Hide button but don't check API
+
+
+SECURITY RULES
+--------------
+✅ Always authenticate first (who are you?)
+✅ Then authorize (can you do this?)
+✅ Check authorization on EVERY request
+✅ Default deny (must explicitly grant permission)
+✅ Use proper status codes (401 vs 403)
+✅ Log authorization failures (security audit)
+
+
+THE CHECKLIST
+-------------
+Every protected endpoint should:
+1. Authenticate user (get_current_user)
+2. Load resource (post, file, etc.)
+3. Check if user can access resource
+4. Process request OR return 403
+
+
+REAL EXAMPLE
+------------
+@app.put("/posts/{post_id}")
+def update_post(
+    post_id: int,
+    updates: PostUpdate,
+    current_user: User = Depends(get_current_user),  # AuthN
+    db: Session = Depends(get_db)
+):
+    # Load resource
+    post = db.query(Post).filter(Post.id == post_id).first()
+    if not post:
+        raise HTTPException(404, detail="post not found")
+    
+    # Authorization check
+    if post.author_id != current_user.id and current_user.role != "admin":
+        raise HTTPException(403, detail="cannot edit others' posts")
+    
+    # Authorized - proceed
+    post.title = updates.title
+    db.commit()
+    return post

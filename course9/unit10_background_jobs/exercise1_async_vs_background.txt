@@ -1,0 +1,154 @@
+Async vs Background Jobs - When to Use Which
+
+ASYNC (I/O-BOUND)
+-----------------
+Multiple operations waiting for external responses.
+FastAPI with async/await.
+
+Example: Making API calls
+async def get_weather():
+    async with httpx.AsyncClient() as client:
+        response = await client.get('https://api.weather.com')
+        return response.json()
+
+How it works:
+- Request weather API → wait (but don't block)
+- While waiting, handle other requests
+- When response arrives, resume
+
+Use cases:
+✅ Calling external APIs
+✅ Database queries
+✅ File I/O
+✅ Network requests
+
+Benefits:
+- One process handles many concurrent requests
+- Low memory overhead
+- Good for I/O-heavy workloads
+
+Limitations:
+- Doesn't help with CPU-intensive tasks
+- Request still waits for operation to complete
+
+
+BACKGROUND JOBS (LONG-RUNNING)
+-------------------------------
+Operations that run separately from HTTP request.
+Request returns immediately, job processes in background.
+
+Example: Sending email
+@app.post("/send-email")
+def send_email(to: str, subject: str):
+    # Queue the job
+    task_id = queue.enqueue(send_email_task, to, subject)
+    
+    # Return immediately
+    return {"task_id": task_id, "status": "queued"}
+
+How it works:
+- API queues the task → returns immediately
+- Worker process picks up task → processes it
+- Client can check status later
+
+Use cases:
+✅ Sending emails
+✅ Generating reports
+✅ Processing uploads (images, videos)
+✅ Data exports
+✅ Batch operations
+✅ Scheduled tasks
+
+Benefits:
+- API responds instantly (doesn't wait)
+- Can retry failed jobs
+- Can scale workers independently
+- Jobs survive server restarts (persisted in queue)
+
+Limitations:
+- More complex (need queue + workers)
+- Eventual completion (not immediate)
+- Need to track job status
+
+
+WHEN TO USE ASYNC
+-----------------
+Operation completes in < 1 second:
+- Database query (10-50ms)
+- External API call (100-500ms)
+- File read (10-100ms)
+
+Client waits for result.
+
+
+WHEN TO USE BACKGROUND JOBS
+----------------------------
+Operation takes > 1 second:
+- Sending email (2-5 seconds)
+- Generating PDF (10-60 seconds)
+- Processing video (minutes to hours)
+- Batch data import (minutes)
+
+Client doesn't wait for result.
+
+
+EXAMPLE SCENARIOS
+-----------------
+Scenario: User signs up
+- Save to database → async/await (50ms)
+- Send welcome email → background job (3 seconds)
+- Return "Account created" immediately
+
+Why:
+- User doesn't want to wait 3 seconds for email
+- Email can be sent after response
+- If email fails, retry later
+
+
+Scenario: User uploads profile photo
+- Save file → async/await (100ms)
+- Resize image to thumbnails → background job (5 seconds)
+- Return "Upload successful" immediately
+
+Why:
+- User doesn't wait for resizing
+- Resizing is CPU-intensive (blocks)
+- Can process multiple sizes in parallel with workers
+
+
+Scenario: Admin generates monthly report
+- Queue report generation → background job (10 minutes)
+- Email PDF when done
+- Return "Report queued" immediately
+
+Why:
+- Report takes 10 minutes
+- Can't keep HTTP connection open that long
+- Process in background, notify when ready
+
+
+COMBINING BOTH
+--------------
+@app.post("/process-data")
+async def process_data(file_url: str):
+    # Async: Download file from S3
+    async with httpx.AsyncClient() as client:
+        response = await client.get(file_url)
+        data = response.content
+    
+    # Background: Process the data (CPU-intensive)
+    task_id = queue.enqueue(process_file_task, data)
+    
+    return {"task_id": task_id}
+
+Async for I/O (download).
+Background for CPU work (processing).
+
+
+THE RULE
+--------
+If request must return immediately: Background job
+If client waits for result: Async (if < 1 second)
+If CPU-intensive: Background job
+If I/O-bound: Async
+When in doubt: Measure. If timeout, use background job.

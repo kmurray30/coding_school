@@ -1,0 +1,101 @@
+Database Normalization: When and Why
+
+WHAT IS NORMALIZATION?
+----------------------
+Organizing data to reduce redundancy and improve integrity.
+Split data into multiple related tables instead of one giant table.
+
+
+DENORMALIZED (bad for most cases):
+-----------------------------------
+orders table:
+| order_id | customer_name | customer_email | product_name | product_price |
+|----------|---------------|----------------|--------------|---------------|
+| 1        | Alice         | alice@...      | Laptop       | 1200          |
+| 2        | Alice         | alice@...      | Mouse        | 25            |
+| 3        | Bob           | bob@...        | Laptop       | 1200          |
+
+Problems:
+- Customer info repeated (Alice's email duplicated)
+- Product info repeated (Laptop price duplicated)
+- If Alice changes email, must update multiple rows
+- If Laptop price changes, must update multiple rows
+- Easy to get inconsistent data
+
+
+NORMALIZED (better):
+--------------------
+customers table:
+| id | name  | email       |
+|----|-------|-------------|
+| 1  | Alice | alice@...   |
+| 2  | Bob   | bob@...     |
+
+products table:
+| id | name   | price |
+|----|--------|-------|
+| 1  | Laptop | 1200  |
+| 2  | Mouse  | 25    |
+
+orders table:
+| id | customer_id | product_id | quantity |
+|----|-------------|------------|----------|
+| 1  | 1           | 1          | 1        |
+| 2  | 1           | 2          | 1        |
+| 3  | 2           | 1          | 1        |
+
+Benefits:
+- No duplicate data
+- Update email in one place
+- Update price in one place
+- Data consistency
+
+
+WHEN TO NORMALIZE:
+------------------
+✅ Write-heavy applications (many updates)
+✅ When data integrity is critical
+✅ When storage space matters
+✅ Most transactional systems (e-commerce, banking)
+
+
+WHEN TO DENORMALIZE:
+--------------------
+✅ Read-heavy applications (analytics, reporting)
+✅ When query performance is critical
+✅ When you have complex joins that are too slow
+✅ Caching layers (duplicate data intentionally)
+
+Example: Store user.full_name in posts table to avoid joining users table
+on every post query. Trades consistency for speed.
+
+
+NORMAL FORMS (simplified):
+--------------------------
+1NF: No repeating groups (each cell has one value)
+2NF: Each column depends on the entire primary key
+3NF: No transitive dependencies (no column depends on non-key column)
+
+For most web apps, aim for 3NF and denormalize selectively for performance.
+
+
+PRACTICAL RULE:
+---------------
+Start normalized. Denormalize only when you have a proven performance problem.
+Premature denormalization is optimization before you have data to prove it's needed.
+
+
+EXAMPLE: Blog
+-------------
+Normalized:
+- users (id, username, email, bio)
+- posts (id, user_id, title, content, created_at)
+- comments (id, post_id, user_id, content, created_at)
+
+Each table has one responsibility. Clean.
+
+Denormalized optimization:
+- Add author_username to posts table (avoid join on every post list)
+- Add comment_count to posts table (avoid count query)
+
+Do this ONLY if you measure slow queries. Not upfront.

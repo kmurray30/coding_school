@@ -1,0 +1,86 @@
+Database Fundamentals
+
+WHAT ARE RELATIONAL DATABASES?
+-------------------------------
+Structured storage for your data. Think Excel on steroids.
+
+Tables = collections of related data (like "users" or "posts")
+Rows = individual records (one user, one post)
+Columns = attributes (username, email, created_at)
+
+Example:
+
+users table:
+| id | username | email              | created_at |
+|----|----------|--------------------|------------|
+| 1  | alice    | alice@example.com  | 2024-01-15 |
+| 2  | bob      | bob@example.com    | 2024-01-16 |
+
+posts table:
+| id | user_id | title          | content      |
+|----|---------|----------------|--------------|
+| 1  | 1       | First Post     | Hello world  |
+| 2  | 1       | Second Post    | More content |
+| 3  | 2       | Bob's Post     | Bob was here |
+
+
+WHY USE A DATABASE?
+-------------------
+1. Persistence - data survives restarts (unlike Python dicts in memory)
+2. Concurrent access - multiple processes can read/write safely
+3. Queries - find data efficiently (SQL is powerful)
+4. Relationships - connect related data (users → posts)
+5. Constraints - enforce rules (emails must be unique)
+6. Transactions - atomic operations (all-or-nothing)
+
+
+RELATIONSHIPS
+-------------
+One-to-Many: One user has many posts
+Many-to-Many: Many students in many courses
+One-to-One: One user has one profile
+
+Foreign keys link tables together.
+user_id in posts table → id in users table
+
+
+PRIMARY KEYS
+------------
+Unique identifier for each row.
+Usually an auto-incrementing integer: id.
+No two rows have the same primary key.
+
+
+WHEN TO USE RELATIONAL DATABASES
+---------------------------------
+✅ Structured data with relationships
+✅ Need ACID guarantees (transactions)
+✅ Complex queries (joins, filters, aggregations)
+✅ Most web applications
+
+❌ Simple key-value storage (use Redis)
+❌ Unstructured JSON blobs (maybe use MongoDB)
+❌ Caching (use Redis)
+
+
+POSTGRESQL
+----------
+Production-ready relational database.
+Open source, powerful, widely used.
+We'll use it for this course.
+
+Install: brew install postgresql (macOS)
+Create database: createdb course9_db
+Connect: psql course9_db
+
+
+SQL vs ORM
+----------
+SQL = write database queries directly
+  SELECT * FROM users WHERE username = 'alice'
+
+ORM = use Python objects instead of SQL
+  session.query(User).filter_by(username='alice').first()
+
+We'll use SQLAlchemy (ORM) because it's safer and integrates with Python.
+But you'll still learn SQL concepts.

@@ -1,0 +1,92 @@
+Setting up Alembic in your project
+
+STEP 1: Install Alembic
+------------------------
+Already in requirements.txt for this course:
+alembic==1.13.1
+
+
+STEP 2: Initialize Alembic
+---------------------------
+In your project directory:
+
+$ alembic init alembic
+
+This creates:
+- alembic/ directory with migration files
+- alembic.ini configuration file
+- alembic/env.py (environment setup)
+- alembic/versions/ (where migration files go)
+
+
+STEP 3: Configure Database Connection
+--------------------------------------
+Edit alembic.ini:
+
+# Find this line:
+sqlalchemy.url = driver://user:pass@localhost/dbname
+
+# Change to your database URL:
+sqlalchemy.url = postgresql://localhost/course9_db
+
+# Or use environment variables (better):
+# sqlalchemy.url = 
+
+
+Then in alembic/env.py, add at top:
+
+from myapp.database import Base  # Import your SQLAlchemy Base
+target_metadata = Base.metadata
+
+This tells Alembic about your models so it can auto-generate migrations.
+
+
+STEP 4: Create First Migration
+-------------------------------
+After defining your models:
+
+$ alembic revision --autogenerate -m "initial schema"
+
+Alembic compares your models to the database and generates a migration file.
+
+
+STEP 5: Apply Migration
+------------------------
+$ alembic upgrade head
+
+This runs all pending migrations.
+
+
+STEP 6: Check Current Version
+------------------------------
+$ alembic current
+
+Shows which migrations have been applied.
+
+
+FILE STRUCTURE:
+---------------
+project/
+  alembic/
+    versions/
+      0001_initial_schema.py
+      0002_add_user_age.py
+    env.py
+    script.py.mako
+  alembic.ini
+  app/
+    models.py
+    database.py
+
+
+EXERCISE:
+---------
+1. Create a new project directory
+2. Run `alembic init alembic`
+3. Explore the generated files
+4. Look at alembic.ini and find the sqlalchemy.url setting
+5. Look at alembic/env.py and see where migrations are configured
+
+No code to write yet. Just understand the structure.
+
+Next exercise: create actual migrations.

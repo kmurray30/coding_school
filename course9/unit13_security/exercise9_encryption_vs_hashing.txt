@@ -1,0 +1,210 @@
+Encryption vs Hashing - When to Use Which
+
+ENCRYPTION
+----------
+Two-way: Can encrypt AND decrypt
+
+Purpose: Protect data that you need to read later
+
+Process:
+plaintext + key → encrypt → ciphertext
+ciphertext + key → decrypt → plaintext
+
+Example:
+plaintext = "my secret message"
+encrypted = encrypt("my secret message", key)
+  → "8j4k2l5m9n3p7q1r"
+decrypted = decrypt("8j4k2l5m9n3p7q1r", key)
+  → "my secret message"
+
+Use cases:
+✅ Storing credit card numbers (need to charge later)
+✅ Encrypting files at rest
+✅ HTTPS (encrypt data in transit)
+✅ Database encryption
+✅ Sensitive user data that must be retrievable
+
+Key types:
+- Symmetric: Same key encrypts and decrypts (AES)
+- Asymmetric: Public key encrypts, private key decrypts (RSA)
+
+
+HASHING
+-------
+One-way: Can hash, CANNOT unhash
+
+Purpose: Verify data hasn't changed, or verify password
+
+Process:
+plaintext → hash → hash value
+(No way back!)
+
+Example:
+password = "mysecret"
+hashed = hash("mysecret")
+  → "5e884898da28047151..."
+# Cannot reverse to get "mysecret" back
+
+Use cases:
+✅ Password storage
+✅ File integrity checks
+✅ Digital signatures
+✅ Deduplication
+✅ Blockchain
+
+Properties:
+- Deterministic: Same input → same output
+- One-way: Cannot reverse
+- Avalanche effect: Small change → completely different hash
+- Fixed length: Any input → fixed size output
+
+
+KEY DIFFERENCE
+--------------
+Encryption: Can get original data back
+Hashing: Cannot get original data back
+
+
+PASSWORD STORAGE
+----------------
+WRONG (encryption):
+stored = encrypt(password, key)
+# Can decrypt to get password
+
+RIGHT (hashing):
+stored = hash(password)
+# Cannot reverse to get password
+
+When user logs in:
+input_hash = hash(user_input)
+if input_hash == stored_hash:
+    # Password correct!
+
+Why hashing for passwords?
+- If database leaks, passwords still safe
+- Even you (admin) can't see user passwords
+- Can verify without knowing actual password
+
+
+ENCRYPTION ALGORITHMS
+---------------------
+AES-256: Symmetric, very fast, secure
+RSA: Asymmetric, slower, for key exchange
+ChaCha20: Symmetric, fast, modern
+
+Python example:
+from cryptography.fernet import Fernet
+
+key = Fernet.generate_key()
+cipher = Fernet(key)
+
+encrypted = cipher.encrypt(b"secret message")
+decrypted = cipher.decrypt(encrypted)
+
+
+HASHING ALGORITHMS
+------------------
+For passwords:
+✅ bcrypt (recommended)
+✅ argon2 (newer, better)
+✅ scrypt
+
+❌ MD5 (broken, too fast)
+❌ SHA1 (broken)
+❌ SHA256 alone (too fast, no salt)
+
+Python example:
+from passlib.context import CryptContext
+
+pwd_context = CryptContext(schemes=["bcrypt"])
+
+hashed = pwd_context.hash("mypassword")
+is_valid = pwd_context.verify("mypassword", hashed)
+
+
+SALTING
+-------
+Add random data before hashing to prevent rainbow tables.
+
+Without salt:
+hash("password") = "5e8848..."
+# Rainbow table has this hash → knows password
+
+With salt:
+salt = "random123"
+hash("password" + salt) = "9f2a3b..."
+# Rainbow table doesn't have this
+
+bcrypt/argon2 handle salting automatically.
+
+
+USE CASES
+---------
+Encrypt:
+- Credit card numbers (need to charge)
+- SSN/personal info (need to display)
+- Files (need to read later)
+- Messages (recipient needs to read)
+
+Hash:
+- Passwords (never need to read)
+- File checksums (verify integrity)
+- Digital signatures
+- Deduplication (detect duplicates)
+
+
+COMMON MISTAKES
+---------------
+❌ Encrypting passwords
+  - Can decrypt = security risk
+  - Use hashing instead
+
+❌ Hashing credit cards
+  - Can't charge if you can't decrypt
+  - Use encryption instead
+
+❌ Using MD5/SHA1 for passwords
+  - Too fast, rainbow tables exist
+  - Use bcrypt/argon2
+
+❌ Not using salt
+  - Rainbow table attacks
+  - Use modern hash functions (auto-salt)
+
+❌ Rolling your own crypto
+  - Use established libraries
+  - Crypto is hard to get right
+
+
+PRACTICAL EXAMPLES
+------------------
+Password storage:
+✅ Hash with bcrypt
+❌ Encrypt
+❌ Plain text
+
+Credit card storage:
+✅ Encrypt with AES
+❌ Hash (can't get it back)
+❌ Plain text
+
+Session tokens:
+✅ Hash for lookup
+✅ Or encrypt if need metadata
+
+API keys:
+✅ Hash in database (like passwords)
+✅ Show user once, then only hash
+
+File downloads:
+✅ Hash to verify integrity (MD5/SHA256)
+✅ Encrypt if confidential
+
+
+THE RULE
+--------
+Need data later? Encrypt.
+Never need data? Hash.
+Passwords? ALWAYS hash (bcrypt/argon2).
+Sensitive data? Encrypt.
+Don't roll your own crypto.

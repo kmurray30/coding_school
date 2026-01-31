@@ -1,0 +1,122 @@
+Connection Pooling - Managing Database Connections at Scale
+
+THE PROBLEM
+-----------
+Opening a database connection is expensive (TCP handshake, auth, etc.).
+Creating a new connection for every request is slow.
+
+Naive approach:
+Request 1 → Open connection → Query → Close connection
+Request 2 → Open connection → Query → Close connection (wasteful!)
+
+With 1000 requests/second, you're opening 1000 connections/second. Slow.
+
+
+THE SOLUTION: CONNECTION POOL
+------------------------------
+Pre-create a pool of connections.
+Requests borrow connections from the pool, then return them.
+
+Pool initialized → Creates 10 connections
+Request 1 → Borrows connection #3 → Query → Returns connection #3
+Request 2 → Borrows connection #7 → Query → Returns connection #7
+Request 3 → Borrows connection #3 (reused!) → Query → Returns
+
+Fast. No overhead of creating new connections.
+
+
+HOW IT WORKS
+------------
+1. Application starts → Pool creates N connections
+2. Request needs DB → Borrows connection from pool
+3. Request finishes → Returns connection to pool
+4. Connection stays open and ready for next request
+
+
+SQLALCHEMY POOLS
+----------------
+SQLAlchemy includes connection pooling by default!
+
+from sqlalchemy import create_engine
+
+engine = create_engine(
+    'postgresql://localhost/mydb',
+    pool_size=10,           # Keep 10 connections open
+    max_overflow=20,        # Allow 20 more if pool exhausted
+    pool_timeout=30,        # Wait 30s for connection before error
+    pool_recycle=3600,      # Recycle connections after 1 hour
+    pool_pre_ping=True      # Check connection health before using
+)
+
+pool_size: Normal connection pool size
+max_overflow: Extra connections when pool is full (total = pool_size + max_overflow)
+pool_timeout: How long to wait for a connection
+pool_recycle: Replace connections after N seconds (prevents stale connections)
+pool_pre_ping: Test connection before using (catches dead connections)
+
+
+POOL EXHAUSTION
+---------------
+What happens when all connections are in use?
+
+Request comes in, pool is full → Request waits for available connection
+If timeout expires → TimeoutError
+
+Signs of pool exhaustion:
+- Slow responses under load
+- "QueuePool limit exceeded" errors
+- Many requests waiting for connections
+
+
+TUNING POOL SIZE
+----------------
+Too small: Requests wait, slow performance
+Too large: Database overwhelmed, uses too much memory
+
+Formula:
+pool_size = (number of threads/workers) * 2
+
+Example: Uvicorn with 4 workers
+pool_size = 4 * 2 = 8
+
+For async (FastAPI):
+Connections used less (async shares), can be smaller
+pool_size = number_of_workers + few_extra
+
+Measure under load and adjust.
+
+
+PRODUCTION CHECKLIST
+--------------------
+✅ Enable connection pooling (SQLAlchemy does this)
+✅ Set reasonable pool_size (measure, don't guess)
+✅ Set max_overflow to handle spikes
+✅ Set pool_recycle (1-2 hours) to avoid stale connections
+✅ Enable pool_pre_ping to catch dead connections
+✅ Monitor pool usage in production
+
+
+DEBUGGING POOL ISSUES
+----------------------
+engine.pool.size() → Current pool size
+engine.pool.checkedin() → Idle connections
+engine.pool.checkedout() → Active connections
+
+If checkedout always == pool_size + max_overflow → Need bigger pool
+If connections never get returned → You have a leak (forgot to close sessions)
+
+
+COMMON MISTAKES
+---------------
+❌ Creating new engine for each request (pools the pools!)
+❌ Not closing sessions (leaks connections)
+❌ Pool size too small for traffic
+❌ No max_overflow (can't handle spikes)
+❌ No pool_recycle (stale connections after DB restart)
+
+
+THE RULE
+--------
+One engine per application (global).
+One session per request (use dependencies).
+Let the pool handle connections.

@@ -1,0 +1,61 @@
+Sessions vs JWT: when to use which
+
+SESSIONS (stateful)
+-------------------
+How it works:
+- Server stores session data (in memory, Redis, database)
+- Sends session ID cookie to client
+- Client sends cookie with each request
+- Server looks up session by ID
+
+Pros:
+- Can revoke sessions instantly (logout, ban user)
+- Can store arbitrary data server-side
+- Smaller cookie (just an ID)
+
+Cons:
+- Requires shared state (harder to scale horizontally)
+- Session storage can be a bottleneck
+- Need sticky sessions or shared storage in multi-server setups
+
+When to use:
+- Traditional web apps with server-rendered pages
+- When you need instant logout/revocation
+- When you have a single server or centralized session store
+
+
+JWT (stateless)
+---------------
+How it works:
+- Server creates a token with user data and signs it
+- Sends token to client
+- Client sends token in Authorization header
+- Server verifies signature (no database lookup)
+
+Pros:
+- Stateless - no server-side storage needed
+- Easy to scale horizontally (any server can verify)
+- Works across services (microservices)
+
+Cons:
+- Can't revoke tokens until they expire
+- Larger payload (token contains data)
+- If secret key leaks, all tokens are compromised
+
+When to use:
+- APIs consumed by mobile apps or SPAs
+- Microservices architecture
+- When you need horizontal scaling
+- When short expiration times are acceptable
+
+
+THE CHOICE:
+-----------
+Not "which is better" - which fits your use case.
+
+Building a traditional web app with sessions? Use sessions.
+Building an API for a React app? Use JWT.
+Need instant logout? Use sessions.
+Need to scale to 100 servers? Use JWT.
+
+FastAPI works with both. You decide based on requirements.
