@@ -1,4 +1,6 @@
 # Use Pydantic models to validate request bodies. Type-safe JSON parsing.
+# Run with: uvicorn exercise6_request_bodies:app --reload
+# Visit http://localhost:8000/...
 
 from fastapi import FastAPI
 from pydantic import BaseModel
@@ -19,8 +21,6 @@ class User(BaseModel):
 
 ...
 
-# Run with: uvicorn exercise6_request_bodies:app --reload
-#
 # Expected:
 # POST /users with {"username": "bob", "email": "bob@example.com", "age": 25}
 #   → {"message": "user created", "username": "bob", "email": "bob@example.com"}

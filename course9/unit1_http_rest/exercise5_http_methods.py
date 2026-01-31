@@ -1,5 +1,7 @@
 # Implement CRUD operations using different HTTP methods.
 # GET = read, POST = create, PUT = update, DELETE = delete
+# Run with: uvicorn exercise5_http_methods:app --reload
+# Visit http://localhost:8000/...
 
 from fastapi import FastAPI
 
@@ -27,9 +29,6 @@ task_id_counter = 1
 
 ...
 
-# Run with: uvicorn exercise5_http_methods:app --reload
-# Test in /docs
-#
 # Expected flow:
 # POST /tasks with {"name": "learn fastapi"} → {"id": 1, "name": "learn fastapi"}
 # GET /tasks/1 → {"id": 1, "name": "learn fastapi"}

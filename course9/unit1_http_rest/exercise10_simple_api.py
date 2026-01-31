@@ -1,5 +1,7 @@
 # Build a personal library API. Track books, authors, and reading status.
 # Combine everything: routes, methods, path/query params, models, status codes.
+# Run with: uvicorn exercise10_simple_api:app --reload
+# Visit http://localhost:8000/...
 
 from fastapi import FastAPI
 
@@ -27,8 +29,6 @@ app = FastAPI(title="Personal Library API")
 
 ...
 
-# Run with: uvicorn exercise10_simple_api:app --reload
-#
 # Example flow (yours will vary):
 # POST /books → {"title": "Dune", "author": "Frank Herbert", "year": 1965, "status": "to-read"}
 #   Response: {"id": 1, "title": "Dune", ...}

@@ -1,4 +1,6 @@
 # Response models ensure your API returns consistent, typed responses.
+# Run with: uvicorn exercise7_response_models:app --reload
+# Visit http://localhost:8000/...
 
 from fastapi import FastAPI
 from pydantic import BaseModel
@@ -23,8 +25,6 @@ def get_task(task_id: int):
 
 ...
 
-# Run with: uvicorn exercise7_response_models:app --reload
-#
 # Expected:
 # GET /tasks/1 → {"id": 1, "title": "Sample task", "completed": false}
 # GET /users/1 → {"id": 1, "username": "alice", "created_at": "2024-01-15"}

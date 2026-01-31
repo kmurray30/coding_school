@@ -1,4 +1,6 @@
 # FastAPI generates automatic interactive API documentation. Free.
+# Run with: uvicorn exercise8_api_docs:app --reload
+# Visit http://localhost:8000/...
 
 from fastapi import FastAPI
 from pydantic import BaseModel
@@ -29,8 +31,6 @@ def get_item(item_id: int):
     """Get an item by ID."""
     return {"id": item_id, "name": "Sample Item", "price": 9.99}
 
-# Run with: uvicorn exercise8_api_docs:app --reload
-# 
 # Visit these URLs:
 # - http://localhost:8000/docs (Swagger UI - interactive docs)
 # - http://localhost:8000/redoc (ReDoc - alternative doc format)

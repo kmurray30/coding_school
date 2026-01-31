@@ -1,4 +1,5 @@
 # Your first FastAPI endpoint. Run with: uvicorn exercise1_first_endpoint:app --reload
+# pip install fastapi uvicorn
 # Visit http://localhost:8000 in your browser
 
 from fastapi import FastAPI

@@ -1,5 +1,7 @@
 # Design a RESTful API for a blog. Resources: posts, comments.
 # REST conventions: collections at /resource, single items at /resource/{id}
+# Run with: uvicorn exercise9_rest_resource_design:app --reload
+# Visit http://localhost:8000/...
 
 from fastapi import FastAPI
 from pydantic import BaseModel
@@ -41,8 +43,6 @@ comment_counter = 1
 
 ...
 
-# Run with: uvicorn exercise9_rest_resource_design:app --reload
-#
 # Your API should support this flow:
 # POST /posts → create post with id 1
 # GET /posts → list all posts (just the one)

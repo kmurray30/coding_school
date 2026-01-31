@@ -1,4 +1,6 @@
 # Query parameters come after ? in URLs. Use them for filtering and options.
+# Run with: uvicorn exercise4_query_parameters:app --reload
+# Visit http://localhost:8000/...
 
 from fastapi import FastAPI
 
@@ -20,8 +22,6 @@ def list_items(category: str = "all", limit: int = 10):
 def search(...):
     ...
 
-# Run with: uvicorn exercise4_query_parameters:app --reload
-#
 # Expected:
 # GET /items → default category "all", limit 10
 # GET /items?category=books&limit=3 → 3 items in books category
