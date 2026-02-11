@@ -1,0 +1,27 @@
+# Exercise 5: Absolute vs Relative Paths
+
+Two ways to specify a location - absolute (full path from root) or relative (from where you are now).
+
+Absolute path: Starts from the root /
+- Example: /Users/yourname/Desktop
+- Works from anywhere
+
+Relative path: Starts from current directory
+- Example: Desktop/folder (works if you are in a directory with "Desktop" as a child folder)
+- . refers to the current directory you are in
+- .. refers to the directory above the one you are in
+- Example: ../otherfolder (go up one level, then into otherfolder)
+
+What to do:
+1. Type: cd ~ (go home)
+2. Type: pwd
+3. Type: cd / (go to root)
+4. home/Desktop with relative pathing (don't start with /)
+5. Get back to home with absolute pathing (start with /) (hint: you'll need to do multiple dirs at once, like /dir1/dir2/etc)
+6. Navigate to home from home (ie do nothing) via cd .
+7. Get back to root with only ..
+8. Navigate around your computer using the two types of pathing until they make sense to you
+
+Expected behavior: You understand that absolute paths work from anywhere, relative paths depend on your current location.
+Note: type ls -a to see hidden files and folders, including . and .. (pointers to self and parent directories respectively)
+Note: use Tab to autocomplete folder names that exist in your dir

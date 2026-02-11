@@ -62,11 +62,10 @@ Creative capstone project combining all course concepts. Build a personal tracke
 1. Work through units in order (they build on each other)
 2. Complete exercises sequentially within each unit
 3. Run your code and compare output to expected results
-4. At end of each unit, run graders (see unit README for instructions)
-5. Take quiz (quiz.yaml) for self-reflection after each unit
-6. Build the final project (final_project.py) - your capstone achievement
-7. Take final exam (final_exam.yaml) after completing all units
-8. Use cheat sheet (cheat-sheet.yaml) as reference when you forget syntax
+4. Take quiz (quiz.yaml) for self-reflection after each unit (no need to write answers)
+5. Build the final project (final_project.py) - your capstone achievement
+6. Take final exam (final_exam.yaml) after completing all units
+7. Use cheat sheet (cheat-sheet.yaml) as reference when you forget syntax
 
 ## Tips
 
@@ -75,4 +74,3 @@ Creative capstone project combining all course concepts. Build a personal tracke
 - Run your code often - don't wait until everything is "perfect."
 - The exercises are minimal on purpose. Learn by doing, not reading.
 - Compare your output to the expected output in comments.
-- Graders are for validation, not your primary feedback. You should know if you succeeded before running the grader.

@@ -1,4 +1,4 @@
-# Exercise 8: Terminal Project (Putting It All Together)
+# Exercise 9: Terminal Project (Putting It All Together)
 
 Create a proper project structure like a real developer.
 
@@ -12,6 +12,8 @@ What to do:
 7. Navigate back to my_app without using the absoluate path
 8. Navigate into src using an absolute path (like /Users/yourname/etc)
 9. List the contents of my_app from within the src directory
+
+Tip: If you every make a mistake you can use rm to clean it up
 
 Expected final structure:
 my_app/

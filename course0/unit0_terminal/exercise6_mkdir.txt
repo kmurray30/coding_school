@@ -1,4 +1,4 @@
-# Exercise 5: mkdir (Create a Directory)
+# Exercise 6: mkdir (Create a Directory)
 
 Create new folders using mkdir (make directory).
 

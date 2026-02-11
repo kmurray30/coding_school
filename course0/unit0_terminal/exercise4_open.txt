@@ -1,0 +1,10 @@
+# Exercise 3: open (open the finder)
+
+Navigate between directories using cd (change directory).
+
+What to do:
+1. Type: open /
+2. Navigate to Users, then your account name
+3. You should now be in the home directory, the same directory we were navigating last exercise
+4. Note how the files and folders should match what we saw in the Terminal
+5. If you're ever feeling lost in this exercise, you can use the finder to mirror your terminal work. Try to avoid relying on this though, the goal is to become self sufficient in terminal by itself

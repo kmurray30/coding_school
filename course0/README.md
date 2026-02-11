@@ -57,9 +57,8 @@ Read the error message again. Seriously. Error messages tell you exactly what's 
 
 1. Work through exercises in order
 2. Run your code and compare to expected output
-3. At end of each unit, see that unit's README for grader instructions
-4. Take quiz (quiz.yaml) for self-reflection after each unit
-5. Take final exam (final_exam.yaml) after completing all units
+3. Take quiz (quiz.yaml) for self-reflection after each unit (no need to write answers)
+4. Take final exam (final_exam.yaml) after completing all units
 
 ---
 

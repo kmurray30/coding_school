@@ -1,6 +1,6 @@
 # HTTP status codes tell clients what happened. Run and test each endpoint.
 # uvicorn exercise2_status_codes:app --reload
-# Visit http://localhost:8000/docs to test each endpoint and see the status codes
+# Visit http://localhost:8000/...
 
 from fastapi import FastAPI, Response
 

@@ -5,10 +5,13 @@ Navigate between directories using cd (change directory).
 What to do:
 1. Type: cd ~
 2. Type: pwd (to verify where you are)
-3. Type: cd Desktop (to go to your Desktop folder, if you have one)
-4. Type: pwd (to see you've moved)
-5. Type: cd .. (moves a directory up)
-6. Type: pwd (to verify)
+3. Type: ls (see files and folders in this directory)
+4. Type: cd Desktop (to go to your Desktop folder, if you have one)
+5. Type: pwd (to see you've moved)
+6. Type: ls (see files and foldres in this directory)
+7. Type: cd Desktop (should error, because cd can only go to directories that are members of the current directory)
+8. Type: cd .. (moves a directory up)
+9. Type: pwd and ls (to verify)
 
 Expected behavior: You successfully moved between directories and verified with pwd
 
