@@ -1,0 +1,23 @@
+# Exercise 9: rm (Remove Files and Folders)
+
+Delete files and directories using rm (remove).
+
+What to do:
+1. Make sure you're in my_first_project with your files (file1.txt, file1_copy.txt, file2.txt, file2_copy.txt, file3.txt)
+2. Type: rm file1.txt (rm <file_you_want_to_delete>)
+3. Type: ls
+4. Expected output: You should see file1_copy.txt, file2.txt, file2_copy.txt, file3.txt (file1.txt is gone)
+5. Create a test directory: mkdir test_folder
+6. Create a file inside it: ni test_folder\test_file.txt
+7. Type: rm -Recurse test_folder (rm -Recurse <directory_you_want_to_delete>)
+   Or use the shorter: rm -r test_folder
+   Note: The -Recurse (or -r) flag means "recursive" - it removes the directory and everything inside it
+8. Type: ls
+9. Expected output: test_folder should be gone
+
+Expected final state: Only file1_copy.txt, file2.txt, file2_copy.txt, file3.txt remain in my_first_project
+
+Note: rm is permanent! There's no "trash" or "undo" in PowerShell. Once you delete something with rm, it's gone forever (unless you have backups).
+Note: For empty directories, you can use rmdir <directory_name> instead of rm -r
+Note: Be very careful with rm -r, especially with wildcards like rm -r * (this deletes EVERYTHING in the current directory)
+Question: What happens if you try to rm a directory without the -Recurse flag? Try it and see!

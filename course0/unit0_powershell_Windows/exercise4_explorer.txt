@@ -1,0 +1,12 @@
+# Exercise 4: explorer (open File Explorer)
+
+Navigate between directories using cd (change directory).
+
+What to do:
+1. Type: explorer .
+2. Navigate to Users, then your account name
+3. You should now be in the home directory, the same directory we were navigating last exercise
+4. Note how the files and folders should match what we saw in PowerShell
+5. If you're ever feeling lost in this exercise, you can use File Explorer to mirror your PowerShell work. Try to avoid relying on this though, the goal is to become self sufficient in PowerShell by itself
+
+Note: `explorer .` opens File Explorer in the current directory. You can also use `start .` which does the same thing.

@@ -1,0 +1,18 @@
+# Exercise 8: cp (Copy Files)
+
+Copy files using cp (copy).
+
+What to do:
+1. Make sure you're in my_first_project with your three files
+2. Open file1.txt (either in File Explorer or via `notepad file1.txt` command) and type something
+3. Type: cp file1.txt file1_copy.txt (cp <file_you_want_to_copy> <file_you_want_to_create>)
+4. Type: cp file2.txt file2_copy.txt
+5. Open file2.txt (either in File Explorer or via `notepad file2.txt` command) and type something
+6. Type: ls
+
+Expected output: You should see file1.txt, file1_copy.txt, file2.txt, file2_copy.txt, file3.txt
+What do you expect the contents of file1_copy.txt and file2_copy.txt to be? Open them and verify
+
+Note: cp takes in two "arguments", the source file is the first arg, and the destination filename is the second arg
+Note: cd also uses a single argument, the path you're trying to navigate to
+Question: how many args does mkdir take? pwd?

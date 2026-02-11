@@ -1,0 +1,13 @@
+# Exercise 7: New-Item (Create Empty Files)
+
+Create empty files using New-Item (PowerShell's equivalent to touch).
+
+What to do:
+1. Make sure you're in my_first_project (from exercise 6)
+2. Type: New-Item file1.txt -ItemType File
+   Or use the shorter alias: ni file1.txt
+3. Type: ni file2.txt
+4. Type: ni file3.txt
+5. Type: ls (to see all three files)
+
+Expected output: Three files listed: file1.txt, file2.txt, file3.txt
